@@ -1,6 +1,5 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './src/lib/sanity/schemas';
 import { sanityConfig } from './src/lib/sanity/config';
 
@@ -20,7 +19,6 @@ export default defineConfig({
             S.listItem().title('筆記商品管理').schemaType('note').child(S.documentTypeList('note')),
           ]),
     }),
-    visionTool(),
   ],
   schema: {
     types: schemaTypes,
