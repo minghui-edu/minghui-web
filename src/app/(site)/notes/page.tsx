@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Youtube, CheckCircle, ChevronRight, Smartphone, Play, ShoppingCart } from 'lucide-react';
+import { CheckCircle, ChevronRight, Smartphone, ShoppingCart } from 'lucide-react';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
+import YouTubeLiteEmbed from '@/components/YouTubeLiteEmbed';
 
 export const metadata: Metadata = {
   title: '高分筆記',
@@ -42,9 +43,9 @@ type SanityNote = {
 /* ─── Data ──────────────────────────────────── */
 
 const videos = [
-  { title: '【微積分基礎】五分鐘搞懂極限與連續的概念（附免費筆記講義）', href: 'https://youtu.be/zogyPJGz9fE?si=A4nkOLSI5pgEAre0' },
-  { title: '【高中物理】用圖解征服電磁感應，考試必考公式一次整理',       href: 'https://youtu.be/uytwHHWCfnM?si=0LTTR-2j4yAcZxhT' },
-  { title: '【雅思寫作】Task 2 議論文萬用架構，從 6 分衝上 7.5 分',   href: 'https://youtu.be/5U-UixNj_eE?si=Z-TGomZ8fFPtXImk' },
+  { id: 'zogyPJGz9fE', title: '【最強】一天速成!! 指考英文作文這是如此簡單' },
+  { id: 'uytwHHWCfnM', title: '1%學霸不說的秘密 學測80%考點來自這冊' },
+  { id: '5U-UixNj_eE', title: '【最強模板】學測國文的救星 | 最高效率作文準備' },
 ];
 
 const appFeatures = [
@@ -106,32 +107,15 @@ export default async function NotesPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videos.map((v) => (
-              <a key={v.title} href={v.href} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`觀看影片：${v.title}`}>
-                <div
-                  className="relative aspect-video mb-4 flex items-center justify-center overflow-hidden"
-                  style={{ background: 'rgba(11,10,63,0.85)' }}
-                >
-                  <div className="dot-grid absolute inset-0 pointer-events-none opacity-60" aria-hidden="true" />
-                  <div
-                    className="relative z-10 w-14 h-14 flex items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110 motion-reduce:group-hover:scale-100"
-                    style={{ background: 'var(--accent)', boxShadow: '0 0 0 8px rgba(232,144,39,0.2)' }}
-                  >
-                    <Play aria-hidden="true" size={22} style={{ color: 'var(--navy)', marginLeft: '2px' }} />
-                  </div>
-                  <span
-                    className="absolute top-3 left-3 flex items-center gap-1.5 text-[10px] font-semibold tracking-wide px-2 py-1"
-                    style={{ background: 'rgba(255,0,0,0.85)', color: '#fff' }}
-                  >
-                    <Youtube aria-hidden="true" size={11} /> YouTube
-                  </span>
-                </div>
+              <div key={v.id}>
+                <YouTubeLiteEmbed videoId={v.id} title={v.title} />
                 <h3
-                  className="text-sm font-medium leading-snug transition-colors duration-150 group-hover:text-[#1E56A0] line-clamp-2"
+                  className="mt-3 text-sm font-medium leading-snug line-clamp-2"
                   style={{ color: 'var(--navy)' }}
                 >
                   {v.title}
                 </h3>
-              </a>
+              </div>
             ))}
           </div>
         </div>
