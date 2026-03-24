@@ -2,22 +2,171 @@
 @plugin "tailwindcss-animate";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #1e293b;
+  --background: #F7F5F0;
+  --foreground: #1A2840;
+  --navy: #0F2044;
+  --navy-light: #1A3560;
+  --accent: #C4922A;
+  --accent-light: #E8C87A;
+  --accent-dim: rgba(196, 146, 42, 0.12);
+  --cream: #F7F5F0;
+  --surface: #FFFFFF;
+  --muted: #607080;
+  --border: #DDD8CE;
+  --border-light: #EDE9E3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-cream: var(--cream);
+  --color-warm-border: var(--border);
+
+  --font-sans: var(--font-outfit), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-baskerville), 'Libre Baskerville', Georgia, 'Times New Roman', serif;
 }
+
+/* ─── Base ─────────────────────────────────── */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ─── Typography helpers ────────────────────── */
+
+.font-display {
+  font-family: var(--font-baskerville), 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+}
+
+/* ─── Brand Decorations ─────────────────────── */
+
+.gold-rule {
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light), transparent);
+}
+
+.gold-rule-v {
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-light), transparent);
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.dot-grid-light {
+  background-image: radial-gradient(circle, rgba(15, 32, 68, 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Footer hover interactions ────────────────── */
+
+.footer-social {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #7A8FA8;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.footer-social:hover {
+  background: rgba(196,146,42,0.15);
+  border-color: rgba(196,146,42,0.4);
+  color: var(--accent-light);
+}
+
+.footer-link {
+  color: #7A8FA8;
+  transition: color 0.15s;
+}
+.footer-link:hover {
+  color: #E8C87A;
+}
+
+.footer-link-line {
+  background: var(--accent);
+  opacity: 0.5;
+  transition: width 0.15s;
+  width: 12px;
+  height: 1px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.footer-link:hover .footer-link-line {
+  width: 20px;
+}
+
+.footer-cta {
+  background: rgba(196,146,42,0.12);
+  border: 1px solid rgba(196,146,42,0.3);
+  color: var(--accent-light);
+  transition: background 0.15s, border-color 0.15s;
+}
+.footer-cta:hover {
+  background: rgba(196,146,42,0.22);
+  border-color: rgba(196,146,42,0.5);
+}
+
+/* ─── Homepage CTA buttons ───────────────────── */
+
+.hero-cta-primary {
+  background: var(--accent);
+  color: var(--navy);
+  transition: background 0.15s, transform 0.2s;
+}
+.hero-cta-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta-primary:hover { transform: none; }
+}
+
+.hero-cta-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.85);
+  transition: border-color 0.15s, color 0.15s;
+}
+.hero-cta-secondary:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+}
+
+.about-link {
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.about-link:hover {
+  color: var(--navy);
+}
+
+/* ─── Navbar nav-link hover underline ──────────── */
+
+.nav-link:hover .nav-underline {
+  transform: scaleX(1) !important;
+}
+
+.nav-link:hover {
+  color: var(--navy) !important;
+}
+
+/* ─── Focus ring override ────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ─── Scrollbar ─────────────────────────────── */
 
 @layer utilities {
   .hide-scrollbar::-webkit-scrollbar {

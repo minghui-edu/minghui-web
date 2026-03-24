@@ -43,7 +43,7 @@ export default function TutorPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
           <div className="flex items-center mb-4">
-            <ShieldCheck className="w-8 h-8 text-blue-600 mr-3" />
+            <ShieldCheck aria-hidden="true" className="w-8 h-8 text-blue-600 mr-3" />
             <h2 className="text-2xl font-bold text-slate-800">嚴格把關，保證品質</h2>
           </div>
           <p className="text-slate-600 leading-relaxed">
@@ -52,7 +52,7 @@ export default function TutorPage() {
         </div>
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
           <div className="flex items-center mb-4">
-            <Users className="w-8 h-8 text-emerald-600 mr-3" />
+            <Users aria-hidden="true" className="w-8 h-8 text-emerald-600 mr-3" />
             <h2 className="text-2xl font-bold text-slate-800">創造雙贏的收費機制</h2>
           </div>
           <p className="text-slate-600 leading-relaxed">
@@ -83,9 +83,9 @@ export default function TutorPage() {
         <div className="mt-12 flex justify-center">
           <a
             href="#"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl shadow-md flex items-center transition-transform hover:-translate-y-1"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl shadow-md flex items-center transition-transform motion-reduce:transition-none hover:-translate-y-1 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-50"
           >
-            <GraduationCap className="mr-2" /> 老師填寫履歷表單
+            <GraduationCap aria-hidden="true" className="mr-2" /> 老師填寫履歷表單
           </a>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function TutorPage() {
           <Link
             key={tutor.id}
             href={`/tutor/${tutor.id}`}
-            className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all group flex flex-col h-full transform hover:-translate-y-1"
+            className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-shadow group flex flex-col h-full hover:-translate-y-1 motion-reduce:hover:translate-y-0 transition-transform motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             <div className="flex items-center mb-4">
               <div className="w-16 h-16 bg-slate-200 rounded-full mr-4 flex items-center justify-center text-slate-400 group-hover:ring-4 ring-blue-50 transition-all shrink-0">
@@ -113,7 +113,7 @@ export default function TutorPage() {
               <p><strong>經歷：</strong>{tutor.shortExp}</p>
             </div>
             <div className="w-full py-3 bg-slate-50 text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-700 font-medium rounded-xl transition-colors flex items-center justify-center mt-auto">
-              查看詳細介紹 <ChevronRight className="w-4 h-4 ml-1" />
+              查看詳細介紹 <ChevronRight aria-hidden="true" className="w-4 h-4 ml-1" />
             </div>
           </Link>
         ))}

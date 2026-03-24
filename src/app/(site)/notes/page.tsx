@@ -17,22 +17,26 @@ export default function NotesPage() {
   return (
     <div className="max-w-7xl mx-auto py-12 px-4">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-slate-800 mb-4">學霸筆記 & 教學資源</h1>
+        <h1 className="text-3xl font-bold text-slate-800 mb-4">學霸筆記 &amp; 教學資源</h1>
         <p className="text-slate-600">統整重點精華，搭配線上影片，學習事半功倍</p>
       </div>
 
       {/* YouTube 影片 */}
       <div className="mb-16">
         <div className="flex items-center mb-6">
-          <Video className="w-6 h-6 text-red-600 mr-2" />
+          <Video aria-hidden="true" className="w-6 h-6 text-red-600 mr-2" />
           <h2 className="text-2xl font-bold text-slate-800">學霸解題 YouTube 影片</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <a key={i} href="#" className="group cursor-pointer">
+            <a
+              key={i}
+              href="#"
+              className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-xl"
+            >
               <div className="bg-slate-800 aspect-video rounded-xl relative flex items-center justify-center overflow-hidden mb-3">
-                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform z-10">
-                  <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1" />
+                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-transform motion-reduce:transition-none z-10">
+                  <div aria-hidden="true" className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1" />
                 </div>
                 <div className="absolute inset-0 bg-slate-700 opacity-50" />
               </div>
@@ -43,8 +47,11 @@ export default function NotesPage() {
           ))}
         </div>
         <div className="text-center mt-6">
-          <a href="#" className="text-blue-600 font-medium hover:underline inline-flex items-center">
-            前往 YouTube 頻道看更多 <ChevronRight className="w-4 h-4" />
+          <a
+            href="#"
+            className="text-blue-600 font-medium hover:underline inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded"
+          >
+            前往 YouTube 頻道看更多 <ChevronRight aria-hidden="true" className="w-4 h-4" />
           </a>
         </div>
       </div>
@@ -53,7 +60,7 @@ export default function NotesPage() {
       <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 mb-16">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div className="flex items-center">
-            <ShoppingBag className="w-6 h-6 text-orange-500 mr-2" />
+            <ShoppingBag aria-hidden="true" className="w-6 h-6 text-orange-500 mr-2" />
             <h2 className="text-2xl font-bold text-slate-800">官方線上筆記商城</h2>
           </div>
           <div className="flex gap-2">
@@ -70,12 +77,12 @@ export default function NotesPage() {
               <h3 className="font-bold text-slate-800 mb-2 flex-grow">{item.title}</h3>
               <div className="text-lg font-bold text-blue-600 mb-4">{item.price}</div>
               <div className="grid grid-cols-2 gap-2 mt-auto">
-                <button className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm py-2 rounded font-medium transition-colors">
+                <button className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm py-2 rounded font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                   查看詳情
                 </button>
                 <a
                   href={item.href}
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded font-medium transition-colors flex items-center justify-center"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded font-medium transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
                   立即購買
                 </a>
@@ -96,20 +103,20 @@ export default function NotesPage() {
               我們正致力於將學霸筆記與教材數位化！未來透過專屬 APP，你可以將教材隨身攜帶，進行重點標記、觀看解題影片，結合強大的互動功能，隨時隨地高效學習。
             </p>
             <ul className="space-y-3 mb-8 text-blue-200">
-              <li className="flex items-center"><CheckCircle className="w-5 h-5 text-yellow-400 mr-3" /> 隨身攜帶的高效數位化教材</li>
-              <li className="flex items-center"><CheckCircle className="w-5 h-5 text-yellow-400 mr-3" /> 完美整合紙本筆記、題庫與影音資源</li>
-              <li className="flex items-center"><CheckCircle className="w-5 h-5 text-yellow-400 mr-3" /> 智慧學習進度追蹤與弱點分析</li>
+              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 隨身攜帶的高效數位化教材</li>
+              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 完美整合紙本筆記、題庫與影音資源</li>
+              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 智慧學習進度追蹤與弱點分析</li>
             </ul>
             <a
               href="#"
-              className="inline-block bg-white text-blue-900 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-50 transition-colors"
+              className="inline-block bg-white text-blue-900 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900"
             >
               預約登記早鳥通知
             </a>
           </div>
           <div className="md:w-1/3 flex justify-center">
             <div className="w-56 h-[26rem] bg-slate-800 rounded-[3rem] border-[10px] border-slate-700 shadow-2xl flex items-center justify-center relative overflow-hidden">
-              <Smartphone className="w-16 h-16 text-slate-600 opacity-40 absolute" />
+              <Smartphone aria-hidden="true" className="w-16 h-16 text-slate-600 opacity-40 absolute" />
               <div className="absolute inset-x-0 top-0 h-6 bg-slate-700 rounded-b-xl mx-12" />
               <p className="text-center text-slate-400 font-medium z-10 px-4">APP 開發中</p>
             </div>

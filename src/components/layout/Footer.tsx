@@ -1,75 +1,134 @@
 import Link from 'next/link';
-import { GraduationCap, Facebook, Instagram, Youtube, MessageCircle, Mail } from 'lucide-react';
+import { Facebook, Instagram, Youtube, MessageCircle, Mail } from 'lucide-react';
+
+const quickLinks = [
+  { href: '/exploration', label: '科系探索營隊' },
+  { href: '/overseas', label: '海外遊學參訪' },
+  { href: '/tutor', label: '家教媒合平台' },
+  { href: '/thesis', label: '論文與研究顧問' },
+  { href: '/notes', label: '高分筆記商城' },
+];
+
+const socialLinks = [
+  { href: '#', label: 'Facebook', icon: Facebook },
+  { href: '#', label: 'Instagram', icon: Instagram },
+  { href: '#', label: 'LINE', icon: MessageCircle },
+  { href: '#', label: 'YouTube', icon: Youtube },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* 品牌介紹 */}
-        <div className="col-span-1 md:col-span-2">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-yellow-400 rounded flex items-center justify-center mr-2">
-              <GraduationCap className="text-blue-900" size={20} />
-            </div>
-            <span className="font-bold text-lg text-white">明慧教育</span>
-          </div>
-          <p className="text-sm text-slate-400 mb-4 max-w-sm">
-            致力於提供最優質的科系探索、海外名校營隊與專業家教媒合服務，幫助學生找到未來的方向。
-          </p>
-          <div className="flex space-x-4">
-            <a href="#" aria-label="Facebook" className="hover:text-white transition-colors">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href="#" aria-label="Instagram" className="hover:text-white transition-colors">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href="#" aria-label="LINE" className="hover:text-white transition-colors">
-              <MessageCircle className="w-5 h-5" />
-            </a>
-            <a href="#" aria-label="YouTube" className="hover:text-white transition-colors">
-              <Youtube className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
+    <footer style={{ background: 'var(--navy)', color: '#94A3B8' }}>
+      {/* Gold top rule */}
+      <div className="gold-rule" />
 
-        {/* 快速連結 */}
-        <div>
-          <h4 className="text-white font-semibold mb-4">快速連結</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/exploration" className="hover:text-white transition-colors">科系探索營隊</Link></li>
-            <li><Link href="/overseas" className="hover:text-white transition-colors">海外遊學參訪</Link></li>
-            <li><Link href="/tutor" className="hover:text-white transition-colors">家教媒合平台</Link></li>
-            <li><Link href="/thesis" className="hover:text-white transition-colors">論文與研究顧問</Link></li>
-            <li><Link href="/notes" className="hover:text-white transition-colors">高分筆記商城</Link></li>
-          </ul>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
 
-        {/* 合作聯繫 */}
-        <div>
-          <h4 className="text-white font-semibold mb-4">合作聯繫</h4>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center">
-              <Mail className="w-4 h-4 mr-2 shrink-0" />
-              <span>contact@minghui.edu.tw</span>
-            </li>
-            <li className="flex items-center">
-              <MessageCircle className="w-4 h-4 mr-2 shrink-0" />
-              <span>@minghui_official</span>
-            </li>
-            <li className="mt-4 pt-4 border-t border-slate-700">
-              <a
-                href="mailto:contact@minghui.edu.tw"
-                className="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm w-full text-center transition-colors"
+          {/* Brand column */}
+          <div className="md:col-span-5">
+            <div className="flex items-center gap-3 mb-5">
+              <div
+                className="w-9 h-9 flex items-center justify-center shrink-0"
+                style={{ background: 'rgba(196,146,42,0.15)', border: '1px solid rgba(196,146,42,0.3)' }}
               >
-                企業/學校 合作提案
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M8 1L15 8L8 15L1 8L8 1Z" fill="var(--accent)" />
+                  <path d="M8 4L12 8L8 12L4 8L8 4Z" fill="var(--navy)" />
+                </svg>
+              </div>
+              <div>
+                <span
+                  className="font-display font-bold text-lg leading-none block"
+                  style={{ color: 'var(--accent-light)' }}
+                >
+                  明慧教育
+                </span>
+                <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: 'rgba(196,146,42,0.6)' }}>
+                  Minghui Education
+                </span>
+              </div>
+            </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} 明慧教育. All rights reserved.
+            <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: '#7A8FA8' }}>
+              致力於提供最優質的科系探索、海外名校營隊與專業家教媒合服務，幫助學生找到未來的方向。
+            </p>
+
+            <div className="flex gap-3">
+              {socialLinks.map(({ href, label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="footer-social w-9 h-9 flex items-center justify-center rounded"
+                >
+                  <Icon aria-hidden="true" size={16} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div className="md:col-span-4">
+            <h4
+              className="text-xs font-semibold tracking-[0.12em] uppercase mb-5"
+              style={{ color: 'var(--accent)' }}
+            >
+              服務項目
+            </h4>
+            <ul className="space-y-3">
+              {quickLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="footer-link text-sm flex items-center gap-2">
+                    <span className="footer-link-line" aria-hidden="true" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="md:col-span-3">
+            <h4
+              className="text-xs font-semibold tracking-[0.12em] uppercase mb-5"
+              style={{ color: 'var(--accent)' }}
+            >
+              合作聯繫
+            </h4>
+            <ul className="space-y-3 text-sm" style={{ color: '#7A8FA8' }}>
+              <li className="flex items-center gap-2">
+                <Mail aria-hidden="true" size={14} className="shrink-0" style={{ color: 'var(--accent)', opacity: 0.7 }} />
+                <span>contact@minghui.edu.tw</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <MessageCircle aria-hidden="true" size={14} className="shrink-0" style={{ color: 'var(--accent)', opacity: 0.7 }} />
+                <span>@minghui_official</span>
+              </li>
+              <li className="mt-5 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <a
+                  href="mailto:contact@minghui.edu.tw"
+                  className="footer-cta block text-center text-xs font-semibold tracking-wider py-3 px-4"
+                  style={{ letterSpacing: '0.08em' }}
+                >
+                  企業 / 學校 合作提案
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: '#4A5A6A' }}
+        >
+          <span>© {new Date().getFullYear()} 明慧教育. All rights reserved.</span>
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-px" style={{ background: 'var(--accent)', opacity: 0.4 }} aria-hidden="true" />
+            <span style={{ color: 'rgba(196,146,42,0.5)' }}>啟發潛能，探索無限未來</span>
+          </div>
+        </div>
       </div>
     </footer>
   );

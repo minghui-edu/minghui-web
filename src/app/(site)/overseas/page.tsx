@@ -15,10 +15,11 @@ export default function OverseasPage() {
 
       {/* 國家切換 Tab */}
       <div className="flex justify-center mb-12">
-        <div className="bg-white p-1 rounded-full shadow-sm border border-slate-200 inline-flex">
+        <div className="bg-white p-1 rounded-full shadow-sm border border-slate-200 inline-flex" role="group" aria-label="選擇遊學國家">
           <button
             onClick={() => setActiveCountry('japan')}
-            className={`px-8 py-2 rounded-full font-medium transition-colors ${
+            aria-pressed={activeCountry === 'japan'}
+            className={`px-8 py-2 rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
               activeCountry === 'japan' ? 'bg-blue-600 text-white shadow' : 'text-slate-600 hover:text-blue-600'
             }`}
           >
@@ -26,7 +27,8 @@ export default function OverseasPage() {
           </button>
           <button
             onClick={() => setActiveCountry('australia')}
-            className={`px-8 py-2 rounded-full font-medium transition-colors ${
+            aria-pressed={activeCountry === 'australia'}
+            className={`px-8 py-2 rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
               activeCountry === 'australia' ? 'bg-blue-600 text-white shadow' : 'text-slate-600 hover:text-blue-600'
             }`}
           >
@@ -40,7 +42,7 @@ export default function OverseasPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <div className="bg-slate-200 rounded-2xl min-h-[300px] flex items-center justify-center">
             <span className="text-slate-500 flex flex-col items-center">
-              <Globe className="w-12 h-12 mb-2 opacity-50" />
+              <Globe aria-hidden="true" className="w-12 h-12 mb-2 opacity-50" />
               [日本活動照片]
             </span>
           </div>
@@ -67,7 +69,7 @@ export default function OverseasPage() {
             </div>
             <a
               href="#"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               填寫日本遊學報名表單
             </a>
@@ -80,7 +82,7 @@ export default function OverseasPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <div className="bg-slate-200 rounded-2xl min-h-[300px] flex items-center justify-center order-last lg:order-first">
             <span className="text-slate-500 flex flex-col items-center">
-              <Globe className="w-12 h-12 mb-2 opacity-50" />
+              <Globe aria-hidden="true" className="w-12 h-12 mb-2 opacity-50" />
               [澳洲活動照片]
             </span>
           </div>
@@ -101,7 +103,7 @@ export default function OverseasPage() {
             </div>
             <a
               href="#"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               填寫澳洲遊學報名表單
             </a>

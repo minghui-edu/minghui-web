@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GraduationCap, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { href: '/about', label: '關於我們' },
@@ -16,69 +16,144 @@ const navItems = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+    <header
+      className="sticky top-0 z-50 bg-white transition-shadow duration-300"
+      style={{ boxShadow: scrolled ? '0 1px 12px rgba(15,32,68,0.08)' : 'none' }}
+    >
+      {/* Gold top stripe */}
+      <div className="h-[3px]" style={{ background: 'linear-gradient(90deg, var(--navy) 0%, var(--accent) 50%, var(--navy) 100%)' }} />
+
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-[60px]">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center mr-3 shadow-sm">
-              <GraduationCap className="text-blue-900" size={24} />
+          <Link
+            href="/"
+            className="flex items-center gap-3 group"
+            aria-label="明慧教育 — 首頁"
+          >
+            {/* Geometric mark */}
+            <div
+              className="w-8 h-8 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110"
+              style={{ background: 'var(--navy)' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 1L15 8L8 15L1 8L8 1Z" fill="var(--accent)" />
+                <path d="M8 4L12 8L8 12L4 8L8 4Z" fill="var(--navy)" />
+              </svg>
             </div>
-            <span className="font-bold text-xl tracking-wider text-blue-900">明慧教育</span>
+            <div>
+              <span
+                className="font-display font-bold text-lg leading-none tracking-wide"
+                style={{ color: 'var(--navy)' }}
+              >
+                明慧教育
+              </span>
+              <span
+                className="block text-[10px] tracking-[0.15em] uppercase font-sans font-medium"
+                style={{ color: 'var(--accent)' }}
+              >
+                Minghui Education
+              </span>
+            </div>
           </Link>
 
           {/* 桌面版選單 */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  pathname === item.href
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center">
+            {navItems.map((item, idx) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-link relative px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-150"
+                  style={{ color: active ? 'var(--navy)' : 'var(--muted)' }}
+                >
+                  {item.label}
+                  <span
+                    className="nav-underline absolute bottom-0 left-4 right-4 h-[2px] transition-transform duration-200 origin-left"
+                    style={{
+                      background: 'var(--accent)',
+                      transform: active ? 'scaleX(1)' : 'scaleX(0)',
+                    }}
+                    aria-hidden="true"
+                  />
+                  {idx < navItems.length - 1 && (
+                    <span
+                      className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px]"
+                      style={{ color: 'var(--border)' }}
+                      aria-hidden="true"
+                    >·</span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* 手機版漢堡選單按鈕 */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-slate-500 hover:text-slate-700 p-2"
-              aria-label="開啟選單"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* 手機版漢堡按鈕 */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded"
+            aria-label={mobileMenuOpen ? '關閉選單' : '開啟選單'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            style={{ color: 'var(--navy)' }}
+          >
+            {mobileMenuOpen
+              ? <X aria-hidden="true" size={22} />
+              : <Menu aria-hidden="true" size={22} />
+            }
+          </button>
         </div>
-      </div>
+      </nav>
+
+      {/* Bottom border */}
+      <div style={{ height: '1px', background: 'var(--border-light, #EDE9E3)' }} />
 
       {/* 手機版選單 */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-100 px-2 pt-2 pb-3 space-y-1 shadow-lg">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-3 rounded-md text-base font-medium ${
-                pathname === item.href
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div
+          id="mobile-menu"
+          className="md:hidden bg-white border-t"
+          style={{ borderColor: 'var(--border)' }}
+        >
+          {navItems.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center px-6 py-4 text-base font-medium border-b transition-colors duration-150"
+                style={{
+                  borderColor: 'var(--border-light, #EDE9E3)',
+                  color: active ? 'var(--navy)' : 'var(--muted)',
+                  background: active ? 'var(--accent-dim)' : 'transparent',
+                }}
+              >
+                {active && (
+                  <span
+                    className="w-[3px] h-4 rounded-full mr-3 shrink-0"
+                    style={{ background: 'var(--accent)' }}
+                    aria-hidden="true"
+                  />
+                )}
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
       )}
-    </nav>
+    </header>
   );
 }

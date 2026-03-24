@@ -67,9 +67,9 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
     <div className="max-w-5xl mx-auto py-12 px-4">
       <Link
         href="/tutor"
-        className="flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium"
+        className="flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded"
       >
-        <ArrowLeft className="w-5 h-5 mr-2" /> 返回師資列表
+        <ArrowLeft aria-hidden="true" className="w-5 h-5 mr-2" /> 返回師資列表
       </Link>
 
       <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100">
@@ -93,9 +93,9 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
             href="https://line.me/R/ti/p/@minghui_official"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full md:w-auto px-8 py-4 bg-[#00B900] hover:bg-[#009900] text-white font-bold rounded-xl shadow-md flex items-center justify-center transition-transform hover:-translate-y-1"
+            className="w-full md:w-auto px-8 py-4 bg-[#00B900] hover:bg-[#009900] text-white font-bold rounded-xl shadow-md flex items-center justify-center transition-transform motion-reduce:transition-none hover:-translate-y-1 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B900] focus-visible:ring-offset-2"
           >
-            <MessageCircle className="w-5 h-5 mr-2" /> 透過官方 LINE 預約
+            <MessageCircle aria-hidden="true" className="w-5 h-5 mr-2" /> 透過官方 LINE 預約
           </a>
         </div>
 

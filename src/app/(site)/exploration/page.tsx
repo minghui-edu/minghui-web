@@ -23,7 +23,7 @@ function ActivityCard({ title, date, tags }: { title: string; date: string; tags
       </div>
       <div className="w-full sm:w-3/5 p-6 flex flex-col justify-center">
         <div className="text-sm text-blue-600 font-semibold mb-1 flex items-center">
-          <Calendar className="w-4 h-4 mr-1" /> {date}
+          <Calendar aria-hidden="true" className="w-4 h-4 mr-1" /> {date}
         </div>
         <h3 className="text-xl font-bold mb-3">{title}</h3>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -31,8 +31,11 @@ function ActivityCard({ title, date, tags }: { title: string; date: string; tags
             <span key={i} className="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-md">{tag}</span>
           ))}
         </div>
-        <a href="#" className="text-blue-600 font-medium text-sm flex items-center mt-auto hover:underline">
-          查看詳細簡章 <ChevronRight className="w-4 h-4 ml-1" />
+        <a
+          href="#"
+          className="text-blue-600 font-medium text-sm flex items-center mt-auto hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded"
+        >
+          查看詳細簡章 <ChevronRight aria-hidden="true" className="w-4 h-4 ml-1" />
         </a>
       </div>
     </div>
@@ -61,7 +64,7 @@ export default function ExplorationPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-2xl shadow-sm border border-blue-100 p-8 hover:shadow-md transition-shadow">
             <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
-              <Lightbulb className="w-8 h-8" />
+              <Lightbulb aria-hidden="true" className="w-8 h-8" />
             </div>
             <h3 className="font-bold text-xl mb-3 text-slate-800">多元科系探索營 <span className="text-sm font-normal text-slate-500">（適合尚未定向）</span></h3>
             <p className="text-slate-600 mb-6 text-sm leading-relaxed">
@@ -69,11 +72,11 @@ export default function ExplorationPage() {
             </p>
             <ul className="space-y-3">
               <li className="flex items-start">
-                <CheckCircle className="w-5 h-5 text-blue-500 mr-2 shrink-0" />
+                <CheckCircle aria-hidden="true" className="w-5 h-5 text-blue-500 mr-2 shrink-0" />
                 <span className="text-sm text-slate-700"><strong>科技黑客松實作：</strong> 完整體驗專案開發與跨領域團隊合作。</span>
               </li>
               <li className="flex items-start">
-                <Gamepad2 className="w-5 h-5 text-blue-500 mr-2 shrink-0" />
+                <Gamepad2 aria-hidden="true" className="w-5 h-5 text-blue-500 mr-2 shrink-0" />
                 <span className="text-sm text-slate-700"><strong>校園實境解謎：</strong> 以有趣互動認識頂大校園，留下回憶並提升備考動機。</span>
               </li>
             </ul>
@@ -81,19 +84,19 @@ export default function ExplorationPage() {
 
           <div className="bg-white rounded-2xl shadow-sm border border-emerald-100 p-8 hover:shadow-md transition-shadow">
             <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-              <Award className="w-8 h-8" />
+              <Award aria-hidden="true" className="w-8 h-8" />
             </div>
-            <h3 className="font-bold text-xl mb-3 text-slate-800">單一科系深度講座 & 實作 <span className="text-sm font-normal text-slate-500">（適合已有目標）</span></h3>
+            <h3 className="font-bold text-xl mb-3 text-slate-800">單一科系深度講座 &amp; 實作 <span className="text-sm font-normal text-slate-500">（適合已有目標）</span></h3>
             <p className="text-slate-600 mb-6 text-sm leading-relaxed">
               專為已經有心儀科系的學生設計。由專業師資與學長姐帶領，深入解析科系核心知識，並親手完成相關專屬的專題實作。
             </p>
             <ul className="space-y-3">
               <li className="flex items-start">
-                <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 shrink-0" />
+                <CheckCircle aria-hidden="true" className="w-5 h-5 text-emerald-500 mr-2 shrink-0" />
                 <span className="text-sm text-slate-700"><strong>專題實作產出：</strong> 直接產出高品質成果，大幅為個人學習歷程加分。</span>
               </li>
               <li className="flex items-start">
-                <BookOpen className="w-5 h-5 text-emerald-500 mr-2 shrink-0" />
+                <BookOpen aria-hidden="true" className="w-5 h-5 text-emerald-500 mr-2 shrink-0" />
                 <span className="text-sm text-slate-700"><strong>科系真實樣貌：</strong> 破除網路迷思，提前具備該系所需的核心素養與視野。</span>
               </li>
             </ul>
@@ -105,11 +108,14 @@ export default function ExplorationPage() {
       <div className="bg-slate-900 rounded-3xl p-8 md:p-12 mb-16 text-white">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div>
-            <h2 className="text-2xl font-bold mb-2">營隊花絮 & 學生心得</h2>
+            <h2 className="text-2xl font-bold mb-2">營隊花絮 &amp; 學生心得</h2>
             <p className="text-slate-400">看看學長姐們在營隊中獲得了什麼啟發</p>
           </div>
-          <a href="#" className="flex items-center text-yellow-400 hover:text-yellow-300 font-medium">
-            前往 YouTube 觀看更多 <ChevronRight className="w-4 h-4 ml-1" />
+          <a
+            href="#"
+            className="flex items-center text-yellow-400 hover:text-yellow-300 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded"
+          >
+            前往 YouTube 觀看更多 <ChevronRight aria-hidden="true" className="w-4 h-4 ml-1" />
           </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -118,13 +124,17 @@ export default function ExplorationPage() {
             { title: '「終於找到未來的方向了！」- 台大解謎營學員專訪', type: '心得採訪' },
             { title: '醫學系實作營：從專題實作看見醫學生的日常', type: '活動花絮' },
           ].map((video, idx) => (
-            <div key={idx} className="group cursor-pointer">
+            <a
+              key={idx}
+              href="#"
+              className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-xl"
+            >
               <div className="bg-slate-800 aspect-video rounded-xl relative flex items-center justify-center overflow-hidden mb-3 border border-slate-700">
-                <PlayCircle className="w-12 h-12 text-white opacity-80 group-hover:scale-110 group-hover:text-yellow-400 transition-all z-10" />
+                <PlayCircle aria-hidden="true" className="w-12 h-12 text-white opacity-80 group-hover:scale-110 group-hover:text-yellow-400 motion-reduce:group-hover:scale-100 transition-transform motion-reduce:transition-none z-10" />
                 <span className="absolute top-2 left-2 bg-blue-600 text-xs px-2 py-1 rounded text-white font-medium">{video.type}</span>
               </div>
               <h3 className="font-medium text-slate-200 line-clamp-2 group-hover:text-white">{video.title}</h3>
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -150,7 +160,7 @@ export default function ExplorationPage() {
         <p className="mb-6 text-blue-200">名額有限，立即填寫報名表單卡位！</p>
         <a
           href="#"
-          className="inline-block bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:-translate-y-1"
+          className="inline-block bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-8 rounded-full shadow-lg transition-transform motion-reduce:transition-none hover:-translate-y-1 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900"
         >
           前往報名表單
         </a>

@@ -1,15 +1,20 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Libre_Baskerville, Outfit } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const baskerville = Libre_Baskerville({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
+  variable: '--font-baskerville',
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const outfit = Outfit({
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -28,7 +33,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-TW">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${baskerville.variable} ${outfit.variable}`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg"
+          style={{ color: 'var(--navy)' }}
+        >
+          跳至主要內容
+        </a>
         {children}
       </body>
     </html>
