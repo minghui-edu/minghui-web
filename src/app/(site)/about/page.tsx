@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '關於我們',
@@ -50,6 +50,48 @@ const timeline = [
     period: '至今',
     year: '2025',
     desc: '持續舉辦超過 20 屆探索營隊，服務超過 10,000 位學生，協助 120+ 位學生錄取世界前 100 名校，持續拓展國際合作。',
+  },
+];
+
+const coreValues = [
+  {
+    icon: Target,
+    title: '個人化學習',
+    desc: '我們相信每位學生的學習路徑都是獨一無二的。從需求評估到課程規劃，量身打造最適合你的成長方案，而非套用統一模板。',
+    color: 'var(--navy)',
+    bg: 'rgba(11,10,63,0.06)',
+  },
+  {
+    icon: TrendingUp,
+    title: '高效成長',
+    desc: '嚴選師資、精煉課程內容，讓每一分投入都能帶來最大回報。我們以可見的成果說話——從錄取名單到學習歷程，數字是最好的證明。',
+    color: '#0F5132',
+    bg: 'rgba(15,81,50,0.06)',
+  },
+  {
+    icon: Compass,
+    title: '未來探索',
+    desc: '升學不只是考試，更是找到人生方向的過程。透過營隊、遊學與深度諮詢，我們幫助學生在踏入大學前，就對未來有清晰的輪廓。',
+    color: '#1E56A0',
+    bg: 'rgba(30,86,160,0.06)',
+  },
+];
+
+const mediaItems = [
+  {
+    outlet: '媒體名稱',
+    title: '報導標題（請填入實際報導標題）',
+    href: '#',
+  },
+  {
+    outlet: '媒體名稱',
+    title: '報導標題（請填入實際報導標題）',
+    href: '#',
+  },
+  {
+    outlet: '媒體名稱',
+    title: '報導標題（請填入實際報導標題）',
+    href: '#',
   },
 ];
 
@@ -154,6 +196,35 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── 核心價值 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <div className={inner}>
+          <div className="text-center mb-14">
+            <SectionLabel>核心價值</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+              我們相信的三件事
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {coreValues.map(({ icon: Icon, title, desc, color, bg }) => (
+              <div
+                key={title}
+                className="p-8"
+                style={{ border: '1px solid var(--border)', borderLeft: `4px solid ${color}` }}
+              >
+                <div className="w-12 h-12 flex items-center justify-center mb-6" style={{ background: bg }}>
+                  <Icon aria-hidden="true" size={24} style={{ color }} />
+                </div>
+                <h3 className="font-display font-bold text-xl mb-3" style={{ color: 'var(--navy)' }}>
+                  {title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── 發展歷程 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
@@ -222,6 +293,44 @@ export default function AboutPage() {
                 })}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 媒體報導 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="text-center mb-14">
+            <SectionLabel>媒體報導</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+              媒體這樣說我們
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {mediaItems.map((item, idx) => (
+              <a
+                key={idx}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="media-card group flex flex-col p-6 bg-white transition-shadow duration-200 hover:shadow-lg"
+                style={{ border: '1px solid var(--border)', borderTop: '3px solid var(--accent)' }}
+              >
+                <span
+                  className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-4 px-2 py-1 self-start"
+                  style={{ background: 'var(--accent-dim)', color: 'var(--accent)' }}
+                >
+                  {item.outlet}
+                </span>
+                <p className="font-display font-bold text-base leading-snug flex-grow mb-6" style={{ color: 'var(--navy)' }}>
+                  {item.title}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                  閱讀報導
+                  <ExternalLink aria-hidden="true" size={12} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
