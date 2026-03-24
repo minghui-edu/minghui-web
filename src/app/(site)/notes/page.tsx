@@ -42,9 +42,9 @@ type SanityNote = {
 /* ─── Data ──────────────────────────────────── */
 
 const videos = [
-  { title: '【微積分基礎】五分鐘搞懂極限與連續的概念（附免費筆記講義）', href: '#' },
-  { title: '【高中物理】用圖解征服電磁感應，考試必考公式一次整理', href: '#' },
-  { title: '【雅思寫作】Task 2 議論文萬用架構，從 6 分衝上 7.5 分', href: '#' },
+  { title: '【微積分基礎】五分鐘搞懂極限與連續的概念（附免費筆記講義）', href: 'https://youtu.be/zogyPJGz9fE?si=A4nkOLSI5pgEAre0' },
+  { title: '【高中物理】用圖解征服電磁感應，考試必考公式一次整理',       href: 'https://youtu.be/uytwHHWCfnM?si=0LTTR-2j4yAcZxhT' },
+  { title: '【雅思寫作】Task 2 議論文萬用架構，從 6 分衝上 7.5 分',   href: 'https://youtu.be/5U-UixNj_eE?si=Z-TGomZ8fFPtXImk' },
 ];
 
 const appFeatures = [
@@ -106,7 +106,7 @@ export default async function NotesPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videos.map((v) => (
-              <a key={v.title} href={v.href} className="group block" aria-label={v.title}>
+              <a key={v.title} href={v.href} target="_blank" rel="noopener noreferrer" className="group block" aria-label={`觀看影片：${v.title}`}>
                 <div
                   className="relative aspect-video mb-4 flex items-center justify-center overflow-hidden"
                   style={{ background: 'rgba(11,10,63,0.85)' }}
