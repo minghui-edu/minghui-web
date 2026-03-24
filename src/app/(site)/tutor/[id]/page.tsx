@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, MessageCircle } from 'lucide-react';
+import { ArrowLeft, MessageCircle, BookOpen, Trophy, Lightbulb } from 'lucide-react';
+
+/* ─── Shared layout token ───────────────────── */
+const inner = 'max-w-4xl mx-auto px-4 sm:px-6 lg:px-8';
+
+/* ─── Data ──────────────────────────────────── */
 
 const tutors: Record<string, {
   name: string;
@@ -37,6 +42,12 @@ const tutors: Record<string, {
   },
 };
 
+const sections = [
+  { key: 'intro' as const, label: '簡介與教學方式', icon: BookOpen, color: 'var(--navy)', bg: 'rgba(11,10,63,0.06)' },
+  { key: 'exp' as const, label: '經歷與教學成果', icon: Trophy, color: '#0F5132', bg: 'rgba(15,81,50,0.06)' },
+  { key: 'philosophy' as const, label: '特色與教學理念', icon: Lightbulb, color: '#1E56A0', bg: 'rgba(30,86,160,0.06)' },
+];
+
 export async function generateStaticParams() {
   return Object.keys(tutors).map((id) => ({ id }));
 }
@@ -51,64 +62,133 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-const tabs = [
-  { key: 'intro', label: '簡介與教學方式' },
-  { key: 'exp', label: '經歷與教學成果' },
-  { key: 'philosophy', label: '特色與教學理念' },
-] as const;
+/* ─── Page ──────────────────────────────────── */
 
 export default async function TutorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const tutor = tutors[id];
-
   if (!tutor) notFound();
 
   return (
-    <div className="max-w-5xl mx-auto py-12 px-4">
-      <Link
-        href="/tutor"
-        className="flex items-center text-slate-500 hover:text-blue-600 mb-8 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded"
-      >
-        <ArrowLeft aria-hidden="true" className="w-5 h-5 mr-2" /> 返回師資列表
-      </Link>
+    <div>
 
-      <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100">
-        {/* 頭部資訊 */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10 pb-8 border-b border-slate-100">
-          <div className="flex items-center">
-            <div className="w-24 h-24 bg-slate-200 rounded-full mr-6 flex items-center justify-center text-slate-400 shrink-0 shadow-inner">
-              照片
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-2">{tutor.name}</h1>
-              <p className="text-lg text-blue-600 font-medium mb-3">{tutor.title}</p>
-              <div className="flex flex-wrap gap-2">
-                {tutor.tags.map((tag, i) => (
-                  <span key={i} className="bg-slate-100 text-slate-600 text-sm px-3 py-1 rounded-md">{tag}</span>
-                ))}
+      {/* ── Header ────────────────────────────── */}
+      <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div className={`relative ${inner}`}>
+
+          {/* Back link */}
+          <Link
+            href="/tutor"
+            className="inline-flex items-center gap-2 text-sm font-medium mb-10 transition-colors duration-150"
+            style={{ color: 'rgba(255,255,255,0.45)' }}
+          >
+            <ArrowLeft aria-hidden="true" size={15} />
+            返回師資列表
+          </Link>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            {/* Name & info */}
+            <div className="flex items-center gap-6">
+              {/* Avatar placeholder */}
+              <div
+                className="w-20 h-20 rounded-full shrink-0 flex items-center justify-center font-display font-bold text-2xl"
+                style={{ background: 'rgba(255,255,255,0.08)', color: 'var(--accent-light)', border: '2px solid rgba(232,144,39,0.3)' }}
+                aria-hidden="true"
+              >
+                {tutor.name[0]}
+              </div>
+              <div>
+                <h1
+                  className="font-display font-bold leading-tight mb-1"
+                  style={{ color: '#FFFFFF', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)' }}
+                >
+                  {tutor.name}
+                </h1>
+                <p className="text-base font-medium mb-4" style={{ color: 'var(--accent-light)' }}>
+                  {tutor.title}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {tutor.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[11px] px-2.5 py-1 font-medium"
+                      style={{
+                        background: 'rgba(232,144,39,0.12)',
+                        color: 'var(--accent-light)',
+                        border: '1px solid rgba(232,144,39,0.25)',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
+
+            {/* LINE CTA */}
+            <a
+              href="https://line.me/R/ti/p/@minghui_official"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 px-7 py-4 font-semibold text-sm tracking-wide transition-colors duration-150"
+              style={{
+                background: '#00B900',
+                color: '#FFFFFF',
+              }}
+            >
+              <MessageCircle aria-hidden="true" size={17} />
+              透過官方 LINE 預約
+            </a>
           </div>
+
+          {/* Divider */}
+          <div className="mt-10 h-px" style={{ background: 'rgba(255,255,255,0.08)' }} />
+        </div>
+      </section>
+
+      {/* ── Content sections ──────────────────── */}
+      <section className="py-16" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="space-y-6">
+            {sections.map(({ key, label, icon: Icon, color, bg }) => (
+              <div
+                key={key}
+                className="p-8"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: `4px solid ${color}` }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: bg }}>
+                    <Icon aria-hidden="true" size={18} style={{ color }} />
+                  </div>
+                  <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>{label}</h2>
+                </div>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{tutor[key]}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Bottom CTA ────────────────────────── */}
+      <section className="py-16" style={{ background: 'var(--navy)' }}>
+        <div className={`${inner} text-center`}>
+          <p className="font-display italic text-lg mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            對這位老師有興趣？透過 LINE 官方帳號與我們聯繫
+          </p>
           <a
             href="https://line.me/R/ti/p/@minghui_official"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full md:w-auto px-8 py-4 bg-[#00B900] hover:bg-[#009900] text-white font-bold rounded-xl shadow-md flex items-center justify-center transition-transform motion-reduce:transition-none hover:-translate-y-1 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B900] focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide transition-opacity duration-150 hover:opacity-90"
+            style={{ background: '#00B900', color: '#FFFFFF' }}
           >
-            <MessageCircle aria-hidden="true" className="w-5 h-5 mr-2" /> 透過官方 LINE 預約
+            <MessageCircle aria-hidden="true" size={17} />
+            透過官方 LINE 預約
           </a>
         </div>
+      </section>
 
-        {/* 詳細介紹 */}
-        <div className="space-y-8">
-          {tabs.map((tab) => (
-            <div key={tab.key}>
-              <h2 className="text-lg font-bold text-slate-700 mb-3 border-l-4 border-blue-500 pl-3">{tab.label}</h2>
-              <p className="text-slate-600 leading-relaxed">{tutor[tab.key]}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
