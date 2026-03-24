@@ -30,7 +30,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <div
                 className="w-9 h-9 flex items-center justify-center shrink-0"
-                style={{ background: 'rgba(196,146,42,0.15)', border: '1px solid rgba(196,146,42,0.3)' }}
+                style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M8 1L15 8L8 15L1 8L8 1Z" fill="var(--accent)" />
@@ -44,7 +44,7 @@ export default function Footer() {
                 >
                   明慧教育
                 </span>
-                <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: 'rgba(196,146,42,0.6)' }}>
+                <span className="text-[10px] tracking-[0.15em] uppercase" style={{ color: 'rgba(232,144,39,0.6)' }}>
                   Minghui Education
                 </span>
               </div>
@@ -126,7 +126,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} 明慧教育. All rights reserved.</span>
           <div className="flex items-center gap-2">
             <span className="w-4 h-px" style={{ background: 'var(--accent)', opacity: 0.4 }} aria-hidden="true" />
-            <span style={{ color: 'rgba(196,146,42,0.5)' }}>啟發潛能，探索無限未來</span>
+            <span style={{ color: 'rgba(232,144,39,0.5)' }}>啟發潛能，探索無限未來</span>
           </div>
         </div>
       </div>

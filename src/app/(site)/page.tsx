@@ -11,8 +11,8 @@ const services = [
     cta: '查看梯次',
     href: '/exploration',
     accentVar: 'var(--navy)',
-    accentBg: 'rgba(15,32,68,0.06)',
-    accentBorder: 'rgba(15,32,68,0.12)',
+    accentBg: 'rgba(11,10,63,0.06)',
+    accentBorder: 'rgba(11,10,63,0.12)',
   },
   {
     num: '02',
@@ -58,7 +58,7 @@ function ServiceCard({ num, title, desc, cta, href, accentVar, accentBg, accentB
       {/* Large muted background number */}
       <span
         className="font-display absolute top-3 right-5 text-8xl font-bold select-none pointer-events-none leading-none"
-        style={{ color: 'rgba(15,32,68,0.035)' }}
+        style={{ color: 'rgba(11,10,63,0.035)' }}
         aria-hidden="true"
       >
         {num}
@@ -119,7 +119,7 @@ export default function HomePage() {
           className="absolute right-0 top-0 bottom-0 pointer-events-none"
           style={{
             width: '40vw',
-            background: 'linear-gradient(135deg, transparent 60%, rgba(196,146,42,0.04) 100%)',
+            background: 'linear-gradient(135deg, transparent 60%, rgba(232,144,39,0.04) 100%)',
           }}
           aria-hidden="true"
         />
@@ -245,7 +245,7 @@ export default function HomePage() {
           </p>
           <div
             className="flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase"
-            style={{ color: 'rgba(196,146,42,0.5)' }}
+            style={{ color: 'rgba(232,144,39,0.5)' }}
           >
             <span className="w-8 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
             明慧教育創辦理念

@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <header
       className="sticky top-0 z-50 bg-white transition-shadow duration-300"
-      style={{ boxShadow: scrolled ? '0 1px 12px rgba(15,32,68,0.08)' : 'none' }}
+      style={{ boxShadow: scrolled ? '0 1px 12px rgba(11,10,63,0.08)' : 'none' }}
     >
       {/* Gold top stripe */}
       <div className="h-[3px]" style={{ background: 'linear-gradient(90deg, var(--navy) 0%, var(--accent) 50%, var(--navy) 100%)' }} />
