@@ -120,15 +120,19 @@ const partners = [
   '星創音樂',
 ];
 
+/* ─── Shared layout token ───────────────────── */
+// All sections use this same inner wrapper for consistent alignment
+const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
+
 /* ─── Sub-components ────────────────────────── */
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <p
       className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
-      style={{ color: 'var(--accent)' }}
+      style={{ color: light ? 'var(--accent-light)' : 'var(--accent)' }}
     >
-      <span className="w-5 h-px shrink-0" style={{ background: 'var(--accent)' }} aria-hidden="true" />
+      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
       {children}
     </p>
   );
@@ -186,7 +190,7 @@ export default function HomePage() {
           style={{ width: '40vw', background: 'linear-gradient(135deg, transparent 60%, rgba(232,144,39,0.04) 100%)' }}
           aria-hidden="true"
         />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+        <div className={`relative ${inner} py-24 w-full`}>
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <span className="w-8 h-px" style={{ background: 'var(--accent)' }} aria-hidden="true" />
@@ -230,8 +234,8 @@ export default function HomePage() {
       </section>
 
       {/* ── B: 為什麼選我們 ────────────────────── */}
-      <section className="py-20 px-4" style={{ background: 'var(--surface)' }}>
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>我們的承諾</SectionLabel>
             <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
@@ -242,13 +246,10 @@ export default function HomePage() {
             {whyUs.map(({ icon: Icon, title, desc, color, bg }) => (
               <div
                 key={title}
-                className="p-8 relative"
+                className="p-8"
                 style={{ border: '1px solid var(--border)', borderLeft: `4px solid ${color}` }}
               >
-                <div
-                  className="w-12 h-12 flex items-center justify-center mb-6"
-                  style={{ background: bg }}
-                >
+                <div className="w-12 h-12 flex items-center justify-center mb-6" style={{ background: bg }}>
                   <Icon aria-hidden="true" size={24} style={{ color }} />
                 </div>
                 <h3 className="font-display font-bold text-xl mb-3" style={{ color: 'var(--navy)' }}>
@@ -262,26 +263,28 @@ export default function HomePage() {
       </section>
 
       {/* ── Services ──────────────────────────── */}
-      <section className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-12 gap-4">
-          <div>
-            <SectionLabel>核心服務</SectionLabel>
-            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
-              我們能為你做什麼
-            </h2>
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="flex items-end justify-between mb-12 gap-4">
+            <div>
+              <SectionLabel>核心服務</SectionLabel>
+              <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+                我們能為你做什麼
+              </h2>
+            </div>
+            <Link href="/about" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
+              關於明慧 <ChevronRight aria-hidden="true" size={14} />
+            </Link>
           </div>
-          <Link href="/about" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
-            關於明慧 <ChevronRight aria-hidden="true" size={14} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((s) => <ServiceCard key={s.num} {...s} />)}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {services.map((s) => <ServiceCard key={s.num} {...s} />)}
+          </div>
         </div>
       </section>
 
       {/* ── D: 精選師資 ───────────────────────── */}
-      <section className="py-20 px-4" style={{ background: 'var(--cream)' }}>
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <div className={inner}>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
               <SectionLabel>師資陣容</SectionLabel>
@@ -301,10 +304,9 @@ export default function HomePage() {
                 className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
                 style={{ border: '1px solid var(--border)' }}
               >
-                {/* Avatar placeholder */}
                 <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
                   <div
-                    className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center text-sm font-display font-bold"
+                    className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center font-display font-bold"
                     style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}
                     aria-hidden="true"
                   >
@@ -331,10 +333,7 @@ export default function HomePage() {
                 <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
                   {tutor.shortExp}
                 </p>
-                <span
-                  className="inline-flex items-center gap-1 text-xs font-semibold mt-auto"
-                  style={{ color: 'var(--accent)' }}
-                >
+                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
                   查看完整介紹
                   <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0" />
                 </span>
@@ -345,14 +344,11 @@ export default function HomePage() {
       </section>
 
       {/* ── A: 學生口碑 ───────────────────────── */}
-      <section className="py-20 px-4" style={{ background: 'var(--navy)' }}>
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20" style={{ background: 'var(--navy)' }}>
+        <div className={inner}>
           <div className="text-center mb-14">
-            <SectionLabel>學員心聲</SectionLabel>
-            <h2
-              className="font-display font-bold text-3xl md:text-4xl"
-              style={{ color: '#FFFFFF' }}
-            >
+            <SectionLabel light>學員心聲</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: '#FFFFFF' }}>
               他們的故事
             </h2>
           </div>
@@ -360,23 +356,15 @@ export default function HomePage() {
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="p-8 flex flex-col relative"
+                className="p-8 flex flex-col"
                 style={{
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '3px solid var(--accent)',
                 }}
               >
-                <Quote
-                  aria-hidden="true"
-                  size={28}
-                  className="mb-4 shrink-0"
-                  style={{ color: 'var(--accent)', opacity: 0.6 }}
-                />
-                <p
-                  className="text-sm leading-relaxed flex-grow mb-6 font-display italic"
-                  style={{ color: 'rgba(255,255,255,0.8)' }}
-                >
+                <Quote aria-hidden="true" size={28} className="mb-4 shrink-0" style={{ color: 'var(--accent)', opacity: 0.6 }} />
+                <p className="text-sm leading-relaxed flex-grow mb-6 font-display italic" style={{ color: 'rgba(255,255,255,0.8)' }}>
                   {t.quote}
                 </p>
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1rem' }}>
@@ -390,8 +378,8 @@ export default function HomePage() {
       </section>
 
       {/* ── E: 過往合作夥伴 ───────────────────── */}
-      <section className="py-16 px-4" style={{ background: 'var(--surface)' }}>
-        <div className="max-w-5xl mx-auto">
+      <section className="py-16" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
           <div className="text-center mb-10">
             <SectionLabel>信任與合作</SectionLabel>
             <h2 className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--navy)' }}>
@@ -399,15 +387,11 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-4">
-            {partners.map((name, i) => (
+            {partners.map((name) => (
               <div
-                key={i}
+                key={name}
                 className="px-6 py-3 text-sm font-medium tracking-wide"
-                style={{
-                  border: '1px solid var(--border)',
-                  color: 'var(--muted)',
-                  background: 'var(--cream)',
-                }}
+                style={{ border: '1px solid var(--border)', color: 'var(--muted)', background: 'var(--surface)' }}
               >
                 {name}
               </div>
@@ -417,8 +401,8 @@ export default function HomePage() {
       </section>
 
       {/* ── Brand quote strip ─────────────────── */}
-      <section className="py-16 px-4" style={{ background: 'var(--navy)' }}>
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-16" style={{ background: 'var(--navy)' }}>
+        <div className={`${inner} text-center`}>
           <p
             className="font-display italic text-2xl md:text-3xl leading-relaxed mb-6"
             style={{ color: 'rgba(255,255,255,0.75)' }}
