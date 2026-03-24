@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Youtube, ShoppingBag, CheckCircle, ChevronRight, Smartphone, Play } from 'lucide-react';
+import Image from 'next/image';
+import { Youtube, CheckCircle, ChevronRight, Smartphone, Play, ShoppingCart } from 'lucide-react';
+import { sanityClient } from '@/lib/sanity/client';
+import { urlFor } from '@/lib/sanity/image';
 
 export const metadata: Metadata = {
   title: '高分筆記',
   description: '嚴選台清交成筆記，結合觀念講解影片，高效提升學習成效。',
 };
+
+export const revalidate = 60; // ISR：每 60 秒重新驗證
 
 /* ─── Shared layout token ───────────────────── */
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
@@ -22,19 +27,24 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
   );
 }
 
+/* ─── Types ─────────────────────────────────── */
+
+type SanityNote = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  cover?: { asset: { _ref: string } };
+  subject?: string;
+  level?: string;
+  price?: number;
+};
+
 /* ─── Data ──────────────────────────────────── */
 
 const videos = [
   { title: '【微積分基礎】五分鐘搞懂極限與連續的概念（附免費筆記講義）', href: '#' },
   { title: '【高中物理】用圖解征服電磁感應，考試必考公式一次整理', href: '#' },
   { title: '【雅思寫作】Task 2 議論文萬用架構，從 6 分衝上 7.5 分', href: '#' },
-];
-
-const notes = [
-  { id: 'physics',   title: '高中物理總複習精華',      subject: '物理', level: '高中',     price: 'NT$ 450', color: 'var(--navy)', bg: 'rgba(11,10,63,0.06)',   buyHref: '#' },
-  { id: 'calculus',  title: '大一微積分考古題詳解',    subject: '數學', level: '大學',     price: 'NT$ 380', color: '#0F5132',     bg: 'rgba(15,81,50,0.06)',   buyHref: '#' },
-  { id: 'ielts',     title: '雅思 IELTS 寫作高分模板', subject: '英文', level: '國際檢定', price: 'NT$ 500', color: '#1E56A0',     bg: 'rgba(30,86,160,0.06)',  buyHref: '#' },
-  { id: 'biology',   title: '生物重點圖解記憶法',      subject: '生物', level: '高中',     price: 'NT$ 420', color: '#7B4F12',     bg: 'rgba(123,79,18,0.06)',  buyHref: '#' },
 ];
 
 const appFeatures = [
@@ -45,7 +55,13 @@ const appFeatures = [
 
 /* ─── Page ──────────────────────────────────── */
 
-export default function NotesPage() {
+export default async function NotesPage() {
+  const notes: SanityNote[] = await sanityClient.fetch(
+    `*[_type == "note" && isAvailable == true] | order(_createdAt desc) {
+      _id, title, slug, cover, subject, level, price
+    }`
+  );
+
   return (
     <div>
 
@@ -84,35 +100,24 @@ export default function NotesPage() {
                 學霸解題 YouTube 影片
               </h2>
             </div>
-            <a
-              href="#"
-              className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0"
-            >
+            <a href="#" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
               前往頻道看更多 <ChevronRight aria-hidden="true" size={14} />
             </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videos.map((v) => (
-              <a
-                key={v.title}
-                href={v.href}
-                className="group block"
-                aria-label={v.title}
-              >
-                {/* Thumbnail */}
+              <a key={v.title} href={v.href} className="group block" aria-label={v.title}>
                 <div
                   className="relative aspect-video mb-4 flex items-center justify-center overflow-hidden"
                   style={{ background: 'rgba(11,10,63,0.85)' }}
                 >
                   <div className="dot-grid absolute inset-0 pointer-events-none opacity-60" aria-hidden="true" />
-                  {/* Play button */}
                   <div
                     className="relative z-10 w-14 h-14 flex items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110 motion-reduce:group-hover:scale-100"
                     style={{ background: 'var(--accent)', boxShadow: '0 0 0 8px rgba(232,144,39,0.2)' }}
                   >
                     <Play aria-hidden="true" size={22} style={{ color: 'var(--navy)', marginLeft: '2px' }} />
                   </div>
-                  {/* YouTube badge */}
                   <span
                     className="absolute top-3 left-3 flex items-center gap-1.5 text-[10px] font-semibold tracking-wide px-2 py-1"
                     style={{ background: 'rgba(255,0,0,0.85)', color: '#fff' }}
@@ -135,88 +140,83 @@ export default function NotesPage() {
       {/* ── 筆記商城 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
-          <div className="flex items-end justify-between mb-12 gap-4">
-            <div>
-              <SectionLabel>官方商城</SectionLabel>
-              <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
-                精選筆記商品
-              </h2>
-            </div>
-            <div className="hidden sm:flex gap-2 shrink-0">
-              <span
-                className="text-[11px] font-semibold px-3 py-1 tracking-wide"
-                style={{ background: 'var(--accent-dim)', color: 'var(--accent)', border: '1px solid rgba(232,144,39,0.3)' }}
-              >
-                官網專屬購物車
-              </span>
-              <span
-                className="text-[11px] font-semibold px-3 py-1 tracking-wide"
-                style={{ background: 'rgba(15,81,50,0.08)', color: '#0F5132', border: '1px solid rgba(15,81,50,0.2)' }}
-              >
-                支援綠界收款
-              </span>
-            </div>
+          <div className="mb-12">
+            <SectionLabel>官方商城</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+              精選筆記商品
+            </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {notes.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white flex flex-col"
-                style={{ border: '1px solid var(--border)' }}
-              >
-                {/* Cover */}
-                <div
-                  className="relative flex items-center justify-center"
-                  style={{ aspectRatio: '3/4', background: item.bg, borderBottom: `3px solid ${item.color}` }}
-                >
-                  <span
-                    className="font-display font-bold text-5xl select-none"
-                    style={{ color: item.color, opacity: 0.12 }}
-                    aria-hidden="true"
+
+          {notes.length === 0 ? (
+            <p className="text-center py-16 text-sm" style={{ color: 'var(--muted)' }}>
+              商品上架中，敬請期待。
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {notes.map((item) => (
+                <div key={item._id} className="bg-white flex flex-col" style={{ border: '1px solid var(--border)' }}>
+                  {/* Cover */}
+                  <div
+                    className="relative overflow-hidden"
+                    style={{ aspectRatio: '3/4', background: 'rgba(11,10,63,0.05)', borderBottom: '3px solid var(--accent)' }}
                   >
-                    {item.subject[0]}
-                  </span>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
-                    <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: item.color, opacity: 0.5 }}>
-                      Note Cover
-                    </span>
+                    {item.cover ? (
+                      <Image
+                        src={urlFor(item.cover).width(300).height(400).url()}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-display font-bold text-5xl" style={{ color: 'var(--navy)', opacity: 0.1 }}>
+                          {item.subject?.[0] ?? '筆'}
+                        </span>
+                      </div>
+                    )}
+                    {item.level && (
+                      <span
+                        className="absolute top-3 left-3 text-[10px] font-semibold tracking-wide px-2 py-0.5"
+                        style={{ background: 'rgba(11,10,63,0.08)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.15)' }}
+                      >
+                        {item.level}
+                      </span>
+                    )}
                   </div>
-                  <span
-                    className="absolute top-3 left-3 text-[10px] font-semibold tracking-wide px-2 py-0.5"
-                    style={{ background: item.bg, color: item.color, border: `1px solid ${item.color}`, opacity: 0.9 }}
-                  >
-                    {item.level}
-                  </span>
-                </div>
-                {/* Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                  <span className="text-[11px] font-medium mb-2" style={{ color: item.color }}>{item.subject}</span>
-                  <h3 className="font-bold text-sm leading-snug flex-grow mb-3" style={{ color: 'var(--navy)' }}>
-                    {item.title}
-                  </h3>
-                  <div className="font-display font-bold text-xl mb-4" style={{ color: 'var(--accent)' }}>
-                    {item.price}
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 mt-auto">
-                    <Link
-                      href={`/notes/${item.id}`}
-                      className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
-                      style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
-                    >
-                      查看詳情
-                    </Link>
-                    <a
-                      href={item.buyHref}
-                      className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
-                      style={{ background: 'var(--accent)', color: 'var(--navy)' }}
-                    >
-                      立即購買
-                    </a>
+                  {/* Info */}
+                  <div className="p-5 flex flex-col flex-grow">
+                    {item.subject && (
+                      <span className="text-[11px] font-medium mb-2" style={{ color: 'var(--accent)' }}>{item.subject}</span>
+                    )}
+                    <h3 className="font-bold text-sm leading-snug flex-grow mb-3" style={{ color: 'var(--navy)' }}>
+                      {item.title}
+                    </h3>
+                    <div className="font-display font-bold text-xl mb-4" style={{ color: 'var(--accent)' }}>
+                      {item.price != null ? `NT$ ${item.price.toLocaleString()}` : '洽詢價格'}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mt-auto">
+                      <Link
+                        href={`/notes/${item.slug.current}`}
+                        className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
+                        style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
+                      >
+                        查看詳情
+                      </Link>
+                      <Link
+                        href={`/notes/${item.slug.current}`}
+                        className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
+                        style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                      >
+                        <ShoppingCart aria-hidden="true" size={12} />
+                        立即購買
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -225,7 +225,6 @@ export default function NotesPage() {
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div className={`relative ${inner}`}>
           <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            {/* Text */}
             <div className="md:flex-1">
               <span
                 className="inline-block text-[11px] font-bold tracking-[0.15em] uppercase px-3 py-1.5 mb-6"
@@ -261,33 +260,16 @@ export default function NotesPage() {
                 <ChevronRight aria-hidden="true" size={16} />
               </a>
             </div>
-
-            {/* Phone mockup */}
             <div className="shrink-0 flex justify-center">
               <div
                 className="relative flex items-center justify-center overflow-hidden"
-                style={{
-                  width: '180px',
-                  height: '360px',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  borderRadius: '32px',
-                }}
+                style={{ width: '180px', height: '360px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '32px' }}
               >
                 <Smartphone aria-hidden="true" size={48} style={{ color: 'rgba(255,255,255,0.15)' }} />
-                <span
-                  className="absolute bottom-8 text-xs tracking-widest uppercase"
-                  style={{ color: 'rgba(255,255,255,0.25)' }}
-                >
+                <span className="absolute bottom-8 text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.25)' }}>
                   APP 開發中
                 </span>
-                {/* Notch */}
-                <div
-                  className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full"
-                  style={{ width: '48px', height: '6px', background: 'rgba(255,255,255,0.1)' }}
-                  aria-hidden="true"
-                />
-                {/* Corner accents */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full" style={{ width: '48px', height: '6px', background: 'rgba(255,255,255,0.1)' }} aria-hidden="true" />
                 <span className="absolute top-0 left-0 w-8 h-8" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.4, borderRadius: '32px 0 0 0' }} aria-hidden="true" />
                 <span className="absolute bottom-0 right-0 w-8 h-8" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.4, borderRadius: '0 0 32px 0' }} aria-hidden="true" />
               </div>
