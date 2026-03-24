@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 const navItems = [
   { href: '/about', label: '關於我們' },
@@ -42,16 +43,14 @@ export default function Navbar() {
             className="flex items-center gap-3 group"
             aria-label="明慧教育 — 首頁"
           >
-            {/* Geometric mark */}
-            <div
-              className="w-8 h-8 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110"
-              style={{ background: 'var(--navy)' }}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M8 1L15 8L8 15L1 8L8 1Z" fill="var(--accent)" />
-                <path d="M8 4L12 8L8 12L4 8L8 4Z" fill="var(--navy)" />
-              </svg>
-            </div>
+            <Image
+              src="/logo.svg"
+              alt="明慧教育 Logo"
+              width={40}
+              height={40}
+              priority
+              className="rounded-full transition-transform duration-200 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+            />
             <div>
               <span
                 className="font-display font-bold text-lg leading-none tracking-wide"

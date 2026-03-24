@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Facebook, Instagram, Youtube, MessageCircle, Mail } from 'lucide-react';
 
 const quickLinks = [
@@ -28,15 +29,13 @@ export default function Footer() {
           {/* Brand column */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <div
-                className="w-9 h-9 flex items-center justify-center shrink-0"
-                style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M8 1L15 8L8 15L1 8L8 1Z" fill="var(--accent)" />
-                  <path d="M8 4L12 8L8 12L4 8L8 4Z" fill="var(--navy)" />
-                </svg>
-              </div>
+              <Image
+                src="/logo.svg"
+                alt="明慧教育 Logo"
+                width={36}
+                height={36}
+                className="rounded-full shrink-0"
+              />
               <div>
                 <span
                   className="font-display font-bold text-lg leading-none block"
