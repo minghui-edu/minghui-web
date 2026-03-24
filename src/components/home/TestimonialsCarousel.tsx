@@ -42,7 +42,10 @@ const testimonials = [
   },
 ];
 
-export default function TestimonialsCarousel() {
+export type Testimonial = (typeof testimonials)[0];
+
+export default function TestimonialsCarousel({ items }: { items?: Testimonial[] }) {
+  const list = items ?? testimonials;
   const [idx, setIdx] = useState(0);
   const [fading, setFading] = useState(false);
 
@@ -55,10 +58,10 @@ export default function TestimonialsCarousel() {
     }, 180);
   };
 
-  const prev = () => go((idx - 1 + testimonials.length) % testimonials.length);
-  const next = () => go((idx + 1) % testimonials.length);
+  const prev = () => go((idx - 1 + list.length) % list.length);
+  const next = () => go((idx + 1) % list.length);
 
-  const t = testimonials[idx];
+  const t = list[idx];
 
   return (
     <div>
@@ -127,7 +130,7 @@ export default function TestimonialsCarousel() {
 
       {/* Dots */}
       <div className="flex justify-center items-center gap-2 mt-10" role="tablist" aria-label="心聲導覽">
-        {testimonials.map((_, i) => (
+        {list.map((_, i) => (
           <button
             key={i}
             onClick={() => go(i)}
