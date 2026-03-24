@@ -398,18 +398,18 @@ export default function AboutPage() {
       </section>
 
       {/* ── 品牌 quote strip ───────────────────── */}
-      <section className="py-16" style={{ background: 'var(--cream)' }}>
+      <section className="py-16" style={{ background: 'var(--navy)' }}>
         <div className={`${inner} text-center`}>
           <p
             className="font-display italic text-xl md:text-2xl leading-relaxed mb-6"
-            style={{ color: 'var(--navy)', opacity: 0.72 }}
+            style={{ color: 'rgba(255,255,255,0.75)' }}
           >
             &ldquo;打破資訊落差，讓每一位學生都能
-            <span style={{ color: 'var(--accent)' }}>勇敢追尋自己的夢想。</span>&rdquo;
+            <span style={{ color: 'var(--accent-light)' }}>勇敢追尋自己的夢想。</span>&rdquo;
           </p>
           <div
             className="flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase"
-            style={{ color: 'rgba(232,144,39,0.55)' }}
+            style={{ color: 'rgba(232,144,39,0.5)' }}
           >
             <span className="w-8 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
             明慧教育創辦理念
