@@ -1,128 +1,301 @@
 import type { Metadata } from 'next';
-import { Video, ShoppingBag, CheckCircle, ChevronRight, Smartphone } from 'lucide-react';
+import Link from 'next/link';
+import { Youtube, ShoppingBag, CheckCircle, ChevronRight, Smartphone, Play } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '高分筆記',
   description: '嚴選台清交成筆記，結合觀念講解影片，高效提升學習成效。',
 };
 
-const notes = [
-  { title: '高中物理總複習精華', price: 'NT$ 450', href: '#' },
-  { title: '大一微積分考古題詳解', price: 'NT$ 380', href: '#' },
-  { title: '雅思 IELTS 寫作高分模板', price: 'NT$ 500', href: '#' },
-  { title: '生物重點圖解記憶法', price: 'NT$ 420', href: '#' },
+/* ─── Shared layout token ───────────────────── */
+const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
+
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <p
+      className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
+      style={{ color: light ? 'var(--accent-light)' : 'var(--accent)' }}
+    >
+      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
+      {children}
+    </p>
+  );
+}
+
+/* ─── Data ──────────────────────────────────── */
+
+const videos = [
+  { title: '【微積分基礎】五分鐘搞懂極限與連續的概念（附免費筆記講義）', href: '#' },
+  { title: '【高中物理】用圖解征服電磁感應，考試必考公式一次整理', href: '#' },
+  { title: '【雅思寫作】Task 2 議論文萬用架構，從 6 分衝上 7.5 分', href: '#' },
 ];
+
+const notes = [
+  { id: 'physics',   title: '高中物理總複習精華',      subject: '物理', level: '高中',     price: 'NT$ 450', color: 'var(--navy)', bg: 'rgba(11,10,63,0.06)',   buyHref: '#' },
+  { id: 'calculus',  title: '大一微積分考古題詳解',    subject: '數學', level: '大學',     price: 'NT$ 380', color: '#0F5132',     bg: 'rgba(15,81,50,0.06)',   buyHref: '#' },
+  { id: 'ielts',     title: '雅思 IELTS 寫作高分模板', subject: '英文', level: '國際檢定', price: 'NT$ 500', color: '#1E56A0',     bg: 'rgba(30,86,160,0.06)',  buyHref: '#' },
+  { id: 'biology',   title: '生物重點圖解記憶法',      subject: '生物', level: '高中',     price: 'NT$ 420', color: '#7B4F12',     bg: 'rgba(123,79,18,0.06)',  buyHref: '#' },
+];
+
+const appFeatures = [
+  '隨身攜帶的高效數位化教材',
+  '完美整合紙本筆記、題庫與影音資源',
+  '智慧學習進度追蹤與弱點分析',
+];
+
+/* ─── Page ──────────────────────────────────── */
 
 export default function NotesPage() {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-slate-800 mb-4">學霸筆記 &amp; 教學資源</h1>
-        <p className="text-slate-600">統整重點精華，搭配線上影片，學習事半功倍</p>
-      </div>
+    <div>
 
-      {/* YouTube 影片 */}
-      <div className="mb-16">
-        <div className="flex items-center mb-6">
-          <Video aria-hidden="true" className="w-6 h-6 text-red-600 mr-2" />
-          <h2 className="text-2xl font-bold text-slate-800">學霸解題 YouTube 影片</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <a
-              key={i}
-              href="#"
-              className="group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-xl"
-            >
-              <div className="bg-slate-800 aspect-video rounded-xl relative flex items-center justify-center overflow-hidden mb-3">
-                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-transform motion-reduce:transition-none z-10">
-                  <div aria-hidden="true" className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1" />
-                </div>
-                <div className="absolute inset-0 bg-slate-700 opacity-50" />
-              </div>
-              <h3 className="font-medium text-slate-800 line-clamp-2 group-hover:text-blue-600">
-                【微積分基礎】學長帶你五分鐘搞懂極限與連續的概念（附筆記講義）
-              </h3>
-            </a>
-          ))}
-        </div>
-        <div className="text-center mt-6">
-          <a
-            href="#"
-            className="text-blue-600 font-medium hover:underline inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded"
+      {/* ── Hero ──────────────────────────────── */}
+      <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div
+          className="absolute top-0 right-0 pointer-events-none"
+          style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
+          aria-hidden="true"
+        />
+        <div className={`relative ${inner}`}>
+          <SectionLabel light>學霸筆記商城</SectionLabel>
+          <h1
+            className="font-display font-bold leading-[1.1] mb-6"
+            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
           >
-            前往 YouTube 頻道看更多 <ChevronRight aria-hidden="true" className="w-4 h-4" />
-          </a>
+            名校學長姐的秘密武器
+            <br />
+            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>嚴選筆記，高效學習</em>
+          </h1>
+          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+            嚴選台清交成頂尖學長姐親手整理的精華筆記，搭配觀念講解影片，讓你用最少時間掌握最多重點。
+          </p>
         </div>
-      </div>
+      </section>
 
-      {/* 筆記商城 */}
-      <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 mb-16">
-        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-          <div className="flex items-center">
-            <ShoppingBag aria-hidden="true" className="w-6 h-6 text-orange-500 mr-2" />
-            <h2 className="text-2xl font-bold text-slate-800">官方線上筆記商城</h2>
-          </div>
-          <div className="flex gap-2">
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold border border-blue-200">官網專屬購物車</span>
-            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold border border-green-200">支援綠界收款</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {notes.map((item, i) => (
-            <div key={i} className="border border-slate-100 rounded-xl p-4 hover:border-blue-300 transition-colors flex flex-col h-full">
-              <div className="bg-slate-100 aspect-[3/4] rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-slate-400 text-sm">[筆記封面]</span>
-              </div>
-              <h3 className="font-bold text-slate-800 mb-2 flex-grow">{item.title}</h3>
-              <div className="text-lg font-bold text-blue-600 mb-4">{item.price}</div>
-              <div className="grid grid-cols-2 gap-2 mt-auto">
-                <button className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm py-2 rounded font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                  查看詳情
-                </button>
-                <a
-                  href={item.href}
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 rounded font-medium transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                >
-                  立即購買
-                </a>
-              </div>
+      {/* ── YouTube 影片 ───────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="flex items-end justify-between mb-12 gap-4">
+            <div>
+              <SectionLabel>免費資源</SectionLabel>
+              <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+                學霸解題 YouTube 影片
+              </h2>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* APP 預告 */}
-      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-lg">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl" />
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="md:w-2/3">
-            <span className="inline-block bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full mb-4 shadow-sm">即將推出 Coming Soon</span>
-            <h2 className="text-3xl font-bold mb-4">明慧專屬學習 APP</h2>
-            <p className="text-blue-100 text-lg leading-relaxed mb-6">
-              我們正致力於將學霸筆記與教材數位化！未來透過專屬 APP，你可以將教材隨身攜帶，進行重點標記、觀看解題影片，結合強大的互動功能，隨時隨地高效學習。
-            </p>
-            <ul className="space-y-3 mb-8 text-blue-200">
-              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 隨身攜帶的高效數位化教材</li>
-              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 完美整合紙本筆記、題庫與影音資源</li>
-              <li className="flex items-center"><CheckCircle aria-hidden="true" className="w-5 h-5 text-yellow-400 mr-3" /> 智慧學習進度追蹤與弱點分析</li>
-            </ul>
             <a
               href="#"
-              className="inline-block bg-white text-blue-900 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900"
+              className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0"
             >
-              預約登記早鳥通知
+              前往頻道看更多 <ChevronRight aria-hidden="true" size={14} />
             </a>
           </div>
-          <div className="md:w-1/3 flex justify-center">
-            <div className="w-56 h-[26rem] bg-slate-800 rounded-[3rem] border-[10px] border-slate-700 shadow-2xl flex items-center justify-center relative overflow-hidden">
-              <Smartphone aria-hidden="true" className="w-16 h-16 text-slate-600 opacity-40 absolute" />
-              <div className="absolute inset-x-0 top-0 h-6 bg-slate-700 rounded-b-xl mx-12" />
-              <p className="text-center text-slate-400 font-medium z-10 px-4">APP 開發中</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {videos.map((v) => (
+              <a
+                key={v.title}
+                href={v.href}
+                className="group block"
+                aria-label={v.title}
+              >
+                {/* Thumbnail */}
+                <div
+                  className="relative aspect-video mb-4 flex items-center justify-center overflow-hidden"
+                  style={{ background: 'rgba(11,10,63,0.85)' }}
+                >
+                  <div className="dot-grid absolute inset-0 pointer-events-none opacity-60" aria-hidden="true" />
+                  {/* Play button */}
+                  <div
+                    className="relative z-10 w-14 h-14 flex items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110 motion-reduce:group-hover:scale-100"
+                    style={{ background: 'var(--accent)', boxShadow: '0 0 0 8px rgba(232,144,39,0.2)' }}
+                  >
+                    <Play aria-hidden="true" size={22} style={{ color: 'var(--navy)', marginLeft: '2px' }} />
+                  </div>
+                  {/* YouTube badge */}
+                  <span
+                    className="absolute top-3 left-3 flex items-center gap-1.5 text-[10px] font-semibold tracking-wide px-2 py-1"
+                    style={{ background: 'rgba(255,0,0,0.85)', color: '#fff' }}
+                  >
+                    <Youtube aria-hidden="true" size={11} /> YouTube
+                  </span>
+                </div>
+                <h3
+                  className="text-sm font-medium leading-snug transition-colors duration-150 group-hover:text-[#1E56A0] line-clamp-2"
+                  style={{ color: 'var(--navy)' }}
+                >
+                  {v.title}
+                </h3>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 筆記商城 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <div className={inner}>
+          <div className="flex items-end justify-between mb-12 gap-4">
+            <div>
+              <SectionLabel>官方商城</SectionLabel>
+              <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+                精選筆記商品
+              </h2>
+            </div>
+            <div className="hidden sm:flex gap-2 shrink-0">
+              <span
+                className="text-[11px] font-semibold px-3 py-1 tracking-wide"
+                style={{ background: 'var(--accent-dim)', color: 'var(--accent)', border: '1px solid rgba(232,144,39,0.3)' }}
+              >
+                官網專屬購物車
+              </span>
+              <span
+                className="text-[11px] font-semibold px-3 py-1 tracking-wide"
+                style={{ background: 'rgba(15,81,50,0.08)', color: '#0F5132', border: '1px solid rgba(15,81,50,0.2)' }}
+              >
+                支援綠界收款
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {notes.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white flex flex-col"
+                style={{ border: '1px solid var(--border)' }}
+              >
+                {/* Cover */}
+                <div
+                  className="relative flex items-center justify-center"
+                  style={{ aspectRatio: '3/4', background: item.bg, borderBottom: `3px solid ${item.color}` }}
+                >
+                  <span
+                    className="font-display font-bold text-5xl select-none"
+                    style={{ color: item.color, opacity: 0.12 }}
+                    aria-hidden="true"
+                  >
+                    {item.subject[0]}
+                  </span>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+                    <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: item.color, opacity: 0.5 }}>
+                      Note Cover
+                    </span>
+                  </div>
+                  <span
+                    className="absolute top-3 left-3 text-[10px] font-semibold tracking-wide px-2 py-0.5"
+                    style={{ background: item.bg, color: item.color, border: `1px solid ${item.color}`, opacity: 0.9 }}
+                  >
+                    {item.level}
+                  </span>
+                </div>
+                {/* Info */}
+                <div className="p-5 flex flex-col flex-grow">
+                  <span className="text-[11px] font-medium mb-2" style={{ color: item.color }}>{item.subject}</span>
+                  <h3 className="font-bold text-sm leading-snug flex-grow mb-3" style={{ color: 'var(--navy)' }}>
+                    {item.title}
+                  </h3>
+                  <div className="font-display font-bold text-xl mb-4" style={{ color: 'var(--accent)' }}>
+                    {item.price}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 mt-auto">
+                    <Link
+                      href={`/notes/${item.id}`}
+                      className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
+                      style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
+                    >
+                      查看詳情
+                    </Link>
+                    <a
+                      href={item.buyHref}
+                      className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
+                      style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                    >
+                      立即購買
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── APP 預告 ───────────────────────────── */}
+      <section className="py-20 relative overflow-hidden" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div className={`relative ${inner}`}>
+          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            {/* Text */}
+            <div className="md:flex-1">
+              <span
+                className="inline-block text-[11px] font-bold tracking-[0.15em] uppercase px-3 py-1.5 mb-6"
+                style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+              >
+                即將推出 Coming Soon
+              </span>
+              <SectionLabel light>明慧學習 APP</SectionLabel>
+              <h2
+                className="font-display font-bold leading-tight mb-6"
+                style={{ color: '#FFFFFF', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}
+              >
+                筆記數位化
+                <br />
+                <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>隨時隨地高效學習</em>
+              </h2>
+              <p className="text-base leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                我們正致力於將學霸筆記與教材數位化！透過專屬 APP，隨身攜帶教材、重點標記、觀看解題影片，結合強大互動功能。
+              </p>
+              <ul className="space-y-3 mb-10">
+                {appFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-3">
+                    <CheckCircle aria-hidden="true" size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+                    <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#"
+                className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
+              >
+                預約登記早鳥通知
+                <ChevronRight aria-hidden="true" size={16} />
+              </a>
+            </div>
+
+            {/* Phone mockup */}
+            <div className="shrink-0 flex justify-center">
+              <div
+                className="relative flex items-center justify-center overflow-hidden"
+                style={{
+                  width: '180px',
+                  height: '360px',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '32px',
+                }}
+              >
+                <Smartphone aria-hidden="true" size={48} style={{ color: 'rgba(255,255,255,0.15)' }} />
+                <span
+                  className="absolute bottom-8 text-xs tracking-widest uppercase"
+                  style={{ color: 'rgba(255,255,255,0.25)' }}
+                >
+                  APP 開發中
+                </span>
+                {/* Notch */}
+                <div
+                  className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full"
+                  style={{ width: '48px', height: '6px', background: 'rgba(255,255,255,0.1)' }}
+                  aria-hidden="true"
+                />
+                {/* Corner accents */}
+                <span className="absolute top-0 left-0 w-8 h-8" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.4, borderRadius: '32px 0 0 0' }} aria-hidden="true" />
+                <span className="absolute bottom-0 right-0 w-8 h-8" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.4, borderRadius: '0 0 32px 0' }} aria-hidden="true" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }
