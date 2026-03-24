@@ -383,17 +383,12 @@ export default function ExplorationPage() {
             名額有限，及早卡位
           </h2>
           <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
-            每屆營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。填表登記後我們將第一時間通知你開放報名。
+            每屆營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。加入 LINE 官方帳號，第一時間接收開放報名通知。
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
-              前往報名表單
-              <ChevronRight aria-hidden="true" size={16} />
-            </a>
-            <a href="#" className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide transition-colors duration-150" style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}>
-              加入 LINE 接收通知
-            </a>
-          </div>
+          <a href="#" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+            加入 LINE 諮詢
+            <ChevronRight aria-hidden="true" size={16} />
+          </a>
         </div>
       </section>
 
