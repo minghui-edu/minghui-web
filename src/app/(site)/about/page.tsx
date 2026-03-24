@@ -1,113 +1,278 @@
 import type { Metadata } from 'next';
-import { CheckCircle, History, Star, Users, Facebook, Instagram, Youtube, MessageCircle, GraduationCap } from 'lucide-react';
+import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '關於我們',
-  description: '了解明慧教育的創辦理念、團隊背景與10年發展歷程。',
+  description: '了解明慧教育的創辦理念、團隊背景與12年發展歷程。',
 };
 
-function SocialButton({ icon, label, color }: { icon: React.ReactNode; label: string; color: string }) {
+/* ─── Shared layout token ───────────────────── */
+const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
+
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
-    <a
-      href="#"
-      className={`${color} text-white flex items-center px-4 py-2 rounded-full hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-50`}
+    <p
+      className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
+      style={{ color: light ? 'var(--accent-light)' : 'var(--accent)' }}
     >
-      <span aria-hidden="true" className="mr-2 w-5 h-5 flex items-center justify-center">{icon}</span>
-      <span className="font-medium text-sm">{label}</span>
-    </a>
+      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
+      {children}
+    </p>
   );
 }
 
+/* ─── Data ──────────────────────────────────── */
+
+const highlights = [
+  '台大優質團隊背景，深耕補教教育超過 12 年',
+  '活動服務超過 10,000 位學生，成果有目共睹',
+  '120+ 位學生錄取世界前 100 名校',
+  '專注於實作與啟發的沉浸式教學理念',
+];
+
+const timeline = [
+  {
+    period: '創立初期',
+    year: '2013',
+    desc: '明慧教育團隊正式成立，舉辦第一屆台大科系探索營隊，首屆即吸引百位學生報名，口碑迅速擴散。',
+  },
+  {
+    period: '深耕期',
+    year: '2016',
+    desc: '擴展單一科系深度講座與專題實作課程，協助學生豐富學習歷程，合作學系突破 10 個。',
+  },
+  {
+    period: '發展期',
+    year: '2019',
+    desc: '推出「家教媒合平台」與「海外名校遊學」，打造升學一條龍服務，受益學生突破 5,000 人。',
+  },
+  {
+    period: '至今',
+    year: '2025',
+    desc: '持續舉辦超過 20 屆探索營隊，服務超過 10,000 位學生，協助 120+ 位學生錄取世界前 100 名校，持續拓展國際合作。',
+  },
+];
+
+const socials = [
+  { href: '#', label: '明慧教育 Facebook 粉絲專頁', icon: Facebook, handle: '營隊 Facebook' },
+  { href: '#', label: '明慧教育 Instagram 官方帳號', icon: Instagram, handle: '官方 Instagram' },
+  { href: '#', label: '明慧教育 LINE 官方帳號', icon: MessageCircle, handle: 'LINE 官方帳號' },
+  { href: '#', label: '明慧教育 YouTube 頻道', icon: Youtube, handle: 'YouTube 頻道' },
+];
+
+/* ─── Page ──────────────────────────────────── */
+
 export default function AboutPage() {
   return (
-    <div className="max-w-5xl mx-auto py-12 px-4">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-slate-800 mb-4">關於明慧</h1>
-        <div className="w-24 h-1 bg-yellow-400 mx-auto rounded-full" />
-      </div>
+    <div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-16">
-        <div>
-          <div className="bg-slate-200 aspect-video md:aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden shadow-inner mb-6">
-            <span className="text-slate-400 font-medium flex flex-col items-center">
-              <Users aria-hidden="true" className="w-12 h-12 mb-2 opacity-50" />
-              [創辦人及團隊照片]
-            </span>
-          </div>
-          <h2 className="text-2xl font-bold mb-4 text-blue-900">創辦人經歷與宗旨</h2>
-          <p className="text-slate-600 leading-relaxed mb-6">
-            明慧教育由台大校友創立。我們深知許多學生在求學階段對未來感到迷惘，因此致力於打造一個資源共享的平台。
-            我們的宗旨是透過真實的體驗與專業的引導，打破資訊落差，讓每一位學生都能勇敢追尋自己的夢想。
+      {/* ── Hero ──────────────────────────────── */}
+      <section
+        className="relative overflow-hidden py-28"
+        style={{ background: 'var(--navy)' }}
+      >
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        {/* Subtle accent glow */}
+        <div
+          className="absolute top-0 right-0 pointer-events-none"
+          style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
+          aria-hidden="true"
+        />
+        <div className={`relative ${inner}`}>
+          <SectionLabel light>關於我們</SectionLabel>
+          <h1
+            className="font-display font-bold leading-[1.1] mb-6"
+            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
+          >
+            打破資訊落差
+            <br />
+            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>讓夢想不再遙不可及</em>
+          </h1>
+          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+            明慧教育由台大校友創立，深知許多學生在求學階段對未來感到迷惘。
+            我們透過真實的體驗與專業的引導，協助每一位學生找到屬於自己的方向。
           </p>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <CheckCircle aria-hidden="true" className="w-5 h-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-              <span className="text-slate-700">台大優質團隊背景</span>
-            </li>
-            <li className="flex items-start">
-              <CheckCircle aria-hidden="true" className="w-5 h-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-              <span className="text-slate-700">超過 10 年教育創新經驗</span>
-            </li>
-            <li className="flex items-start">
-              <CheckCircle aria-hidden="true" className="w-5 h-5 text-green-500 mr-2 shrink-0 mt-0.5" />
-              <span className="text-slate-700">專注於實作與啟發的教學理念</span>
-            </li>
-          </ul>
         </div>
+      </section>
 
-        {/* 里程碑 Timeline */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-          <div className="flex items-center mb-6">
-            <History aria-hidden="true" className="w-6 h-6 text-blue-600 mr-2" />
-            <h2 className="text-2xl font-bold text-slate-800">我們的10年里程碑</h2>
-          </div>
-          <div className="space-y-6">
-            {[
-              {
-                label: '至今',
-                desc: '籌備全新學習 APP，舉辦超過多屆探索營隊，影響數千名學子。',
-                highlight: true,
-              },
-              {
-                label: '發展期',
-                desc: '推出「家教媒合平台」與「海外名校遊學」，打造升學一條龍服務。',
-                highlight: false,
-              },
-              {
-                label: '深耕期',
-                desc: '擴展單一科系深度講座與專題實作，協助學生豐富學習歷程。',
-                highlight: false,
-              },
-              {
-                label: '創立初期',
-                desc: '明慧教育團隊正式成立，舉辦第一屆台大科系探索營隊。',
-                highlight: false,
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${item.highlight ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-400'}`}>
-                  {item.highlight ? <Star aria-hidden="true" className="w-5 h-5" /> : <div className="w-3 h-3 bg-slate-400 rounded-full" />}
+      {/* ── 創辦理念 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+            {/* Left: text */}
+            <div>
+              <SectionLabel>創辦理念</SectionLabel>
+              <h2 className="font-display font-bold text-3xl md:text-4xl mb-6" style={{ color: 'var(--navy)' }}>
+                創辦人經歷與宗旨
+              </h2>
+              <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--muted)' }}>
+                明慧教育由台大校友創立，我們深知許多學生在求學階段對未來感到迷惘。
+                因此致力於打造一個資源共享的平台，透過真實的體驗與專業的引導，打破資訊落差，
+                讓每一位學生都能勇敢追尋自己的夢想。
+              </p>
+              <ul className="space-y-4">
+                {highlights.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <CheckCircle
+                      aria-hidden="true"
+                      size={18}
+                      className="shrink-0 mt-0.5"
+                      style={{ color: 'var(--accent)' }}
+                    />
+                    <span className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right: photo placeholder
+                ── 換上正式照片時，替換為：
+                   <Image src="/team-photo.jpg" alt="明慧教育團隊" fill className="object-cover" />
+                   並在外層 div 加上 style={{ position: 'relative' }}
+            */}
+            <div>
+              <div
+                className="relative overflow-hidden"
+                style={{
+                  aspectRatio: '4 / 3',
+                  background: 'rgba(11,10,63,0.05)',
+                  border: '1px solid var(--border)',
+                }}
+              >
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ color: 'rgba(11,10,63,0.18)' }}>
+                  <Users aria-hidden="true" size={36} />
+                  <span className="text-xs tracking-widest uppercase">Team Photo</span>
                 </div>
-                <div className={`flex-1 p-4 rounded-xl border ${item.highlight ? 'bg-blue-50 border-blue-100' : 'bg-white border-slate-100'}`}>
-                  <h3 className={`font-bold mb-1 ${item.highlight ? 'text-blue-900 text-lg' : 'text-slate-800'}`}>{item.label}</h3>
-                  <p className="text-slate-600 text-sm">{item.desc}</p>
-                </div>
+                <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
+                <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
               </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── 發展歷程 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <div className={inner}>
+          <div className="text-center mb-14">
+            <SectionLabel>品牌故事</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+              我們的發展歷程
+            </h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="relative">
+              {/* Vertical connector line */}
+              <div
+                className="absolute top-5 bottom-5 pointer-events-none"
+                style={{ left: '19px', width: '1px', background: 'var(--border)' }}
+                aria-hidden="true"
+              />
+
+              <div className="space-y-6">
+                {timeline.map((item, idx) => {
+                  const isCurrent = idx === timeline.length - 1;
+                  return (
+                    <div key={idx} className="flex gap-6">
+                      {/* Dot */}
+                      <div className="relative shrink-0 z-10">
+                        <div
+                          className="w-10 h-10 flex items-center justify-center font-bold"
+                          style={{
+                            background: isCurrent ? 'var(--accent)' : 'var(--surface)',
+                            border: `2px solid ${isCurrent ? 'var(--accent)' : 'var(--border)'}`,
+                            color: isCurrent ? 'var(--navy)' : 'var(--muted)',
+                            fontSize: '10px',
+                          }}
+                        >
+                          {item.year.slice(2)}
+                        </div>
+                      </div>
+
+                      {/* Card */}
+                      <div
+                        className="flex-1 p-6"
+                        style={{
+                          border: '1px solid var(--border)',
+                          borderLeft: isCurrent ? '4px solid var(--accent)' : '1px solid var(--border)',
+                          background: isCurrent ? 'rgba(232,144,39,0.04)' : 'transparent',
+                        }}
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="font-display font-bold text-base" style={{ color: 'var(--navy)' }}>
+                            {item.period}
+                          </h3>
+                          <span
+                            className="text-[11px] font-medium px-2 py-0.5 tracking-wide"
+                            style={{ background: 'var(--border-light)', color: 'var(--muted)' }}
+                          >
+                            {item.year}
+                          </span>
+                        </div>
+                        <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 社群追蹤 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--navy)' }}>
+        <div className={`${inner} text-center`}>
+          <SectionLabel light>社群媒體</SectionLabel>
+          <h2 className="font-display font-bold text-2xl md:text-3xl mb-4" style={{ color: '#FFFFFF' }}>
+            追蹤我們，掌握最新動態
+          </h2>
+          <p className="text-sm mb-12 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            營隊開放報名資訊、升學乾貨、學員故事——第一時間在社群發布
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {socials.map(({ href, label, icon: Icon, handle }) => (
+              <a
+                key={handle}
+                href={href}
+                aria-label={label}
+                className="footer-social flex items-center gap-3 px-6 py-3"
+              >
+                <Icon aria-hidden="true" size={16} />
+                <span className="text-sm font-medium">{handle}</span>
+              </a>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="bg-blue-50 rounded-2xl p-8 text-center">
-        <h3 className="text-xl font-bold mb-6 text-slate-800">追蹤我們的社群，獲取最新教育資訊</h3>
-        <div className="flex flex-wrap justify-center gap-4">
-          <SocialButton icon={<Facebook size={18} />} label="營隊 FB" color="bg-[#1877F2]" />
-          <SocialButton icon={<Instagram size={18} />} label="官方 IG" color="bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888]" />
-          <SocialButton icon={<MessageCircle size={18} />} label="LINE 官方" color="bg-[#00B900]" />
-          <SocialButton icon={<Youtube size={18} />} label="YouTube" color="bg-[#FF0000]" />
-          <SocialButton icon={<GraduationCap size={18} />} label="Go to NTU" color="bg-blue-800" />
+      {/* ── 品牌 quote strip ───────────────────── */}
+      <section className="py-16" style={{ background: 'var(--cream)' }}>
+        <div className={`${inner} text-center`}>
+          <p
+            className="font-display italic text-xl md:text-2xl leading-relaxed mb-6"
+            style={{ color: 'var(--navy)', opacity: 0.72 }}
+          >
+            &ldquo;打破資訊落差，讓每一位學生都能
+            <span style={{ color: 'var(--accent)' }}>勇敢追尋自己的夢想。</span>&rdquo;
+          </p>
+          <div
+            className="flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase"
+            style={{ color: 'rgba(232,144,39,0.55)' }}
+          >
+            <span className="w-8 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
+            明慧教育創辦理念
+            <span className="w-8 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
+          </div>
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }
