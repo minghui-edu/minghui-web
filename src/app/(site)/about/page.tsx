@@ -30,26 +30,50 @@ const highlights = [
   '專注於實作與啟發的沉浸式教學理念',
 ];
 
-const timeline = [
+const timeline: {
+  period: string;
+  year: string;
+  desc?: string;
+  items?: string[];
+}[] = [
   {
-    period: '創立初期',
-    year: '2013',
-    desc: '明慧教育團隊正式成立，舉辦第一屆台大科系探索營隊，首屆即吸引百位學生報名，口碑迅速擴散。',
+    period: '投身補教',
+    year: '2014',
+    desc: '創辦人賴森奎投入補教界，任教台北南陽街知名補習班，開始深耕教育事業。',
   },
   {
-    period: '深耕期',
-    year: '2016',
-    desc: '擴展單一科系深度講座與專題實作課程，協助學生豐富學習歷程，合作學系突破 10 個。',
+    period: '桃李遍地',
+    year: '2018',
+    desc: '所教家教學生達數百名，多人錄取國內外頂尖名校，教學成果備受肯定。',
   },
   {
-    period: '發展期',
-    year: '2019',
-    desc: '推出「家教媒合平台」與「海外名校遊學」，打造升學一條龍服務，受益學生突破 5,000 人。',
+    period: '開拓媒體',
+    year: '2020',
+    desc: '成立 YouTube 頻道「Go To NTU 奎哥我要上台大」，將升學知識化為公開免費資源。',
   },
   {
-    period: '至今',
+    period: '媒體採訪',
+    year: '2021',
+    desc: '因家教經驗豐富受邀各大媒體採訪，包含民視、年代、中廣、今周刊、蘋果日報等。',
+  },
+  {
+    period: 'DELC 誕生',
+    year: '2022',
+    desc: '創立 DELC 科系探索領袖營，帶領學生實際走訪各大學科系，突破升學資訊落差。',
+  },
+  {
+    period: '廣傳教育',
+    year: '2023',
+    desc: '教育文章廣獲各大媒體轉發，包含 1111大學網等平台，持續擴大社會影響力。',
+  },
+  {
+    period: '明慧啟航',
     year: '2025',
-    desc: '持續舉辦超過 20 屆探索營隊，服務超過 10,000 位學生，協助 120+ 位學生錄取世界前 100 名校，持續拓展國際合作。',
+    items: [
+      '正式成立明慧教育有限公司',
+      '獲得台北市政府青年局補助指導',
+      '與東京大學、慶應大學台灣留學生會建立合作關係',
+    ],
   },
 ];
 
@@ -284,9 +308,21 @@ export default function AboutPage() {
                             {item.year}
                           </span>
                         </div>
-                        <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
-                          {item.desc}
-                        </p>
+                        {item.desc && (
+                          <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                            {item.desc}
+                          </p>
+                        )}
+                        {item.items && (
+                          <ul className="space-y-1.5">
+                            {item.items.map((point) => (
+                              <li key={point} className="flex items-start gap-2 text-sm" style={{ color: 'var(--muted)' }}>
+                                <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ background: 'var(--accent)' }} aria-hidden="true" />
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
                   );
