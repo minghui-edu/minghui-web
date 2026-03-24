@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { ChevronRight, ShieldCheck, Banknote, Award, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronRight, ShieldCheck, Banknote, Award } from 'lucide-react';
+import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 
 /* ─── Data ──────────────────────────────────── */
 
@@ -91,27 +93,6 @@ const featuredTutors = [
   },
 ];
 
-const testimonials = [
-  {
-    quote: '參加明慧的科系探索營，讓我第一次真正了解電機系的日常。豐富的實作課程大大充實了我的學習歷程，最後順利考上了心目中的科系。',
-    name: '王同學',
-    context: '台大電機系 · 探索營學員',
-    year: '2023',
-  },
-  {
-    quote: '透過明慧找到的家教老師，不只幫我準備完整的留學文件，更讓我重新認識自己的研究方向。最終拿到 CMU 電腦科學碩士的入學許可。',
-    name: '陳同學',
-    context: 'CMU 電腦科學碩士 · 家教媒合學員',
-    year: '2023',
-  },
-  {
-    quote: '東京遊學行程讓我提前感受留學生活，學長姐分享的申請秘訣完全是網路上找不到的乾貨，讓我下定決心申請早稻田大學。',
-    name: '林同學',
-    context: '高中三年級 · 海外遊學學員',
-    year: '2024',
-  },
-];
-
 const partners = [
   '台北市政府青年局',
   '東京大學台灣留學生會',
@@ -185,41 +166,79 @@ export default function HomePage() {
         style={{ background: 'var(--navy)', minHeight: '88vh', display: 'flex', alignItems: 'center' }}
       >
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        <div
-          className="absolute right-0 top-0 bottom-0 pointer-events-none"
-          style={{ width: '40vw', background: 'linear-gradient(135deg, transparent 60%, rgba(232,144,39,0.04) 100%)' }}
-          aria-hidden="true"
-        />
+
         <div className={`relative ${inner} py-24 w-full`}>
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="w-8 h-px" style={{ background: 'var(--accent)' }} aria-hidden="true" />
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: 'var(--accent)' }}>
-                台灣頂尖教育顧問平台
-              </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left: text */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <span className="w-8 h-px" style={{ background: 'var(--accent)' }} aria-hidden="true" />
+                <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: 'var(--accent)' }}>
+                  台灣頂尖教育顧問平台
+                </span>
+              </div>
+              <h1
+                className="font-display font-bold leading-[1.1] mb-6"
+                style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6vw, 4.5rem)' }}
+              >
+                啟發潛能
+                <br />
+                <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>探索無限未來</em>
+              </h1>
+              <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+              <p className="text-lg leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                我們提供最專業的科系探索營隊、海外名校參訪、頂尖家教媒合與學霸筆記，為您的升學之路保駕護航。
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/exploration" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                  探索主打營隊
+                  <ChevronRight aria-hidden="true" size={16} />
+                </Link>
+                <Link href="/tutor" className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                  尋找專業家教
+                </Link>
+              </div>
             </div>
-            <h1
-              className="font-display font-bold leading-[1.1] mb-6"
-              style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6vw, 4.5rem)' }}
-            >
-              啟發潛能
-              <br />
-              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>探索無限未來</em>
-            </h1>
-            <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-            <p className="text-lg leading-relaxed mb-10 max-w-xl" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              我們提供最專業的科系探索營隊、海外名校參訪、頂尖家教媒合與學霸筆記，為您的升學之路保駕護航。
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/exploration" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
-                探索主打營隊
-                <ChevronRight aria-hidden="true" size={16} />
-              </Link>
-              <Link href="/tutor" className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
-                尋找專業家教
-              </Link>
+
+            {/* Right: hero image
+                ── 換上正式照片時，把下方佔位 div 換成：
+                   <Image src="/hero-photo.jpg" alt="明慧教育師生互動" fill className="object-cover" />
+                   並把外層 div 加上 style={{ position: 'relative' }}
+            */}
+            <div className="hidden lg:block">
+              <div
+                className="relative overflow-hidden"
+                style={{
+                  aspectRatio: '4 / 5',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                }}
+              >
+                {/* ── 照片佔位 ── 取得正式照片後替換 ── */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21,15 16,10 5,21" />
+                  </svg>
+                  <span className="text-xs tracking-widest uppercase">Hero Photo</span>
+                </div>
+                {/* Gold accent corners */}
+                <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
+                <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
+              </div>
+              {/* Offset gold block behind image */}
+              <div
+                className="absolute -bottom-4 -right-4 w-2/3 h-2/3 pointer-events-none -z-10"
+                style={{ background: 'rgba(232,144,39,0.06)' }}
+                aria-hidden="true"
+              />
             </div>
+
           </div>
+
+          {/* Stats row */}
           <div className="mt-20 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
             {stats.map(({ value, unit, label }) => (
               <div key={label} className="py-6 pr-8">
@@ -343,7 +362,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── A: 學生口碑 ───────────────────────── */}
+      {/* ── A: 學員心聲 ───────────────────────── */}
       <section className="py-20" style={{ background: 'var(--navy)' }}>
         <div className={inner}>
           <div className="text-center mb-14">
@@ -352,28 +371,7 @@ export default function HomePage() {
               他們的故事
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                className="p-8 flex flex-col"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderTop: '3px solid var(--accent)',
-                }}
-              >
-                <Quote aria-hidden="true" size={28} className="mb-4 shrink-0" style={{ color: 'var(--accent)', opacity: 0.6 }} />
-                <p className="text-sm leading-relaxed flex-grow mb-6 font-display italic" style={{ color: 'rgba(255,255,255,0.8)' }}>
-                  {t.quote}
-                </p>
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1rem' }}>
-                  <p className="font-semibold text-sm" style={{ color: 'var(--accent-light)' }}>{t.name}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{t.context} · {t.year}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialsCarousel />
         </div>
       </section>
 
