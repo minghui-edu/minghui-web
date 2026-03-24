@@ -39,10 +39,10 @@ const services = [
 ];
 
 const stats = [
-  { value: '10', unit: '年', label: '教育經驗' },
-  { value: '50', unit: '+', label: '舉辦梯次' },
-  { value: '2,000', unit: '+', label: '受益學生' },
-  { value: '15', unit: '+', label: '合作學系' },
+  { value: '12', unit: '年', label: '補教教育經驗' },
+  { value: '20', unit: '+', label: '營隊舉辦梯次' },
+  { value: '10,000', unit: '+', label: '活動受益學生' },
+  { value: '120', unit: '+', label: '錄取世界前100名校' },
 ];
 
 const whyUs = [
@@ -62,8 +62,8 @@ const whyUs = [
   },
   {
     icon: Award,
-    title: '10 年深耕教育',
-    desc: '自創立以來專注台灣教育領域超過十年，服務超過 2,000 位學生，積累豐富的升學輔導與活動策劃經驗。',
+    title: '12 年深耕教育',
+    desc: '自創立以來專注台灣教育領域超過十二年，服務超過 10,000 位學生，積累豐富的升學輔導與活動策劃經驗。',
     color: '#1E56A0',
     bg: 'rgba(30,86,160,0.06)',
   },
