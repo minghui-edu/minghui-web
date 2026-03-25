@@ -16,12 +16,15 @@ const TUTOR_QUERY = `*[_type == "tutor" && slug.current == $id][0]{
   title,
   photo,
   tags,
+  tier,
   intro,
   exp,
   philosophy
 }`;
 
 const ALL_SLUGS_QUERY = `*[_type == "tutor" && defined(slug.current)]{ "id": slug.current }`;
+
+type TutorTier = 'A' | 'S' | 'SS';
 
 type Tutor = {
   name: string;
@@ -30,9 +33,16 @@ type Tutor = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   photo?: any;
   tags?: string[];
+  tier?: TutorTier;
   intro?: string;
   exp?: string;
   philosophy?: string;
+};
+
+const tierConfig: Record<TutorTier, { label: string; bg: string; color: string; border: string }> = {
+  SS: { label: 'SS 級', bg: 'rgba(232,144,39,0.15)', color: 'var(--accent-light)', border: 'rgba(232,144,39,0.45)' },
+  S:  { label: 'S 級',  bg: 'rgba(255,255,255,0.1)',  color: 'rgba(255,255,255,0.75)', border: 'rgba(255,255,255,0.25)' },
+  A:  { label: 'A 級',  bg: 'rgba(30,86,160,0.2)',    color: '#93B4D8',               border: 'rgba(30,86,160,0.4)' },
 };
 
 const sections = [
@@ -108,12 +118,26 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
                 </div>
               )}
               <div>
-                <h1
-                  className="font-display font-bold leading-tight mb-1"
-                  style={{ color: '#FFFFFF', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)' }}
-                >
-                  {tutor.name}
-                </h1>
+                <div className="flex items-center gap-3 mb-1 flex-wrap">
+                  <h1
+                    className="font-display font-bold leading-tight"
+                    style={{ color: '#FFFFFF', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)' }}
+                  >
+                    {tutor.name}
+                  </h1>
+                  {tutor.tier && tierConfig[tutor.tier] && (
+                    <span
+                      className="text-xs font-display font-bold px-2.5 py-1 shrink-0"
+                      style={{
+                        background: tierConfig[tutor.tier].bg,
+                        color: tierConfig[tutor.tier].color,
+                        border: `1px solid ${tierConfig[tutor.tier].border}`,
+                      }}
+                    >
+                      {tierConfig[tutor.tier].label}
+                    </span>
+                  )}
+                </div>
                 {tutor.title && (
                   <p className="text-base font-medium mb-4" style={{ color: 'var(--accent-light)' }}>
                     {tutor.title}

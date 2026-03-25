@@ -14,9 +14,25 @@ export const tutorSchema = defineType({
     defineField({ name: 'intro', title: '簡介與教學方式', type: 'text' }),
     defineField({ name: 'exp', title: '經歷與教學成果', type: 'text' }),
     defineField({ name: 'philosophy', title: '特色與教學理念', type: 'text' }),
+    defineField({
+      name: 'tier',
+      title: '師資等級',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'A 級 — 至少 1 年教學經驗，時薪 900–1200', value: 'A' },
+          { title: 'S 級 — 至少 5 年教學經驗，時薪 1200–1500', value: 'S' },
+          { title: 'SS 級 — 自建教材 + 5000 小時以上，時薪 1500 起', value: 'SS' },
+        ],
+        layout: 'radio',
+      },
+    }),
     defineField({ name: 'isActive', title: '顯示於網站', type: 'boolean', initialValue: true }),
   ],
   preview: {
-    select: { title: 'name', subtitle: 'title', media: 'photo' },
+    select: { title: 'name', subtitle: 'tier', media: 'photo' },
+    prepare({ title, subtitle }) {
+      return { title, subtitle: subtitle ? `${subtitle} 級` : '未設定等級' };
+    },
   },
 });

@@ -50,14 +50,17 @@ const steps = [
   { num: '04', icon: Handshake,    title: '媒合成功收費', desc: '向老師收取媒合費後，提供雙方聯絡方式，開始試教。' },
 ];
 
-const TUTORS_QUERY = `*[_type == "tutor" && isActive == true] | order(_createdAt asc) {
+const TUTORS_QUERY = `*[_type == "tutor" && isActive == true] | order(tier desc, _createdAt asc) {
   name,
   "slug": slug.current,
   title,
   photo,
   tags,
-  shortExp
+  shortExp,
+  tier
 }`;
+
+type TutorTier = 'A' | 'S' | 'SS';
 
 type SanityTutor = {
   name: string;
@@ -67,7 +70,38 @@ type SanityTutor = {
   photo?: any;
   tags?: string[];
   shortExp?: string;
+  tier?: TutorTier;
 };
+
+const tierConfig: Record<TutorTier, { label: string; bg: string; color: string; border: string }> = {
+  SS: { label: 'SS 級', bg: 'rgba(232,144,39,0.12)', color: 'var(--accent)',  border: 'rgba(232,144,39,0.4)' },
+  S:  { label: 'S 級',  bg: 'rgba(148,163,184,0.12)', color: '#94A3B8',       border: 'rgba(148,163,184,0.4)' },
+  A:  { label: 'A 級',  bg: 'rgba(30,86,160,0.1)',    color: '#1E56A0',        border: 'rgba(30,86,160,0.3)' },
+};
+
+const tiers: { key: TutorTier; name: string; exp: string; rate: string; desc: string }[] = [
+  {
+    key: 'A',
+    name: 'A 級',
+    exp: '至少 1 年教學經驗',
+    rate: 'NT$900 – 1,200 / 時',
+    desc: '具備紮實學科基礎與一年以上實際教學經歷，通過官方學歷審核。',
+  },
+  {
+    key: 'S',
+    name: 'S 級',
+    exp: '至少 5 年教學經驗',
+    rate: 'NT$1,200 – 1,500 / 時',
+    desc: '累積豐富教學實戰經驗，具備完整的升學輔導方法論與多年成功案例。',
+  },
+  {
+    key: 'SS',
+    name: 'SS 級',
+    exp: '5,000 小時以上 / 教學成果卓越',
+    rate: 'NT$1,500 起 / 時',
+    desc: '已建立自己的一套專屬教材，教學時數或成果達到業界頂尖水準。',
+  },
+];
 
 export default async function TutorPage() {
   const tutors: SanityTutor[] = await sanityClient.fetch(
@@ -174,8 +208,50 @@ export default async function TutorPage() {
         </div>
       </section>
 
-      {/* ── 師資列表 ───────────────────────────── */}
+      {/* ── 師資分級說明 ───────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={inner}>
+          <div className="text-center mb-12">
+            <SectionLabel>透明收費</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
+              師資分級制度
+            </h2>
+            <p className="text-sm max-w-xl mx-auto" style={{ color: 'var(--muted)' }}>
+              所有老師依教學年資與成果分為三個等級，時薪範圍公開透明，讓你在媒合前就能掌握預算。
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {tiers.map(({ key, name, exp, rate, desc }) => {
+              const tc = tierConfig[key];
+              return (
+                <div
+                  key={key}
+                  className="p-7 bg-white flex flex-col gap-4"
+                  style={{ border: '1px solid var(--border)', borderTop: `3px solid ${tc.color}` }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="text-sm font-display font-bold px-3 py-1"
+                      style={{ background: tc.bg, color: tc.color, border: `1px solid ${tc.border}` }}
+                    >
+                      {name}
+                    </span>
+                    <span className="text-xs font-semibold" style={{ color: tc.color }}>{exp}</span>
+                  </div>
+                  <div>
+                    <div className="text-xs font-semibold tracking-wide mb-1" style={{ color: 'var(--muted)' }}>時薪範圍</div>
+                    <div className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>{rate}</div>
+                  </div>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 師資列表 ───────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
@@ -197,9 +273,21 @@ export default async function TutorPage() {
                 <Link
                   key={tutor.slug}
                   href={`/tutor/${tutor.slug}`}
-                  className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
+                  className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg relative"
                   style={{ border: '1px solid var(--border)' }}
                 >
+                  {tutor.tier && tierConfig[tutor.tier] && (
+                    <span
+                      className="absolute top-4 right-4 text-[11px] font-display font-bold px-2 py-0.5"
+                      style={{
+                        background: tierConfig[tutor.tier].bg,
+                        color: tierConfig[tutor.tier].color,
+                        border: `1px solid ${tierConfig[tutor.tier].border}`,
+                      }}
+                    >
+                      {tierConfig[tutor.tier].label}
+                    </span>
+                  )}
                   <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
                     {photoUrl ? (
                       <Image
