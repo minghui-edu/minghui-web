@@ -38,6 +38,7 @@ type SanityNote = {
   subject?: string;
   level?: string;
   price?: number;
+  purchaseUrl?: string;
 };
 
 /* ─── Data ──────────────────────────────────── */
@@ -59,7 +60,7 @@ const appFeatures = [
 export default async function NotesPage() {
   const notes: SanityNote[] = await sanityClient.fetch(
     `*[_type == "note" && isAvailable == true] | order(_createdAt desc) {
-      _id, title, slug, cover, subject, level, price
+      _id, title, slug, cover, subject, level, price, purchaseUrl
     }`
   );
 
@@ -142,11 +143,11 @@ export default async function NotesPage() {
                   {/* Cover */}
                   <div
                     className="relative overflow-hidden"
-                    style={{ aspectRatio: '3/4', background: 'rgba(11,10,63,0.05)', borderBottom: '3px solid var(--accent)' }}
+                    style={{ aspectRatio: '1/1', background: 'rgba(11,10,63,0.05)', borderBottom: '3px solid var(--accent)' }}
                   >
                     {item.cover ? (
                       <Image
-                        src={urlFor(item.cover).width(300).height(400).url()}
+                        src={urlFor(item.cover).width(400).height(400).fit('crop').url()}
                         alt={item.title}
                         fill
                         className="object-cover"
@@ -187,14 +188,27 @@ export default async function NotesPage() {
                       >
                         查看詳情
                       </Link>
-                      <Link
-                        href={`/notes/${item.slug.current}`}
-                        className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
-                        style={{ background: 'var(--accent)', color: 'var(--navy)' }}
-                      >
-                        <ShoppingCart aria-hidden="true" size={12} />
-                        立即購買
-                      </Link>
+                      {item.purchaseUrl ? (
+                        <a
+                          href={item.purchaseUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
+                          style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                        >
+                          <ShoppingCart aria-hidden="true" size={12} />
+                          立即購買
+                        </a>
+                      ) : (
+                        <Link
+                          href={`/notes/${item.slug.current}`}
+                          className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
+                          style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                        >
+                          <ShoppingCart aria-hidden="true" size={12} />
+                          立即購買
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

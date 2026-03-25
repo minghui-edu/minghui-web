@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ShoppingCart, BookOpen, List, Package } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, BookOpen, List, Package, Images } from 'lucide-react';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
 
@@ -28,6 +28,8 @@ type SanityNote = {
   includes?: string[];
   tags?: string[];
   purchaseUrl?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  previewImages?: any[];
 };
 
 /* ─── Static params ─────────────────────────── */
@@ -60,7 +62,7 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
   const note: SanityNote | null = await sanityClient.fetch(
     `*[_type == "note" && slug.current == $slug][0]{
       _id, title, slug, cover, subject, level, author, pages,
-      price, description, contents, includes, tags, purchaseUrl
+      price, description, contents, includes, tags, purchaseUrl, previewImages
     }`,
     { slug: id }
   );
@@ -242,6 +244,38 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                     </li>
                   ))}
                 </ul>
+              </div>
+            )}
+
+            {/* 預覽圖片 */}
+            {note.previewImages && note.previewImages.length > 0 && (
+              <div
+                className="p-8"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent)' }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: 'rgba(232,144,39,0.08)' }}>
+                    <Images aria-hidden="true" size={18} style={{ color: 'var(--accent)' }} />
+                  </div>
+                  <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>筆記預覽</h2>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {note.previewImages.map((img, idx) => (
+                    <div
+                      key={idx}
+                      className="relative overflow-hidden"
+                      style={{ aspectRatio: '3/4', background: 'rgba(11,10,63,0.04)', border: '1px solid var(--border)' }}
+                    >
+                      <Image
+                        src={urlFor(img).width(360).height(480).fit('clip').url()}
+                        alt={`筆記預覽 ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 

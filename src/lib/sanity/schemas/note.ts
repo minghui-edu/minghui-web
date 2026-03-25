@@ -35,6 +35,13 @@ export const noteSchema = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({ name: 'purchaseUrl',  title: '購買連結（綠界等）', type: 'url' }),
+    defineField({
+      name: 'previewImages',
+      title: '筆記預覽圖片（最多 10 張）',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      validation: (Rule) => Rule.max(10),
+    }),
     defineField({ name: 'isAvailable', title: '上架中',       type: 'boolean', initialValue: true }),
   ],
   preview: {
