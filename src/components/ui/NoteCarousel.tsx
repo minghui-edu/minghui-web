@@ -8,6 +8,21 @@ type CarouselImage = { src: string; alt: string };
 
 type Props = { images: CarouselImage[] };
 
+/* Shared button style for overlay controls */
+const ctrlBase: React.CSSProperties = {
+  background: 'rgba(0,0,0,0.4)',
+  color: '#fff',
+  touchAction: 'manipulation',
+  WebkitTapHighlightColor: 'transparent',
+};
+
+const lbCtrlBase: React.CSSProperties = {
+  background: 'rgba(255,255,255,0.1)',
+  color: '#fff',
+  touchAction: 'manipulation',
+  WebkitTapHighlightColor: 'transparent',
+};
+
 export default function NoteCarousel({ images }: Props) {
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -50,21 +65,27 @@ export default function NoteCarousel({ images }: Props) {
     <>
       {/* ── Carousel ───────────────────────────── */}
       <div className="select-none">
-        {/* Main image */}
-        <div
-          className="relative overflow-hidden cursor-zoom-in"
-          style={{ aspectRatio: '1/1', background: 'rgba(11,10,63,0.04)', border: '1px solid var(--border)' }}
+        {/* Main image — use <button> not <div role="button"> */}
+        <button
+          type="button"
+          className="relative w-full overflow-hidden cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          style={{
+            aspectRatio: '1/1',
+            background: 'rgba(11,10,63,0.04)',
+            border: '1px solid var(--border)',
+            touchAction: 'manipulation',
+            WebkitTapHighlightColor: 'transparent',
+            outlineColor: 'var(--accent)',
+          }}
           onClick={() => setLightbox(current)}
-          role="button"
-          tabIndex={0}
-          aria-label="點擊放大"
-          onKeyDown={(e) => e.key === 'Enter' && setLightbox(current)}
+          aria-label={`查看第 ${current + 1} 張圖片（點擊放大）`}
         >
           <Image
             src={images[current].src}
             alt={images[current].alt}
             fill
-            className="object-contain transition-opacity duration-200"
+            className="object-contain"
+            style={{ transition: 'opacity 200ms ease' }}
             sizes="(max-width: 768px) 100vw, 560px"
             priority={current === 0}
           />
@@ -83,23 +104,25 @@ export default function NoteCarousel({ images }: Props) {
               {current + 1} / {images.length}
             </div>
           )}
-        </div>
+        </button>
 
         {/* Prev / Next */}
         {images.length > 1 && (
           <>
             <button
+              type="button"
               onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center"
-              style={{ background: 'rgba(0,0,0,0.4)', color: '#fff' }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              style={ctrlBase}
               aria-label="上一張"
             >
               <ChevronLeft size={18} aria-hidden="true" />
             </button>
             <button
+              type="button"
               onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center"
-              style={{ background: 'rgba(0,0,0,0.4)', color: '#fff' }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              style={ctrlBase}
               aria-label="下一張"
             >
               <ChevronRight size={18} aria-hidden="true" />
@@ -113,9 +136,11 @@ export default function NoteCarousel({ images }: Props) {
             {images.map((img, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => setCurrent(i)}
                 aria-label={`第 ${i + 1} 張`}
-                className="relative shrink-0 overflow-hidden transition-opacity duration-150"
+                aria-pressed={i === current}
+                className="relative shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
                 style={{
                   width: '60px',
                   height: '60px',
@@ -123,6 +148,9 @@ export default function NoteCarousel({ images }: Props) {
                   background: 'rgba(11,10,63,0.04)',
                   opacity: i === current ? 1 : 0.5,
                   touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
+                  transition: 'opacity 150ms ease, border-color 150ms ease',
+                  outlineColor: 'var(--accent)',
                 }}
               >
                 <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="60px" />
@@ -135,8 +163,11 @@ export default function NoteCarousel({ images }: Props) {
       {/* ── Lightbox ───────────────────────────── */}
       {lightbox !== null && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="筆記預覽放大"
           className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ background: 'rgba(0,0,0,0.92)' }}
+          style={{ background: 'rgba(0,0,0,0.92)', overscrollBehavior: 'contain' }}
           onClick={() => setLightbox(null)}
         >
           {/* Image */}
@@ -166,9 +197,10 @@ export default function NoteCarousel({ images }: Props) {
 
           {/* Close */}
           <button
+            type="button"
             onClick={() => setLightbox(null)}
-            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+            style={lbCtrlBase}
             aria-label="關閉"
           >
             <X size={20} aria-hidden="true" />
@@ -178,17 +210,19 @@ export default function NoteCarousel({ images }: Props) {
           {images.length > 1 && (
             <>
               <button
+                type="button"
                 onClick={(e) => { e.stopPropagation(); prevLb(); }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                style={lbCtrlBase}
                 aria-label="上一張"
               >
                 <ChevronLeft size={22} aria-hidden="true" />
               </button>
               <button
+                type="button"
                 onClick={(e) => { e.stopPropagation(); nextLb(); }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                style={lbCtrlBase}
                 aria-label="下一張"
               >
                 <ChevronRight size={22} aria-hidden="true" />

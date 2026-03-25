@@ -183,7 +183,7 @@ export default async function NotesPage() {
                     <div className="grid grid-cols-2 gap-2 mt-auto">
                       <Link
                         href={`/notes/${item.slug.current}`}
-                        className="text-center text-xs font-semibold py-2.5 transition-colors duration-150"
+                        className="text-center text-xs font-semibold py-2.5 hover:bg-gray-50 transition-colors duration-150"
                         style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
                       >
                         查看詳情
@@ -193,7 +193,7 @@ export default async function NotesPage() {
                           href={item.purchaseUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
+                          className="text-center text-xs font-semibold py-2.5 hover:opacity-85 transition-opacity duration-150 inline-flex items-center justify-center gap-1"
                           style={{ background: 'var(--accent)', color: 'var(--navy)' }}
                         >
                           <ShoppingCart aria-hidden="true" size={12} />
@@ -202,7 +202,7 @@ export default async function NotesPage() {
                       ) : (
                         <Link
                           href={`/notes/${item.slug.current}`}
-                          className="text-center text-xs font-semibold py-2.5 transition-colors duration-150 inline-flex items-center justify-center gap-1"
+                          className="text-center text-xs font-semibold py-2.5 hover:opacity-85 transition-opacity duration-150 inline-flex items-center justify-center gap-1"
                           style={{ background: 'var(--accent)', color: 'var(--navy)' }}
                         >
                           <ShoppingCart aria-hidden="true" size={12} />
