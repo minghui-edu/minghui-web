@@ -98,15 +98,15 @@ export default function Footer() {
             <ul className="space-y-3 text-sm" style={{ color: '#7A8FA8' }}>
               <li className="flex items-center gap-2">
                 <Mail aria-hidden="true" size={14} className="shrink-0" style={{ color: 'var(--accent)', opacity: 0.7 }} />
-                <span>contact@minghui.edu.tw</span>
+                <a href="mailto:timy@minghuiedu.com" className="hover:text-white transition-colors duration-150">timy@minghuiedu.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle aria-hidden="true" size={14} className="shrink-0" style={{ color: 'var(--accent)', opacity: 0.7 }} />
-                <span>@minghui_official</span>
+                <span>@minghuiedu</span>
               </li>
               <li className="mt-5 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <a
-                  href="mailto:contact@minghui.edu.tw"
+                  href="mailto:timy@minghuiedu.com"
                   className="footer-cta block text-center text-xs font-semibold tracking-wider py-3 px-4"
                   style={{ letterSpacing: '0.08em' }}
                 >
