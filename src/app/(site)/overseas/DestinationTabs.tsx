@@ -134,10 +134,11 @@ export default function DestinationTabs() {
 
   return (
     <>
-      {/* ── Tab Selector ─────────────────────────────────────── */}
-      <div style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)' }}>
+      {/* ── Tab Selector + 行程概覽（同一 navy 區塊）────────────── */}
+      <div style={{ background: 'var(--navy)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
         <div className={inner}>
-          <div className="flex" role="group" aria-label="選擇遊學目的地">
+          {/* Pill buttons */}
+          <div className="flex flex-wrap gap-3 pt-8 pb-6" role="group" aria-label="選擇遊學目的地">
             {(['japan', 'australia'] as Dest[]).map((dest) => {
               const item = destinations[dest];
               const isActive = active === dest;
@@ -146,12 +147,12 @@ export default function DestinationTabs() {
                   key={dest}
                   onClick={() => setActive(dest)}
                   aria-pressed={isActive}
-                  className="relative px-8 py-5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-amber-400"
+                  className="px-6 py-2.5 text-sm font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
-                    color: isActive ? 'var(--navy)' : 'var(--muted)',
-                    background: 'transparent',
-                    borderBottom: `3px solid ${isActive ? 'var(--accent)' : 'transparent'}`,
-                    marginBottom: '-1px',
+                    background: isActive ? 'var(--accent)' : 'transparent',
+                    color: isActive ? 'var(--navy)' : 'rgba(255,255,255,0.6)',
+                    border: `1.5px solid ${isActive ? 'var(--accent)' : 'rgba(255,255,255,0.25)'}`,
+                    borderRadius: '9999px',
                   }}
                 >
                   {dest === 'japan' ? '🇯🇵' : '🇦🇺'}&ensp;{item.duration}&ensp;·&ensp;{item.title}
@@ -159,12 +160,8 @@ export default function DestinationTabs() {
               );
             })}
           </div>
-        </div>
-      </div>
-
-      {/* ── 行程概覽橫條 ─────────────────────────────────────── */}
-      <div style={{ background: 'var(--navy)' }}>
-        <div className={`${inner} py-8`}>
+          {/* 行程概覽 */}
+          <div className="py-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {([
               { label: '出發日期', value: d.dates },
@@ -178,8 +175,9 @@ export default function DestinationTabs() {
               </div>
             ))}
           </dl>
-        </div>
-      </div>
+          </div>{/* end 行程概覽 */}
+        </div>{/* end inner */}
+      </div>{/* end navy block */}
 
       {/* ── 三格照片卡 ───────────────────────────────────────── */}
       <section style={{ background: 'var(--cream)' }}>
