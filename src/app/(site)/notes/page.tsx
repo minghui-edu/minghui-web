@@ -183,8 +183,8 @@ export default async function NotesPage() {
                     <div className="grid grid-cols-2 gap-2 mt-auto">
                       <Link
                         href={`/notes/${item.slug.current}`}
-                        className="text-center text-xs font-semibold py-2.5 hover:bg-gray-50 transition-colors duration-150"
-                        style={{ border: '1px solid var(--border)', color: 'var(--muted)' }}
+                        className="text-center text-xs font-semibold py-3.5 hover:bg-gray-50 active:scale-[0.97] transition-[background-color,transform] duration-100"
+                        style={{ border: '1px solid var(--border)', color: 'var(--muted)', touchAction: 'manipulation' }}
                       >
                         查看詳情
                       </Link>
@@ -193,8 +193,8 @@ export default async function NotesPage() {
                           href={item.purchaseUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-center text-xs font-semibold py-2.5 hover:opacity-85 transition-opacity duration-150 inline-flex items-center justify-center gap-1"
-                          style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                          className="text-center text-xs font-semibold py-3.5 hover:opacity-85 active:scale-[0.97] transition-[opacity,transform] duration-100 inline-flex items-center justify-center gap-1"
+                          style={{ background: 'var(--accent)', color: 'var(--navy)', touchAction: 'manipulation' }}
                         >
                           <ShoppingCart aria-hidden="true" size={12} />
                           立即購買
@@ -202,8 +202,8 @@ export default async function NotesPage() {
                       ) : (
                         <Link
                           href={`/notes/${item.slug.current}`}
-                          className="text-center text-xs font-semibold py-2.5 hover:opacity-85 transition-opacity duration-150 inline-flex items-center justify-center gap-1"
-                          style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                          className="text-center text-xs font-semibold py-3.5 hover:opacity-85 active:scale-[0.97] transition-[opacity,transform] duration-100 inline-flex items-center justify-center gap-1"
+                          style={{ background: 'var(--accent)', color: 'var(--navy)', touchAction: 'manipulation' }}
                         >
                           <ShoppingCart aria-hidden="true" size={12} />
                           立即購買
