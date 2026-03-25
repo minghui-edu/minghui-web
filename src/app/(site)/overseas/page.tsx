@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { ChevronRight, Image as ImageIcon } from 'lucide-react';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
 
 // 替換成真實照片路徑，例如 '/images/hero-overseas.jpg'
 const heroImage: string | null = null;
@@ -32,42 +34,47 @@ export default function OverseasPage() {
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
-        {/* Right-side hero photo (md+) */}
-        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-y-0 right-0 w-[58%]">
-            {heroImage ? (
-              <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
-                <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
-                <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
-              </div>
-            )}
+        <ParallaxBg>
+          {/* Right-side hero photo (md+) */}
+          <div className="hidden md:block absolute inset-0">
+            <div className="absolute inset-y-0 right-0 w-[58%]">
+              {heroImage ? (
+                <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
+                  <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
+                  <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
+                </div>
+              )}
+            </div>
+            {/* Fade gradient: navy → transparent */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
           </div>
-          {/* Fade gradient: navy → transparent */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
-        </div>
-        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 70% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
-        />
+          <div className="dot-grid absolute inset-0" />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 70% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
+          />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
-          <SectionLabel light>海外名校遊學</SectionLabel>
-          <h1
-            className="font-display font-bold leading-[1.1] mb-6"
-            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
-          >
-            走進頂尖名校
-            <br />
-            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身感受留學生活</em>
-          </h1>
-          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-            精選東京 × 澳洲兩大行程，帶你走訪 QS 前 25 頂尖名校、與在校學長姐閉門交流，
-            在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合。
-          </p>
+          <FadeIn delay={0}><SectionLabel light>海外名校遊學</SectionLabel></FadeIn>
+          <FadeIn delay={0.1}>
+            <h1
+              className="font-display font-bold leading-[1.1] mb-6"
+              style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
+            >
+              走進頂尖名校
+              <br />
+              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身感受留學生活</em>
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
+          <FadeIn delay={0.25}>
+            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+              精選東京 × 澳洲兩大行程，帶你走訪 QS 前 25 頂尖名校、與在校學長姐閉門交流，
+              在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合。
+            </p>
+          </FadeIn>
         </div>
       </section>
 

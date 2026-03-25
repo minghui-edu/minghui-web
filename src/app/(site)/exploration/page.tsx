@@ -3,6 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, Calendar, Users, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 
 // 替換成真實照片路徑，例如 '/images/hero-exploration.jpg'
 const heroImage: string | null = null;
@@ -148,45 +151,52 @@ export default function ExplorationPage() {
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
-        {/* Right-side hero photo (md+) */}
-        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-y-0 right-0 w-[58%]">
-            {heroImage ? (
-              <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
-                <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
-                <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
-              </div>
-            )}
-          </div>
-          {/* Fade gradient: navy → transparent */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
-        </div>
-        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        <div className="absolute top-0 right-0 pointer-events-none" style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }} aria-hidden="true" />
-        <div className={`relative ${inner}`}>
-          <SectionLabel light>科系探索營隊</SectionLabel>
-          <h1 className="font-display font-bold leading-[1.1] mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}>
-            在選擇科系之前
-            <br />
-            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>先來親身體驗看看</em>
-          </h1>
-          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-            透過真實的實作、參訪與跨領域挑戰，讓你在高中階段就確認未來方向，讓學習歷程有真正說得出口的故事。
-          </p>
-          {/* Stats strip */}
-          <div className="mt-16 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-            {stats.map(({ value, unit, label }) => (
-              <div key={label} className="py-6 pr-8">
-                <div className="font-display font-bold leading-none mb-1" style={{ color: '#FFFFFF', fontSize: '2.25rem' }}>
-                  {value}<span style={{ color: 'var(--accent)', fontSize: '1.25rem' }}>{unit}</span>
+        {/* Parallax background */}
+        <ParallaxBg>
+          <div className="hidden md:block absolute inset-0">
+            <div className="absolute inset-y-0 right-0 w-[58%]">
+              {heroImage ? (
+                <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
+                  <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
+                  <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
                 </div>
-                <div className="text-xs tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>{label}</div>
-              </div>
-            ))}
+              )}
+            </div>
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
           </div>
+          <div className="dot-grid absolute inset-0" />
+          <div className="absolute top-0 right-0" style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }} />
+        </ParallaxBg>
+        <div className={`relative ${inner}`}>
+          <FadeIn delay={0}><SectionLabel light>科系探索營隊</SectionLabel></FadeIn>
+          <FadeIn delay={0.1}>
+            <h1 className="font-display font-bold leading-[1.1] mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}>
+              在選擇科系之前
+              <br />
+              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>先來親身體驗看看</em>
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
+          <FadeIn delay={0.25}>
+            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+              透過真實的實作、參訪與跨領域挑戰，讓你在高中階段就確認未來方向，讓學習歷程有真正說得出口的故事。
+            </p>
+          </FadeIn>
+          {/* Stats strip */}
+          <FadeIn delay={0.35}>
+            <div className="mt-16 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+              {stats.map(({ value, unit, label }) => (
+                <div key={label} className="py-6 pr-8">
+                  <div className="font-display font-bold leading-none mb-1" style={{ color: '#FFFFFF', fontSize: '2.25rem' }}>
+                    {value}<span style={{ color: 'var(--accent)', fontSize: '1.25rem' }}>{unit}</span>
+                  </div>
+                  <div className="text-xs tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>{label}</div>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -194,6 +204,7 @@ export default function ExplorationPage() {
       <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <RevealOnScroll delay={0}>
             <div>
               <SectionLabel>旗艦品牌</SectionLabel>
               <h2 className="font-display font-bold text-3xl md:text-4xl mb-2" style={{ color: 'var(--navy)' }}>
@@ -216,7 +227,9 @@ export default function ExplorationPage() {
                 ))}
               </div>
             </div>
+            </RevealOnScroll>
             {/* DELC visual placeholder */}
+            <RevealOnScroll delay={0.15}>
             <div className="relative">
               <div className="relative overflow-hidden" style={{ aspectRatio: '4/3', background: 'rgba(11,10,63,0.06)', border: '1px solid var(--border)' }}>
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ color: 'rgba(11,10,63,0.18)' }}>
@@ -231,6 +244,7 @@ export default function ExplorationPage() {
                 自 2022 年起
               </div>
             </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>

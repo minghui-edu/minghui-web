@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield, Image as ImageIcon } from 'lucide-react';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
 
 // 替換成真實照片路徑，例如 '/images/hero-thesis.jpg'
 const heroImage: string | null = null;
@@ -99,42 +101,47 @@ export default function ThesisPage() {
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
-        {/* Right-side hero photo (md+) */}
-        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute inset-y-0 right-0 w-[58%]">
-            {heroImage ? (
-              <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
-                <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
-                <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
-              </div>
-            )}
+        <ParallaxBg>
+          {/* Right-side hero photo (md+) */}
+          <div className="hidden md:block absolute inset-0">
+            <div className="absolute inset-y-0 right-0 w-[58%]">
+              {heroImage ? (
+                <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
+                  <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
+                  <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
+                </div>
+              )}
+            </div>
+            {/* Fade gradient: navy → transparent */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
           </div>
-          {/* Fade gradient: navy → transparent */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
-        </div>
-        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
-        />
+          <div className="dot-grid absolute inset-0" />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
+          />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
-          <SectionLabel light>論文顧問</SectionLabel>
-          <h1
-            className="font-display font-bold leading-[1.1] mb-6"
-            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
-          >
-            由期刊編輯坐鎮
-            <br />
-            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>提升論文發表成功率</em>
-          </h1>
-          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-            期刊選擇、論文優化、審稿加速、重修再投稿——顧問團隊涵蓋知名期刊現任與前任編輯，
-            以業界視角全程陪你走過學術發表之路。
-          </p>
+          <FadeIn delay={0}><SectionLabel light>論文顧問</SectionLabel></FadeIn>
+          <FadeIn delay={0.1}>
+            <h1
+              className="font-display font-bold leading-[1.1] mb-6"
+              style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
+            >
+              由期刊編輯坐鎮
+              <br />
+              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>提升論文發表成功率</em>
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
+          <FadeIn delay={0.25}>
+            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+              期刊選擇、論文優化、審稿加速、重修再投稿——顧問團隊涵蓋知名期刊現任與前任編輯，
+              以業界視角全程陪你走過學術發表之路。
+            </p>
+          </FadeIn>
         </div>
       </section>
 

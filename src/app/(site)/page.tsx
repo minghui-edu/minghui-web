@@ -2,6 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, ShieldCheck, Banknote, Award } from 'lucide-react';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 
 /* ─── Data ──────────────────────────────────── */
 
@@ -165,40 +168,50 @@ export default function HomePage() {
         className="relative overflow-hidden"
         style={{ background: 'var(--navy)', minHeight: '88vh', display: 'flex', alignItems: 'center' }}
       >
-        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <ParallaxBg>
+          <div className="dot-grid absolute inset-0" />
+        </ParallaxBg>
 
         <div className={`relative ${inner} py-24 w-full`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
             {/* Left: text */}
             <div>
-              <div className="flex items-center gap-3 mb-8">
-                <span className="w-8 h-px" style={{ background: 'var(--accent)' }} aria-hidden="true" />
-                <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: 'var(--accent)' }}>
-                  台灣頂尖教育顧問平台
-                </span>
-              </div>
-              <h1
-                className="font-display font-bold leading-[1.1] mb-6"
-                style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6vw, 4.5rem)' }}
-              >
-                啟發潛能
-                <br />
-                <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>探索無限未來</em>
-              </h1>
-              <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-              <p className="text-lg leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.65)' }}>
-                我們提供最專業的科系探索營隊、海外名校參訪、頂尖家教媒合與學霸筆記，為您的升學之路保駕護航。
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/exploration" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
-                  探索主打營隊
-                  <ChevronRight aria-hidden="true" size={16} />
-                </Link>
-                <Link href="/tutor" className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
-                  尋找專業家教
-                </Link>
-              </div>
+              <FadeIn delay={0}>
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="w-8 h-px" style={{ background: 'var(--accent)' }} aria-hidden="true" />
+                  <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: 'var(--accent)' }}>
+                    台灣頂尖教育顧問平台
+                  </span>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.1}>
+                <h1
+                  className="font-display font-bold leading-[1.1] mb-6"
+                  style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6vw, 4.5rem)' }}
+                >
+                  啟發潛能
+                  <br />
+                  <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>探索無限未來</em>
+                </h1>
+              </FadeIn>
+              <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
+              <FadeIn delay={0.25}>
+                <p className="text-lg leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                  我們提供最專業的科系探索營隊、海外名校參訪、頂尖家教媒合與學霸筆記，為您的升學之路保駕護航。
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.35}>
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/exploration" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                    探索主打營隊
+                    <ChevronRight aria-hidden="true" size={16} />
+                  </Link>
+                  <Link href="/tutor" className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                    尋找專業家教
+                  </Link>
+                </div>
+              </FadeIn>
             </div>
 
             {/* Right: hero image
@@ -255,6 +268,7 @@ export default function HomePage() {
       {/* ── B: 為什麼選我們 ────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
+          <RevealOnScroll>
           <div className="text-center mb-14">
             <SectionLabel>我們的承諾</SectionLabel>
             <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
@@ -278,12 +292,14 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* ── Services ──────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
+          <RevealOnScroll>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
               <SectionLabel>核心服務</SectionLabel>
@@ -298,12 +314,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {services.map((s) => <ServiceCard key={s.num} {...s} />)}
           </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* ── D: 精選師資 ───────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
+          <RevealOnScroll>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
               <SectionLabel>師資陣容</SectionLabel>
@@ -359,6 +377,7 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+          </RevealOnScroll>
         </div>
       </section>
 

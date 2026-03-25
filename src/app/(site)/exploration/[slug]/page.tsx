@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { ChevronRight, Calendar, Users, MapPin, Clock, Tag, CheckCircle, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
 
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
 
@@ -105,77 +107,83 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
-        {/* Right-side hero photo (md+) — uses activity's own image */}
-        {imageUrl && (
-          <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div className="absolute inset-y-0 right-0 w-[58%]">
-              <Image src={imageUrl} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+        <ParallaxBg>
+          {/* Right-side hero photo (md+) — uses activity's own image */}
+          {imageUrl && (
+            <div className="hidden md:block absolute inset-0">
+              <div className="absolute inset-y-0 right-0 w-[58%]">
+                <Image src={imageUrl} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+              </div>
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
             </div>
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
-          </div>
-        )}
-        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
-        />
+          )}
+          <div className="dot-grid absolute inset-0" />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
+          />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
-          <div className="mb-4">
-            <Link
-              href="/exploration"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide transition-opacity hover:opacity-70"
-              style={{ color: 'rgba(255,255,255,0.5)' }}
-            >
-              ← 返回活動列表
-            </Link>
-          </div>
-          <SectionLabel light>{activity.category ?? '科系探索營隊'}</SectionLabel>
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            {activity.status && (
-              <span
-                className="text-xs font-bold px-3 py-1"
-                style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}
+          <FadeIn delay={0}>
+            <div className="mb-4">
+              <Link
+                href="/exploration"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide transition-opacity hover:opacity-70"
+                style={{ color: 'rgba(255,255,255,0.5)' }}
               >
-                {activity.status}
-              </span>
-            )}
-          </div>
-          <h1
-            className="font-display font-bold leading-[1.1] mb-6"
-            style={{ color: '#FFFFFF', fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
-          >
-            {activity.title}
-          </h1>
-          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
-
+                ← 返回活動列表
+              </Link>
+            </div>
+            <SectionLabel light>{activity.category ?? '科系探索營隊'}</SectionLabel>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              {activity.status && (
+                <span
+                  className="text-xs font-bold px-3 py-1"
+                  style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}
+                >
+                  {activity.status}
+                </span>
+              )}
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h1
+              className="font-display font-bold leading-[1.1] mb-6"
+              style={{ color: '#FFFFFF', fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+            >
+              {activity.title}
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
           {/* Meta strip */}
-          <div className="flex flex-wrap gap-6">
-            {activity.date && (
-              <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
-                <Calendar aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
-                <span className="text-sm">{activity.date}</span>
-              </div>
-            )}
-            {activity.duration && (
-              <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
-                <Clock aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
-                <span className="text-sm">{activity.duration}</span>
-              </div>
-            )}
-            {activity.audience && (
-              <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
-                <Users aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
-                <span className="text-sm">{activity.audience}</span>
-              </div>
-            )}
-            {activity.location && (
-              <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
-                <MapPin aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
-                <span className="text-sm">{activity.location}</span>
-              </div>
-            )}
-          </div>
+          <FadeIn delay={0.25}>
+            <div className="flex flex-wrap gap-6">
+              {activity.date && (
+                <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                  <Calendar aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
+                  <span className="text-sm">{activity.date}</span>
+                </div>
+              )}
+              {activity.duration && (
+                <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                  <Clock aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
+                  <span className="text-sm">{activity.duration}</span>
+                </div>
+              )}
+              {activity.audience && (
+                <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                  <Users aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
+                  <span className="text-sm">{activity.audience}</span>
+                </div>
+              )}
+              {activity.location && (
+                <div className="flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                  <MapPin aria-hidden="true" size={15} style={{ color: 'var(--accent)' }} />
+                  <span className="text-sm">{activity.location}</span>
+                </div>
+              )}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
