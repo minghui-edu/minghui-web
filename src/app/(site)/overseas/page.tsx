@@ -49,22 +49,6 @@ export default function OverseasPage() {
             精選東京 × 澳洲兩大行程，帶你走訪 QS 前 25 頂尖名校、與在校學長姐閉門交流，
             在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合。
           </p>
-          {/* Stats */}
-          <div className="flex flex-wrap gap-8 mt-12">
-            {([
-              { value: '2',       label: '熱門遊學目的地' },
-              { value: 'QS 前 25', label: '頂尖名校參訪' },
-              { value: '6',       label: '所名校走訪' },
-              { value: '7～10',   label: '天深度行程' },
-            ] as { value: string; label: string }[]).map(({ value, label }) => (
-              <div key={label}>
-                <p className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--accent)' }}>
-                  {value}
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
