@@ -101,7 +101,7 @@ export default async function NotesPage() {
                 學霸解題 YouTube 影片
               </h2>
             </div>
-            <a href="#" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
+            <a href="https://www.youtube.com/@gotontu4507" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
               前往頻道看更多 <ChevronRight aria-hidden="true" size={14} />
             </a>
           </div>
@@ -237,7 +237,7 @@ export default async function NotesPage() {
                 ))}
               </ul>
               <a
-                href="#"
+                href="https://lin.ee/6uAXvJu"
                 className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
               >
                 預約登記早鳥通知

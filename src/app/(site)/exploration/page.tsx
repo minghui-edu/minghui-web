@@ -385,7 +385,7 @@ export default function ExplorationPage() {
           <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
             每屆營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。加入 LINE 官方帳號，第一時間接收開放報名通知。
           </p>
-          <a href="#" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+          <a href="https://lin.ee/6uAXvJu" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
             加入 LINE 諮詢
             <ChevronRight aria-hidden="true" size={16} />
           </a>

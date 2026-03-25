@@ -308,7 +308,7 @@ export default function ThesisPage() {
             費用依需求客製，加入 LINE 說明你的研究方向與目前遇到的困難，顧問將為你規劃最合適的方案。
           </p>
           <a
-            href="#"
+            href="https://lin.ee/6uAXvJu"
             className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
           >
             加入 LINE 諮詢

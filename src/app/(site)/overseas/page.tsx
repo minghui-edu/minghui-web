@@ -84,7 +84,7 @@ export default function OverseasPage() {
             每梯次嚴格控管人數，確保每位學員都能充分互動。加入 LINE 官方帳號，立即諮詢報名細節。
           </p>
           <a
-            href="#"
+            href="https://lin.ee/6uAXvJu"
             className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
           >
             加入 LINE 諮詢

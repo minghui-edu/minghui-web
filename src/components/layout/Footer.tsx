@@ -11,10 +11,10 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  { href: '#', label: 'Facebook', icon: Facebook },
-  { href: '#', label: 'Instagram', icon: Instagram },
-  { href: '#', label: 'LINE', icon: MessageCircle },
-  { href: '#', label: 'YouTube', icon: Youtube },
+  { href: 'https://www.facebook.com/delc2022', label: 'Facebook', icon: Facebook },
+  { href: 'https://www.instagram.com/delc_2022', label: 'Instagram', icon: Instagram },
+  { href: 'https://lin.ee/6uAXvJu', label: 'LINE', icon: MessageCircle },
+  { href: 'https://www.youtube.com/@gotontu4507', label: 'YouTube', icon: Youtube },
 ];
 
 export default function Footer() {
