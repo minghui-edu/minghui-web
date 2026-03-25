@@ -95,11 +95,11 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
               {/* Cover thumbnail */}
               <div
                 className="hidden sm:block relative shrink-0 overflow-hidden"
-                style={{ width: '72px', height: '96px', border: '2px solid rgba(232,144,39,0.4)' }}
+                style={{ width: '80px', height: '80px', border: '2px solid rgba(232,144,39,0.4)' }}
               >
                 {note.cover ? (
                   <Image
-                    src={urlFor(note.cover).width(160).height(214).url()}
+                    src={urlFor(note.cover).width(160).height(160).fit('crop').url()}
                     alt={note.title}
                     fill
                     className="object-cover"
@@ -264,10 +264,10 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                     <div
                       key={idx}
                       className="relative overflow-hidden"
-                      style={{ aspectRatio: '3/4', background: 'rgba(11,10,63,0.04)', border: '1px solid var(--border)' }}
+                      style={{ aspectRatio: '1/1', background: 'rgba(11,10,63,0.04)', border: '1px solid var(--border)' }}
                     >
                       <Image
-                        src={urlFor(img).width(360).height(480).fit('clip').url()}
+                        src={urlFor(img).width(400).height(400).fit('crop').url()}
                         alt={`筆記預覽 ${idx + 1}`}
                         fill
                         className="object-cover"
