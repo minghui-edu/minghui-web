@@ -1,91 +1,325 @@
 import type { Metadata } from 'next';
-import { CheckCircle, Target, FileText, Cpu, Lightbulb } from 'lucide-react';
+import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '論文顧問',
-  description: '專業學術研究指導，提供期刊發表顧問、文獻速讀導讀與 AI 文獻助手服務。',
+  description: '由知名期刊編輯坐鎮指導，提供期刊選擇、審稿加速、重修再投稿與文獻速讀整理，全面提升學術發表成功率。',
 };
+
+const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
+
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
+       style={{ color: light ? 'var(--accent-light)' : 'var(--accent)' }}>
+      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
+      {children}
+    </p>
+  );
+}
+
+const advantages = [
+  {
+    icon: Users,
+    title: '知名期刊編輯坐鎮',
+    desc: '顧問團隊涵蓋國內外知名期刊現任與前任編輯，深諳審稿邏輯與發表眉角。',
+  },
+  {
+    icon: Zap,
+    title: '審稿程序速通',
+    desc: '憑藉業界人脈與投稿經驗，協助你選對期刊、走對程序，縮短漫長等待周期。',
+  },
+  {
+    icon: RefreshCcw,
+    title: '重修再投稿支援',
+    desc: '收到審稿意見不知如何回覆？我們協助你逐條規劃修改策略，提升接受率。',
+  },
+  {
+    icon: FileSearch,
+    title: '文獻整理到位',
+    desc: '將你需要閱讀的文獻交給我們，我們萃取核心重點，交付一份清晰的速讀整理報告。',
+  },
+];
+
+const journeySteps = [
+  {
+    icon: Search,
+    num: '01',
+    title: '期刊選擇建議',
+    desc: '根據你的研究領域、論文主題與目標受眾，由編輯顧問推薦最適合的國內外期刊，避免方向錯誤造成的時間浪費。',
+  },
+  {
+    icon: PenLine,
+    num: '02',
+    title: '論文邏輯優化',
+    desc: '針對研究架構、論述邏輯、方法論呈現進行一對一健檢與指導，強化論文說服力，提升通過初審的機率。',
+  },
+  {
+    icon: Send,
+    num: '03',
+    title: '審稿程序加速',
+    desc: '顧問熟悉各期刊的投稿眉眉角角與編輯偏好，協助你在投稿格式與流程上做到位，減少因形式問題被退稿的機會。',
+  },
+  {
+    icon: MessageSquare,
+    num: '04',
+    title: '重修回覆規劃',
+    desc: '收到審稿意見（Reviewer Comments）後，逐條協助你擬定回覆策略與修改方向，讓重修再投稿的成功率大幅提升。',
+  },
+];
+
+const litSteps = [
+  {
+    icon: Upload,
+    num: '1',
+    title: '上傳文獻',
+    desc: '將需要閱讀的學術論文（PDF 或連結）提交給我們，不限語言、不限數量。',
+  },
+  {
+    icon: FileText,
+    num: '2',
+    title: '顧問整理重點',
+    desc: '由專業顧問閱讀全文，萃取研究問題、方法、主要發現與對你研究的啟發，結構化整理成速讀報告。',
+  },
+  {
+    icon: FileSearch,
+    num: '3',
+    title: '收到速讀報告',
+    desc: '你收到一份清晰的整理文件，直接掌握文獻精髓，省下逐字閱讀的時間，專注在真正的研究工作。',
+  },
+];
 
 export default function ThesisPage() {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4">
-      <div className="text-center mb-16">
-        <h1 className="text-3xl font-bold text-slate-800 mb-6">學術研究與論文顧問</h1>
-        <div className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed bg-yellow-50 p-4 rounded-xl border border-yellow-100">
-          <strong>【學術倫理聲明】</strong>我們堅守學術倫理，<strong>絕不提供任何形式的代寫服務</strong>。
-          我們的目標是擔任您研究路上的「學術教練」，提供專業的方法論指導與文獻導讀，助您突破研究瓶頸，產出真正屬於您的學術著作。
-        </div>
-      </div>
+    <div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        {/* 期刊發表顧問 */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
-            <Target aria-hidden="true" className="w-8 h-8" />
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
+        />
+        <div className={`relative ${inner}`}>
+          <SectionLabel light>論文顧問</SectionLabel>
+          <h1
+            className="font-display font-bold leading-[1.1] mb-6"
+            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
+          >
+            由期刊編輯坐鎮
+            <br />
+            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>提升論文發表成功率</em>
+          </h1>
+          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+            期刊選擇、論文優化、審稿加速、重修再投稿——顧問團隊涵蓋知名期刊現任與前任編輯，
+            以業界視角全程陪你走過學術發表之路。
+          </p>
+        </div>
+      </section>
+
+      {/* ── 核心優勢 ──────────────────────────────────────────── */}
+      <section style={{ background: 'var(--cream)' }}>
+        <div className={`${inner} py-20`}>
+          <SectionLabel>為什麼選擇我們</SectionLabel>
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-12" style={{ color: 'var(--navy)' }}>
+            四大核心優勢
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {advantages.map(({ icon: Icon, title, desc }) => (
+              <div
+                key={title}
+                className="p-6 bg-white flex flex-col"
+                style={{ border: '1px solid var(--border)', borderTop: '3px solid var(--accent)' }}
+              >
+                <div
+                  className="w-11 h-11 flex items-center justify-center mb-5 shrink-0"
+                  style={{ background: 'rgba(11,10,63,0.05)' }}
+                >
+                  <Icon aria-hidden="true" size={22} style={{ color: 'var(--navy)' }} />
+                </div>
+                <p className="font-bold text-base mb-3" style={{ color: 'var(--navy)' }}>{title}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
+              </div>
+            ))}
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-4">期刊發表顧問</h2>
-          <p className="text-slate-600 text-sm leading-relaxed mb-6 min-h-24">
-            針對準備投稿國內外學術期刊的學者與研究生，提供一對一的論文健檢。我們專注於「研究邏輯梳理」、「論述架構優化」與「審查意見回覆策略指導」。
-          </p>
-          <ul className="space-y-3">
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 研究假說與架構驗證</li>
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 格式與寫作邏輯潤飾指導</li>
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 投稿期刊落點分析與建議</li>
-          </ul>
         </div>
+      </section>
 
-        {/* 文獻速讀 */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-            <FileText aria-hidden="true" className="w-8 h-8" />
+      {/* ── 期刊發表顧問 ──────────────────────────────────────── */}
+      <section style={{ background: 'var(--surface)' }}>
+        <div className={`${inner} py-20`}>
+          <SectionLabel>服務一</SectionLabel>
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
+            期刊發表顧問
+          </h2>
+          <p className="text-base leading-relaxed max-w-2xl mb-14" style={{ color: 'var(--muted)' }}>
+            從選定目標期刊到收到接受通知，每個環節都有業界顧問陪同把關。不論你是第一次投稿，
+            還是已被退稿想重新出發，我們都能提供針對性的指導方案。
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {journeySteps.map(({ icon: Icon, num, title, desc }) => (
+              <div
+                key={num}
+                className="p-8 bg-white flex gap-6"
+                style={{ border: '1px solid var(--border)' }}
+              >
+                <div className="shrink-0">
+                  <div
+                    className="w-12 h-12 flex items-center justify-center"
+                    style={{ background: 'var(--navy)' }}
+                  >
+                    <Icon aria-hidden="true" size={20} style={{ color: 'var(--accent)' }} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-bold tracking-widest mb-1" style={{ color: 'var(--accent)' }}>
+                    STEP {num}
+                  </p>
+                  <p className="font-display font-bold text-lg mb-2" style={{ color: 'var(--navy)' }}>{title}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <h2 className="text-xl font-bold text-slate-800 mb-4">系統化文獻速讀導讀</h2>
-          <p className="text-slate-600 text-sm leading-relaxed mb-6 min-h-24">
-            面對海量外文文獻不知從何下手？顧問將帶您建立「文獻矩陣」，教學如何快速萃取核心變數、研究方法與結論，精準找出研究缺口。
-          </p>
-          <ul className="space-y-3">
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 系統性文獻回顧教學</li>
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 核心論文深度導讀與探討</li>
-            <li className="flex items-start text-sm text-slate-700"><CheckCircle aria-hidden="true" className="w-4 h-4 text-green-500 mr-2 shrink-0 mt-0.5" /> 提升學術英文閱讀與解構能力</li>
-          </ul>
         </div>
+      </section>
 
-        {/* AI 文獻助手 */}
-        <div className="bg-slate-900 p-8 rounded-2xl shadow-md relative overflow-hidden">
-          <span className="absolute top-4 right-4 bg-yellow-400 text-slate-900 text-xs font-bold px-2 py-1 rounded">即將推出</span>
-          <div className="w-14 h-14 bg-slate-800 text-yellow-400 rounded-2xl flex items-center justify-center mb-6 border border-slate-700">
-            <Cpu aria-hidden="true" className="w-8 h-8" />
+      {/* ── 文獻速讀服務 ──────────────────────────────────────── */}
+      <section style={{ background: 'var(--cream)' }}>
+        <div className={`${inner} py-20`}>
+          <SectionLabel>服務二</SectionLabel>
+          <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
+            文獻速讀整理服務
+          </h2>
+          <p className="text-base leading-relaxed max-w-2xl mb-14" style={{ color: 'var(--muted)' }}>
+            面對大量外文文獻不知從何下手？把文獻交給我們，我們替你整理好核心重點，
+            讓你用最少的時間掌握最多的研究精髓。
+          </p>
+
+          {/* 3-step flow */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-16">
+            {litSteps.map(({ icon: Icon, num, title, desc }, i) => (
+              <div key={num} className="relative flex flex-col">
+                {/* Arrow connector */}
+                {i < litSteps.length - 1 && (
+                  <div
+                    className="hidden md:flex absolute top-10 -right-3 w-6 items-center justify-center z-10"
+                    aria-hidden="true"
+                  >
+                    <ChevronRight size={20} style={{ color: 'var(--accent)' }} />
+                  </div>
+                )}
+                <div
+                  className="p-8 bg-white h-full flex flex-col"
+                  style={{
+                    border: '1px solid var(--border)',
+                    borderLeft: i === 0 ? '4px solid var(--accent)' : '1px solid var(--border)',
+                    marginLeft: i === 0 ? 0 : '-1px',
+                  }}
+                >
+                  <div className="flex items-center gap-4 mb-5">
+                    <span
+                      className="w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-sm shrink-0"
+                      style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                    >
+                      {num}
+                    </span>
+                    <div
+                      className="w-10 h-10 flex items-center justify-center"
+                      style={{ background: 'rgba(11,10,63,0.05)' }}
+                    >
+                      <Icon aria-hidden="true" size={20} style={{ color: 'var(--navy)' }} />
+                    </div>
+                  </div>
+                  <p className="font-display font-bold text-lg mb-3" style={{ color: 'var(--navy)' }}>{title}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <h2 className="text-xl font-bold text-white mb-4">AI 智慧文獻助手</h2>
-          <p className="text-slate-400 text-sm leading-relaxed mb-6 min-h-24">
-            專為研究者打造的 AI 輔助工具。未來只需上傳 PDF，系統將自動提取摘要，並允許您透過自然語言對個人文獻庫進行「語意搜尋」，大幅降低文獻管理的時間成本。
-          </p>
-          <ul className="space-y-3 mb-8">
-            <li className="flex items-start text-sm text-slate-300"><Lightbulb aria-hidden="true" className="w-4 h-4 text-yellow-500 mr-2 shrink-0 mt-0.5" /> AI 自動摘要與關鍵字提取</li>
-            <li className="flex items-start text-sm text-slate-300"><Lightbulb aria-hidden="true" className="w-4 h-4 text-yellow-500 mr-2 shrink-0 mt-0.5" /> 個人化文獻庫自然語言問答</li>
-            <li className="flex items-start text-sm text-slate-300"><Lightbulb aria-hidden="true" className="w-4 h-4 text-yellow-500 mr-2 shrink-0 mt-0.5" /> 視覺化文獻關聯圖譜生成</li>
-          </ul>
-          <button className="w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 text-sm font-medium py-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900">
-            訂閱開發進度通知
-          </button>
-        </div>
-      </div>
 
-      {/* CTA */}
-      <div className="bg-blue-50 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between border border-blue-100 shadow-sm gap-6">
-        <div>
-          <h3 className="text-xl font-bold text-blue-900 mb-2">需要量身定制的學術建議嗎？</h3>
-          <p className="text-slate-600 text-sm max-w-xl leading-relaxed">
-            預約 30 分鐘初步線上諮詢，讓顧問了解您的研究方向與目前遇到的困難，為您規劃最合適的階段性指導方案。
-          </p>
+          {/* AI 助手預告 */}
+          <div
+            className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-8"
+            style={{ background: 'var(--navy)', position: 'relative', overflow: 'hidden' }}
+          >
+            <div className="dot-grid absolute inset-0 pointer-events-none opacity-50" aria-hidden="true" />
+            <div
+              className="relative shrink-0 w-14 h-14 flex items-center justify-center"
+              style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
+            >
+              <Bot aria-hidden="true" size={28} style={{ color: 'var(--accent)' }} />
+            </div>
+            <div className="relative flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <p className="font-display font-bold text-xl" style={{ color: '#fff' }}>
+                  AI 智慧文獻助手
+                </p>
+                <span
+                  className="text-[10px] font-bold tracking-widest uppercase px-2 py-1"
+                  style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+                >
+                  即將推出
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                同樣的三步驟流程——上傳、整理、交付——未來將由 AI 在線上自動完成。
+                上傳 PDF 後即時生成速讀報告，支援自然語言提問與語意搜尋，大幅降低文獻管理的時間成本。
+              </p>
+            </div>
+          </div>
         </div>
-        <a
-          href="#"
-          className="w-full md:w-auto whitespace-nowrap px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-transform motion-reduce:transition-none hover:-translate-y-1 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-        >
-          預約初步諮詢
-        </a>
-      </div>
+      </section>
+
+      {/* ── 學術倫理聲明 ──────────────────────────────────────── */}
+      <section style={{ background: 'var(--navy)', borderTop: '3px solid var(--accent)' }}>
+        <div className={`${inner} py-12`}>
+          <div className="flex items-start gap-5">
+            <div
+              className="shrink-0 w-10 h-10 flex items-center justify-center mt-0.5"
+              style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
+            >
+              <Shield aria-hidden="true" size={20} style={{ color: 'var(--accent)' }} />
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-2" style={{ color: 'var(--accent-light)' }}>
+                學術倫理聲明
+              </p>
+              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                我們堅守學術誠信，<strong style={{ color: '#fff' }}>絕不提供任何形式的代寫服務</strong>。
+                我們的角色是「研究教練」——協助你梳理架構、強化邏輯、理解文獻，
+                但每一個論點、每一段文字，都必須出自你本人。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ───────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--cream)' }}>
+        <div className={`${inner} py-20 text-center`}>
+          <SectionLabel>開始合作</SectionLabel>
+          <h2
+            className="font-display font-bold text-3xl md:text-4xl mb-4"
+            style={{ color: 'var(--navy)' }}
+          >
+            準備好提升發表成功率了嗎？
+          </h2>
+          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
+            費用依需求客製，加入 LINE 說明你的研究方向與目前遇到的困難，顧問將為你規劃最合適的方案。
+          </p>
+          <a
+            href="#"
+            className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
+          >
+            加入 LINE 諮詢
+            <ChevronRight aria-hidden="true" size={16} />
+          </a>
+        </div>
+      </section>
+
     </div>
   );
 }
