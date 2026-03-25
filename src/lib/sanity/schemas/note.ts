@@ -13,7 +13,10 @@ export const noteSchema = defineType({
     defineField({ name: 'author',      title: '作者',         type: 'string' }),
     defineField({ name: 'pages',       title: '頁數',         type: 'number' }),
     defineField({ name: 'price',       title: '售價（NT$）',  type: 'number' }),
-    defineField({ name: 'description', title: '商品說明',     type: 'text' }),
+    defineField({ name: 'description',     title: '商品說明（舊版，保留備用）', type: 'text' }),
+    defineField({ name: 'targetAudience', title: '誰必須買', type: 'text', description: '描述適合的讀者對象，可換行分段' }),
+    defineField({ name: 'features',       title: '筆記特色', type: 'text', description: '條列或說明本筆記的亮點與優勢，可換行分段' }),
+    defineField({ name: 'aboutAuthor',    title: '關於作者', type: 'text', description: '作者學歷、教學經歷、成就等，可換行分段' }),
     defineField({
       name: 'contents',
       title: '內容目錄',

@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ShoppingCart, BookOpen, List, Package, Images } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, BookOpen, List, Package, Users, Star, UserRound } from 'lucide-react';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
+import NoteCarousel from '@/components/ui/NoteCarousel';
 
 /* ─── Shared layout token ───────────────────── */
 const inner = 'max-w-4xl mx-auto px-4 sm:px-6 lg:px-8';
@@ -24,6 +25,9 @@ type SanityNote = {
   pages?: number;
   price?: number;
   description?: string;
+  targetAudience?: string;
+  features?: string;
+  aboutAuthor?: string;
   contents?: string[];
   includes?: string[];
   tags?: string[];
@@ -43,14 +47,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const note: SanityNote | null = await sanityClient.fetch(
-    `*[_type == "note" && slug.current == $slug][0]{ title, description }`,
+  const note: Pick<SanityNote, 'title' | 'description' | 'targetAudience'> | null = await sanityClient.fetch(
+    `*[_type == "note" && slug.current == $slug][0]{ title, description, targetAudience }`,
     { slug: id }
   );
   if (!note) return {};
   return {
     title: `${note.title} — 高分筆記`,
-    description: note.description?.slice(0, 100),
+    description: (note.targetAudience ?? note.description)?.slice(0, 100),
   };
 }
 
@@ -62,7 +66,8 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
   const note: SanityNote | null = await sanityClient.fetch(
     `*[_type == "note" && slug.current == $slug][0]{
       _id, title, slug, cover, subject, level, author, pages,
-      price, description, contents, includes, tags, purchaseUrl, previewImages
+      price, description, targetAudience, features, aboutAuthor,
+      contents, includes, tags, purchaseUrl, previewImages
     }`,
     { slug: id }
   );
@@ -71,6 +76,15 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
 
   const priceLabel = note.price != null ? `NT$ ${note.price.toLocaleString()}` : '洽詢價格';
   const buyHref = note.purchaseUrl ?? '#';
+
+  /* Preview images → carousel-ready array */
+  const carouselImages = (note.previewImages ?? []).map((img, i) => ({
+    src: urlFor(img).width(800).height(800).fit('clip').url(),
+    alt: `${note.title} 筆記預覽 ${i + 1}`,
+  }));
+
+  /* Whether new structured description fields are filled */
+  const hasNewDesc = !!(note.targetAudience || note.features || note.aboutAuthor);
 
   return (
     <div>
@@ -166,6 +180,8 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
               </div>
               <a
                 href={buyHref}
+                target={note.purchaseUrl ? '_blank' : undefined}
+                rel={note.purchaseUrl ? 'noopener noreferrer' : undefined}
                 className="hero-cta-primary inline-flex items-center gap-2 px-7 py-4 font-semibold text-sm tracking-wide"
               >
                 <ShoppingCart aria-hidden="true" size={17} />
@@ -183,8 +199,68 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
         <div className={inner}>
           <div className="space-y-6">
 
-            {/* 簡介 */}
-            {note.description && (
+            {/* ① 筆記預覽（輪播） */}
+            {carouselImages.length > 0 && (
+              <div
+                className="p-8"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent)' }}
+              >
+                <h2 className="font-display font-bold text-lg mb-6" style={{ color: 'var(--navy)' }}>筆記預覽</h2>
+                <div className="max-w-sm mx-auto relative">
+                  <NoteCarousel images={carouselImages} />
+                </div>
+              </div>
+            )}
+
+            {/* ② 新版結構化說明（三欄），若都未填則 fallback 顯示舊 description */}
+            {hasNewDesc ? (
+              <>
+                {note.targetAudience && (
+                  <div
+                    className="p-8"
+                    style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--navy)' }}
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: 'rgba(11,10,63,0.06)' }}>
+                        <Users aria-hidden="true" size={18} style={{ color: 'var(--navy)' }} />
+                      </div>
+                      <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>誰必須買</h2>
+                    </div>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)', whiteSpace: 'pre-line' }}>{note.targetAudience}</p>
+                  </div>
+                )}
+
+                {note.features && (
+                  <div
+                    className="p-8"
+                    style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid #1E56A0' }}
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: 'rgba(30,86,160,0.06)' }}>
+                        <Star aria-hidden="true" size={18} style={{ color: '#1E56A0' }} />
+                      </div>
+                      <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>筆記特色</h2>
+                    </div>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)', whiteSpace: 'pre-line' }}>{note.features}</p>
+                  </div>
+                )}
+
+                {note.aboutAuthor && (
+                  <div
+                    className="p-8"
+                    style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid #0F5132' }}
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: 'rgba(15,81,50,0.06)' }}>
+                        <UserRound aria-hidden="true" size={18} style={{ color: '#0F5132' }} />
+                      </div>
+                      <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>關於作者</h2>
+                    </div>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)', whiteSpace: 'pre-line' }}>{note.aboutAuthor}</p>
+                  </div>
+                )}
+              </>
+            ) : note.description ? (
               <div
                 className="p-8"
                 style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--navy)' }}
@@ -195,11 +271,11 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                   </div>
                   <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>筆記簡介</h2>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{note.description}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)', whiteSpace: 'pre-line' }}>{note.description}</p>
               </div>
-            )}
+            ) : null}
 
-            {/* 目錄 */}
+            {/* ③ 內容目錄 */}
             {note.contents && note.contents.length > 0 && (
               <div
                 className="p-8"
@@ -224,7 +300,7 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
               </div>
             )}
 
-            {/* 包含項目 */}
+            {/* ④ 購買包含 */}
             {note.includes && note.includes.length > 0 && (
               <div
                 className="p-8"
@@ -247,38 +323,6 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
               </div>
             )}
 
-            {/* 預覽圖片 */}
-            {note.previewImages && note.previewImages.length > 0 && (
-              <div
-                className="p-8"
-                style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent)' }}
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-9 h-9 flex items-center justify-center shrink-0" style={{ background: 'rgba(232,144,39,0.08)' }}>
-                    <Images aria-hidden="true" size={18} style={{ color: 'var(--accent)' }} />
-                  </div>
-                  <h2 className="font-display font-bold text-lg" style={{ color: 'var(--navy)' }}>筆記預覽</h2>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                  {note.previewImages.map((img, idx) => (
-                    <div
-                      key={idx}
-                      className="relative overflow-hidden"
-                      style={{ aspectRatio: '1/1', background: 'rgba(11,10,63,0.04)', border: '1px solid var(--border)' }}
-                    >
-                      <Image
-                        src={urlFor(img).width(400).height(400).fit('crop').url()}
-                        alt={`筆記預覽 ${idx + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
           </div>
         </div>
       </section>
@@ -295,6 +339,8 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href={buyHref}
+              target={note.purchaseUrl ? '_blank' : undefined}
+              rel={note.purchaseUrl ? 'noopener noreferrer' : undefined}
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               <ShoppingCart aria-hidden="true" size={17} />
