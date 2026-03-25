@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
 
           {/* Quick links */}
-          <div className="md:col-span-4">
+          <div className="hidden md:block md:col-span-4">
             <h4
               className="text-xs font-semibold tracking-[0.12em] uppercase mb-5"
               style={{ color: 'var(--accent)' }}
@@ -104,7 +104,7 @@ export default function Footer() {
                 <MessageCircle aria-hidden="true" size={14} className="shrink-0" style={{ color: 'var(--accent)', opacity: 0.7 }} />
                 <span>@minghuiedu</span>
               </li>
-              <li className="mt-5 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <li className="hidden md:block mt-5 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <a
                   href="mailto:timy@minghuiedu.com"
                   className="footer-cta block text-center text-xs font-semibold tracking-wider py-3 px-4"
