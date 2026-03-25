@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake } from 'lucide-react';
+import { sanityClient } from '@/lib/sanity/client';
+import { urlFor } from '@/lib/sanity/image';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: '專業家教',
   description: '零抽成、透明化的優質家教平台，專注於國外升學輔導與留學諮詢。',
 };
 
-/* ─── Shared layout token ───────────────────── */
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
 
 function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
@@ -21,8 +25,6 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
     </p>
   );
 }
-
-/* ─── Data ──────────────────────────────────── */
 
 const features = [
   {
@@ -42,59 +44,38 @@ const features = [
 ];
 
 const steps = [
-  {
-    num: '01',
-    icon: ClipboardList,
-    title: '老師填表申請',
-    desc: '老師線上填寫表單並上傳履歷，由我們把關師資品質。',
-  },
-  {
-    num: '02',
-    icon: UserCheck,
-    title: '人工上架曝光',
-    desc: '審核通過後，由官方人工上架履歷至網站，供學生瀏覽。',
-  },
-  {
-    num: '03',
-    icon: MessageCircle,
-    title: 'LINE 官方預約',
-    desc: '學生透過 LINE 提出需求，由官方協助聯繫與確認意願。',
-  },
-  {
-    num: '04',
-    icon: Handshake,
-    title: '媒合成功收費',
-    desc: '向老師收取媒合費後，提供雙方聯絡方式，開始試教。',
-  },
+  { num: '01', icon: ClipboardList, title: '老師填表申請', desc: '老師線上填寫表單並上傳履歷，由我們把關師資品質。' },
+  { num: '02', icon: UserCheck,    title: '人工上架曝光', desc: '審核通過後，由官方人工上架履歷至網站，供學生瀏覽。' },
+  { num: '03', icon: MessageCircle, title: 'LINE 官方預約', desc: '學生透過 LINE 提出需求，由官方協助聯繫與確認意願。' },
+  { num: '04', icon: Handshake,    title: '媒合成功收費', desc: '向老師收取媒合費後，提供雙方聯絡方式，開始試教。' },
 ];
 
-const tutors = [
-  {
-    id: 'jason',
-    name: '王老師 (Jason)',
-    title: 'Stanford University 電機碩士',
-    tags: ['留學申請輔導', 'SOP撰寫', 'TOEFL/GRE'],
-    shortExp: '協助 20+ 學生錄取美國 Top 30 名校。',
-  },
-  {
-    id: 'sarah',
-    name: '林老師 (Sarah)',
-    title: 'Cambridge University 生物博士',
-    tags: ['IB/AP 生物', '英國大學申請', '面試輔導'],
-    shortExp: '專精英國 G5 大學申請與全英面試特訓。',
-  },
-  {
-    id: 'kevin',
-    name: '陳老師 (Kevin)',
-    title: '台大資工系學士 / 競賽保送生',
-    tags: ['APCS 檢定', 'C++/Python', '演算法競賽'],
-    shortExp: '帶領多位高中生於資訊學科能力競賽獲獎。',
-  },
-];
+const TUTORS_QUERY = `*[_type == "tutor" && isActive == true] | order(_createdAt asc) {
+  name,
+  "slug": slug.current,
+  title,
+  photo,
+  tags,
+  shortExp
+}`;
 
-/* ─── Page ──────────────────────────────────── */
+type SanityTutor = {
+  name: string;
+  slug: string;
+  title?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  photo?: any;
+  tags?: string[];
+  shortExp?: string;
+};
 
-export default function TutorPage() {
+export default async function TutorPage() {
+  const tutors: SanityTutor[] = await sanityClient.fetch(
+    TUTORS_QUERY,
+    {},
+    { next: { revalidate: 60 } },
+  );
+
   return (
     <div>
 
@@ -142,9 +123,7 @@ export default function TutorPage() {
                 <div className="w-12 h-12 flex items-center justify-center mb-6" style={{ background: bg }}>
                   <Icon aria-hidden="true" size={24} style={{ color }} />
                 </div>
-                <h3 className="font-display font-bold text-xl mb-3" style={{ color: 'var(--navy)' }}>
-                  {title}
-                </h3>
+                <h3 className="font-display font-bold text-xl mb-3" style={{ color: 'var(--navy)' }}>{title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{desc}</p>
               </div>
             ))}
@@ -206,57 +185,82 @@ export default function TutorPage() {
               </h2>
             </div>
           </div>
+          {tutors.length === 0 ? (
+            <p className="text-center py-12" style={{ color: 'var(--muted)' }}>師資資料更新中，請稍後再查看。</p>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutors.map((tutor) => (
-              <Link
-                key={tutor.id}
-                href={`/tutor/${tutor.id}`}
-                className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
-                style={{ border: '1px solid var(--border)' }}
-              >
-                <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
-                  <div
-                    className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center font-display font-bold"
-                    style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}
-                    aria-hidden="true"
-                  >
-                    {tutor.name[0]}
+            {tutors.map((tutor) => {
+              const photoUrl = tutor.photo
+                ? urlFor(tutor.photo).width(112).height(112).fit('crop').url()
+                : null;
+              return (
+                <Link
+                  key={tutor.slug}
+                  href={`/tutor/${tutor.slug}`}
+                  className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
+                  style={{ border: '1px solid var(--border)' }}
+                >
+                  <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
+                    {photoUrl ? (
+                      <Image
+                        src={photoUrl}
+                        alt={tutor.name}
+                        width={56}
+                        height={56}
+                        className="rounded-full shrink-0 object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center font-display font-bold"
+                        style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}
+                        aria-hidden="true"
+                      >
+                        {tutor.name[0]}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h3
+                        className="font-bold text-base leading-tight mb-1 transition-colors duration-150 group-hover:text-[#1E56A0]"
+                        style={{ color: 'var(--navy)' }}
+                      >
+                        {tutor.name}
+                      </h3>
+                      {tutor.title && (
+                        <p className="text-xs leading-snug" style={{ color: 'var(--muted)' }}>{tutor.title}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <h3
-                      className="font-bold text-base leading-tight mb-1 transition-colors duration-150 group-hover:text-[#1E56A0]"
-                      style={{ color: 'var(--navy)' }}
-                    >
-                      {tutor.name}
-                    </h3>
-                    <p className="text-xs leading-snug" style={{ color: 'var(--muted)' }}>{tutor.title}</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {tutor.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] px-2 py-0.5 font-medium"
-                      style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
-                  {tutor.shortExp}
-                </p>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
-                  查看完整介紹
-                  <ChevronRight
-                    aria-hidden="true"
-                    size={13}
-                    className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0"
-                  />
-                </span>
-              </Link>
-            ))}
+                  {tutor.tags && tutor.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {tutor.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2 py-0.5 font-medium"
+                          style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {tutor.shortExp && (
+                    <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
+                      {tutor.shortExp}
+                    </p>
+                  )}
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
+                    查看完整介紹
+                    <ChevronRight
+                      aria-hidden="true"
+                      size={13}
+                      className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0"
+                    />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
+          )}
         </div>
       </section>
 
