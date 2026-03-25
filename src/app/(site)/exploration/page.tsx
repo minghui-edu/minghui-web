@@ -6,6 +6,9 @@ import TestimonialsCarousel, { type Testimonial } from '@/components/home/Testim
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { sanityClient } from '@/lib/sanity/client';
+
+export const revalidate = 60;
 
 // 替換成真實照片路徑，例如 '/images/hero-exploration.jpg'
 const heroImage: string | null = null;
@@ -70,47 +73,31 @@ const highlights = [
   { icon: Bot,          title: 'AI 模型訓練',  desc: '從 Python 基礎到訓練自己的 AI 模型，親手完成可放入備審的成果。',    color: '#0F5132'      },
 ];
 
-type ActivityStatus = '報名中' | '即將開放' | '已截止';
+type ActivityStatus = '報名中' | '即將開放' | '已額滿' | '已結束';
 
-const activities: { title: string; slug: string; date: string; audience: string; tags: string[]; status: ActivityStatus }[] = [
-  {
-    title: '醫學系探索營',
-    slug: 'medical-exploration',
-    date: '2025 暑期梯次',
-    audience: '高一、高二',
-    tags: ['解剖實作', 'PBL討論', '醫院參訪'],
-    status: '即將開放',
-  },
-  {
-    title: '資工 AI 實作營',
-    slug: 'ai-engineering-camp',
-    date: '2025 暑期梯次',
-    audience: '國中、高中',
-    tags: ['Python基礎', 'AI模型訓練', '專案發表'],
-    status: '即將開放',
-  },
-  {
-    title: 'DELC 科系探索領袖營',
-    slug: 'delc-leadership-camp',
-    date: '2025 寒假梯次',
-    audience: '國中、高一',
-    tags: ['黑客松', '校園解謎', '跨領域實作'],
-    status: '報名中',
-  },
-  {
-    title: '法律系深度講座 & 模擬法庭',
-    slug: 'law-exploration',
-    date: '2025 秋季梯次',
-    audience: '高一、高二',
-    tags: ['模擬法庭', '法條解析', '職涯分享'],
-    status: '即將開放',
-  },
-];
+type SanityActivity = {
+  title: string;
+  slug: string;
+  date?: string;
+  audience?: string;
+  tags?: string[];
+  status?: ActivityStatus;
+};
 
-const statusStyle = {
-  '報名中':   { bg: 'rgba(15,81,50,0.1)',       color: '#0F5132',      border: 'rgba(15,81,50,0.25)' },
+const ACTIVITIES_QUERY = `*[_type == "activity"] | order(_createdAt desc) {
+  title,
+  "slug": slug.current,
+  date,
+  audience,
+  tags,
+  status
+}`;
+
+const statusStyle: Record<string, { bg: string; color: string; border: string }> = {
+  '報名中':   { bg: 'rgba(15,81,50,0.1)',       color: '#0F5132',       border: 'rgba(15,81,50,0.25)' },
   '即將開放': { bg: 'rgba(232,144,39,0.1)',      color: 'var(--accent)', border: 'rgba(232,144,39,0.3)' },
-  '已截止':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',      border: 'rgba(100,100,100,0.2)' },
+  '已額滿':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',       border: 'rgba(100,100,100,0.2)' },
+  '已結束':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',       border: 'rgba(100,100,100,0.2)' },
 };
 
 // 活動照片佔位格數量
@@ -145,7 +132,13 @@ const explorationTestimonials: Testimonial[] = [
 
 /* ─── Page ──────────────────────────────────── */
 
-export default function ExplorationPage() {
+export default async function ExplorationPage() {
+  const activities: SanityActivity[] = await sanityClient.fetch(
+    ACTIVITIES_QUERY,
+    {},
+    { next: { revalidate: 60 } },
+  );
+
   return (
     <div>
 
@@ -319,37 +312,55 @@ export default function ExplorationPage() {
               最新特色活動
             </h2>
           </div>
+          {activities.length === 0 ? (
+            <p className="text-center py-12" style={{ color: 'var(--muted)' }}>目前尚無公開活動，請稍後再查看。</p>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {activities.map((act) => {
-              const s = statusStyle[act.status];
+              const s = statusStyle[act.status ?? '即將開放'] ?? statusStyle['即將開放'];
+              const closed = act.status === '已額滿' || act.status === '已結束';
               return (
-                <div key={act.title} className="bg-white flex flex-col sm:flex-row overflow-hidden" style={{ border: '1px solid var(--border)' }}>
+                <div key={act.slug} className="bg-white flex flex-col sm:flex-row overflow-hidden" style={{ border: '1px solid var(--border)' }}>
                   {/* Photo placeholder */}
                   <div className="sm:w-2/5 shrink-0 relative min-h-[160px] flex items-center justify-center" style={{ background: 'rgba(11,10,63,0.05)', borderRight: '1px solid var(--border-light)' }}>
                     <ImageIcon aria-hidden="true" size={28} style={{ color: 'rgba(11,10,63,0.18)' }} />
-                    <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1" style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}>
-                      {act.status}
-                    </span>
+                    {act.status && (
+                      <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1" style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}>
+                        {act.status}
+                      </span>
+                    )}
                   </div>
                   {/* Content */}
                   <div className="flex-1 p-6 flex flex-col">
                     <div className="flex items-center gap-2 mb-2" style={{ color: 'var(--muted)' }}>
-                      <Calendar aria-hidden="true" size={13} />
-                      <span className="text-xs font-medium">{act.date}</span>
-                      <span className="text-xs" style={{ color: 'var(--border)' }}>·</span>
-                      <Users aria-hidden="true" size={13} />
-                      <span className="text-xs font-medium">{act.audience}</span>
+                      {act.date && (
+                        <>
+                          <Calendar aria-hidden="true" size={13} />
+                          <span className="text-xs font-medium">{act.date}</span>
+                        </>
+                      )}
+                      {act.date && act.audience && <span className="text-xs" style={{ color: 'var(--border)' }}>·</span>}
+                      {act.audience && (
+                        <>
+                          <Users aria-hidden="true" size={13} />
+                          <span className="text-xs font-medium">{act.audience}</span>
+                        </>
+                      )}
                     </div>
                     <h3 className="font-display font-bold text-lg mb-3" style={{ color: 'var(--navy)' }}>{act.title}</h3>
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {act.tags.map((tag) => (
-                        <span key={tag} className="text-[11px] px-2 py-0.5 font-medium" style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    {act.status === '已截止' ? (
-                      <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>報名已截止</span>
+                    {act.tags && act.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {act.tags.map((tag) => (
+                          <span key={tag} className="text-[11px] px-2 py-0.5 font-medium" style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {closed ? (
+                      <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>
+                        {act.status === '已額滿' ? '名額已額滿' : '活動已結束'}
+                      </span>
                     ) : (
                       <Link
                         href={`/exploration/${act.slug}`}
@@ -365,6 +376,7 @@ export default function ExplorationPage() {
               );
             })}
           </div>
+          )}
         </div>
       </section>
 
