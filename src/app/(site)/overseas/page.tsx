@@ -1,115 +1,114 @@
-'use client';
+import type { Metadata } from 'next';
+import { ChevronRight } from 'lucide-react';
+import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
+import DestinationTabs from './DestinationTabs';
 
-import { useState } from 'react';
-import { Globe } from 'lucide-react';
+export const metadata: Metadata = {
+  title: '海外名校遊學',
+  description: '東京 × 澳洲兩大遊學行程，走訪 QS 前 25 頂尖名校，與在校學長姐閉門交流，提前掌握留學關鍵資訊。',
+};
+
+const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
+
+function SectionLabel({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <p
+      className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
+      style={{ color: light ? 'var(--accent-light)' : 'var(--accent)' }}
+    >
+      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
+      {children}
+    </p>
+  );
+}
 
 export default function OverseasPage() {
-  const [activeCountry, setActiveCountry] = useState<'japan' | 'australia'>('japan');
-
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-slate-800 mb-4">海外名校遊學</h1>
-        <p className="text-slate-600">結合「學」與「玩」，預先體驗當地生活，一次探訪多間頂尖名校</p>
-      </div>
+    <div>
 
-      {/* 國家切換 Tab */}
-      <div className="flex justify-center mb-12">
-        <div className="bg-white p-1 rounded-full shadow-sm border border-slate-200 inline-flex" role="group" aria-label="選擇遊學國家">
-          <button
-            onClick={() => setActiveCountry('japan')}
-            aria-pressed={activeCountry === 'japan'}
-            className={`px-8 py-2 rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
-              activeCountry === 'japan' ? 'bg-blue-600 text-white shadow' : 'text-slate-600 hover:text-blue-600'
-            }`}
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{ background: 'radial-gradient(ellipse at 70% 40%, rgba(232,144,39,0.07) 0%, transparent 60%)' }}
+        />
+        <div className={`relative ${inner}`}>
+          <SectionLabel light>海外名校遊學</SectionLabel>
+          <h1
+            className="font-display font-bold leading-[1.1] mb-6"
+            style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
           >
-            日本探索營
-          </button>
-          <button
-            onClick={() => setActiveCountry('australia')}
-            aria-pressed={activeCountry === 'australia'}
-            className={`px-8 py-2 rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 ${
-              activeCountry === 'australia' ? 'bg-blue-600 text-white shadow' : 'text-slate-600 hover:text-blue-600'
-            }`}
+            走進頂尖名校
+            <br />
+            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身感受留學生活</em>
+          </h1>
+          <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
+            精選東京 × 澳洲兩大行程，帶你走訪 QS 前 25 頂尖名校、與在校學長姐閉門交流，
+            在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合。
+          </p>
+          {/* Stats */}
+          <div className="flex flex-wrap gap-8 mt-12">
+            {([
+              { value: '2',       label: '熱門遊學目的地' },
+              { value: 'QS 前 25', label: '頂尖名校參訪' },
+              { value: '6',       label: '所名校走訪' },
+              { value: '7～10',   label: '天深度行程' },
+            ] as { value: string; label: string }[]).map(({ value, label }) => (
+              <div key={label}>
+                <p className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--accent)' }}>
+                  {value}
+                </p>
+                <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Destination Tabs ──────────────────────────────────── */}
+      <DestinationTabs />
+
+      {/* ── 學員心聲 ──────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <div className={`relative ${inner}`}>
+          <SectionLabel light>學員心聲</SectionLabel>
+          <h2
+            className="font-display font-bold text-3xl md:text-4xl mb-12"
+            style={{ color: '#fff' }}
           >
-            澳洲探索營
-          </button>
+            他們這樣說
+          </h2>
+          <TestimonialsCarousel />
         </div>
-      </div>
+      </section>
 
-      {/* 日本 */}
-      {activeCountry === 'japan' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-slate-200 rounded-2xl min-h-[300px] flex items-center justify-center">
-            <span className="text-slate-500 flex flex-col items-center">
-              <Globe aria-hidden="true" className="w-12 h-12 mb-2 opacity-50" />
-              [日本活動照片]
-            </span>
-          </div>
-          <div className="flex flex-col justify-center">
-            <h2 className="text-2xl font-bold mb-4 text-blue-900">東京頂尖學府參訪行程</h2>
-            <p className="text-slate-600 mb-6">
-              精選熱門留學城市，帶領學生一次走訪東京大學、早稻田大學、慶應義塾大學。不僅體驗日本文化，更邀請當地學長姐獨家分享網路上找不到的申請秘訣與獎學金資訊。
-            </p>
-            <div className="space-y-4 mb-8">
-              <div className="flex bg-white p-4 rounded-lg shadow-sm border border-slate-100 items-start gap-4">
-                <div className="text-blue-600 font-bold shrink-0 w-16 text-center">
-                  <div>特色 1</div>
-                  <div className="text-xs font-normal text-slate-400">學與玩</div>
-                </div>
-                <p className="text-slate-700 text-sm">抵達東京，在地生活與文化深度體驗，在正式申請前預先感受留學日常。</p>
-              </div>
-              <div className="flex bg-white p-4 rounded-lg shadow-sm border border-slate-100 items-start gap-4">
-                <div className="text-blue-600 font-bold shrink-0 w-16 text-center">
-                  <div>特色 2</div>
-                  <div className="text-xs font-normal text-slate-400">閉門分享</div>
-                </div>
-                <p className="text-slate-700 text-sm">東京大學學術參訪，學長姐閉門分享會（獨家申請秘訣與生活指南）。</p>
-              </div>
-            </div>
-            <a
-              href="#"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            >
-              填寫日本遊學報名表單
-            </a>
-          </div>
+      {/* ── CTA ───────────────────────────────────────────────── */}
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <div className={`${inner} text-center`}>
+          <SectionLabel>立即諮詢</SectionLabel>
+          <h2
+            className="font-display font-bold text-3xl md:text-4xl mb-4"
+            style={{ color: 'var(--navy)' }}
+          >
+            名額有限，把握機會
+          </h2>
+          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
+            每梯次嚴格控管人數，確保每位學員都能充分互動。加入 LINE 官方帳號，立即諮詢報名細節。
+          </p>
+          <a
+            href="#"
+            className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
+          >
+            加入 LINE 諮詢
+            <ChevronRight aria-hidden="true" size={16} />
+          </a>
         </div>
-      )}
+      </section>
 
-      {/* 澳洲 */}
-      {activeCountry === 'australia' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-slate-200 rounded-2xl min-h-[300px] flex items-center justify-center order-last lg:order-first">
-            <span className="text-slate-500 flex flex-col items-center">
-              <Globe aria-hidden="true" className="w-12 h-12 mb-2 opacity-50" />
-              [澳洲活動照片]
-            </span>
-          </div>
-          <div className="flex flex-col justify-center">
-            <h2 className="text-2xl font-bold mb-4 text-blue-900">澳洲八大名校深度探索</h2>
-            <p className="text-slate-600 mb-6">
-              走進南半球的學術殿堂，一次探訪雪梨大學、墨爾本大學等。完美結合英語沉浸式學習、生態探索與留學生真實生活體驗。
-            </p>
-            <div className="space-y-4 mb-8">
-              <div className="flex bg-white p-4 rounded-lg shadow-sm border border-slate-100 gap-4">
-                <div className="text-emerald-600 font-bold shrink-0 w-20">學長姐導覽</div>
-                <p className="text-slate-700 text-sm">獲取網路上難以找到的獨家學校資訊與留學生當地生活指南。</p>
-              </div>
-              <div className="flex bg-white p-4 rounded-lg shadow-sm border border-slate-100 gap-4">
-                <div className="text-emerald-600 font-bold shrink-0 w-20">學玩結合</div>
-                <p className="text-slate-700 text-sm">在正式決定留學前，全方位評估自己是否適應當地的生活與學習環境。</p>
-              </div>
-            </div>
-            <a
-              href="#"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md self-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
-            >
-              填寫澳洲遊學報名表單
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
