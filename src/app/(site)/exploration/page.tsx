@@ -181,7 +181,7 @@ export default async function ExplorationPage() {
           <FadeIn delay={0.35}>
             <div className="mt-16 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
               {stats.map(({ value, unit, label }) => (
-                <div key={label} className="py-6 pr-8">
+                <div key={label} className="py-6 pr-4 sm:pr-8">
                   <div className="font-display font-bold leading-none mb-1" style={{ color: '#FFFFFF', fontSize: '2.25rem' }}>
                     {value}<span style={{ color: 'var(--accent)', fontSize: '1.25rem' }}>{unit}</span>
                   </div>
@@ -196,7 +196,7 @@ export default async function ExplorationPage() {
       {/* ── DELC 品牌特寫 ──────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <RevealOnScroll delay={0}>
             <div>
               <SectionLabel>旗艦品牌</SectionLabel>

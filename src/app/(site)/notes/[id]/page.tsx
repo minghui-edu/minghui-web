@@ -206,7 +206,7 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                 style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '4px solid var(--accent)' }}
               >
                 <h2 className="font-display font-bold text-lg mb-6" style={{ color: 'var(--navy)' }}>筆記預覽</h2>
-                <div className="max-w-sm mx-auto relative">
+                <div className="max-w-xs sm:max-w-sm mx-auto relative">
                   <NoteCarousel images={carouselImages} />
                 </div>
               </div>

@@ -166,7 +166,7 @@ export default function HomePage() {
       {/* ── Hero ──────────────────────────────── */}
       <section
         className="relative overflow-hidden"
-        style={{ background: 'var(--navy)', minHeight: '88vh', display: 'flex', alignItems: 'center' }}
+        style={{ background: 'var(--navy)', minHeight: '88svh', display: 'flex', alignItems: 'center' }}
       >
         <ParallaxBg>
           <div className="dot-grid absolute inset-0" />
@@ -188,7 +188,7 @@ export default function HomePage() {
               <FadeIn delay={0.1}>
                 <h1
                   className="font-display font-bold leading-[1.1] mb-6"
-                  style={{ color: '#FFFFFF', fontSize: 'clamp(2.6rem, 6vw, 4.5rem)' }}
+                  style={{ color: '#FFFFFF', fontSize: 'clamp(2rem, 6vw, 4.5rem)' }}
                 >
                   啟發潛能
                   <br />
@@ -254,7 +254,7 @@ export default function HomePage() {
           {/* Stats row */}
           <div className="mt-20 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
             {stats.map(({ value, unit, label }) => (
-              <div key={label} className="py-6 pr-8">
+              <div key={label} className="py-6 pr-4 sm:pr-8">
                 <div className="font-display font-bold leading-none mb-1" style={{ color: '#FFFFFF', fontSize: '2.25rem' }}>
                   {value}<span style={{ color: 'var(--accent)', fontSize: '1.25rem' }}>{unit}</span>
                 </div>

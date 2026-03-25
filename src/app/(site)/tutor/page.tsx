@@ -220,7 +220,7 @@ export default async function TutorPage() {
               所有老師依教學年資與成果分為三個等級，時薪範圍公開透明，讓你在媒合前就能掌握預算。
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {tiers.map(({ key, name, exp, rate, desc }) => {
               const tc = tierConfig[key];
               return (
