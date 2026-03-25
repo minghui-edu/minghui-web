@@ -98,8 +98,13 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
   const s = activity.status ? (statusStyle[activity.status] ?? statusStyle['即將開放']) : statusStyle['即將開放'];
   const canRegister = activity.status === '報名中';
 
-  const imageUrl = activity.image
-    ? urlFor(activity.image).width(1200).height(600).fit('crop').url()
+  // Hero 橫式裁切（16:9 landscape）
+  const heroImageUrl = activity.image
+    ? urlFor(activity.image).width(1200).height(675).fit('crop').url()
+    : null;
+  // 詳情頁海報直式裁切（3:4 portrait）
+  const posterImageUrl = activity.image
+    ? urlFor(activity.image).width(720).height(960).fit('crop').url()
     : null;
 
   return (
@@ -109,10 +114,10 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
         <ParallaxBg>
           {/* Right-side hero photo (md+) — uses activity's own image */}
-          {imageUrl && (
+          {heroImageUrl && (
             <div className="hidden md:block absolute inset-0">
               <div className="absolute inset-y-0 right-0 w-[58%]">
-                <Image src={imageUrl} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+                <Image src={heroImageUrl} alt="" fill className="object-cover object-center" priority sizes="58vw" />
               </div>
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
             </div>
@@ -192,15 +197,15 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
         <div className={`${inner} py-20`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
 
-            {/* Photo */}
-            <div className="relative overflow-hidden" style={{ aspectRatio: '4/3', background: 'rgba(11,10,63,0.05)', border: '1px solid var(--border)' }}>
-              {imageUrl ? (
+            {/* Photo — portrait poster */}
+            <div className="relative overflow-hidden" style={{ aspectRatio: '3/4', background: 'rgba(11,10,63,0.05)', border: '1px solid var(--border)' }}>
+              {posterImageUrl ? (
                 <Image
-                  src={imageUrl}
+                  src={posterImageUrl}
                   alt={activity.title}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
                   priority
                 />
               ) : (
