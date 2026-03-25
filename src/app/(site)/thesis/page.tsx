@@ -242,19 +242,18 @@ export default function ThesisPage() {
 
           {/* AI 助手預告 */}
           <div
-            className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-8"
-            style={{ background: 'var(--navy)', position: 'relative', overflow: 'hidden' }}
+            className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-8 bg-white"
+            style={{ border: '2px dashed var(--accent)', borderRadius: 0 }}
           >
-            <div className="dot-grid absolute inset-0 pointer-events-none opacity-50" aria-hidden="true" />
             <div
-              className="relative shrink-0 w-14 h-14 flex items-center justify-center"
-              style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
+              className="shrink-0 w-14 h-14 flex items-center justify-center"
+              style={{ background: 'rgba(232,144,39,0.08)', border: '1px solid rgba(232,144,39,0.25)' }}
             >
               <Bot aria-hidden="true" size={28} style={{ color: 'var(--accent)' }} />
             </div>
-            <div className="relative flex-1">
+            <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <p className="font-display font-bold text-xl" style={{ color: '#fff' }}>
+                <p className="font-display font-bold text-xl" style={{ color: 'var(--navy)' }}>
                   AI 智慧文獻助手
                 </p>
                 <span
@@ -264,7 +263,7 @@ export default function ThesisPage() {
                   即將推出
                 </span>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
                 同樣的三步驟流程——上傳、整理、交付——未來將由 AI 在線上自動完成。
                 上傳 PDF 後即時生成速讀報告，支援自然語言提問與語意搜尋，大幅降低文獻管理的時間成本。
               </p>
@@ -274,21 +273,19 @@ export default function ThesisPage() {
       </section>
 
       {/* ── 學術倫理聲明 ──────────────────────────────────────── */}
-      <section style={{ background: 'var(--navy)', borderTop: '3px solid var(--accent)' }}>
-        <div className={`${inner} py-12`}>
-          <div className="flex items-start gap-5">
-            <div
-              className="shrink-0 w-10 h-10 flex items-center justify-center mt-0.5"
-              style={{ background: 'rgba(232,144,39,0.15)', border: '1px solid rgba(232,144,39,0.3)' }}
-            >
-              <Shield aria-hidden="true" size={20} style={{ color: 'var(--accent)' }} />
-            </div>
+      <section style={{ background: 'var(--surface)' }}>
+        <div className={`${inner} py-10`}>
+          <div
+            className="flex items-start gap-5 p-6"
+            style={{ borderLeft: '4px solid var(--accent)', background: 'var(--cream)' }}
+          >
+            <Shield aria-hidden="true" size={20} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '2px' }} />
             <div>
-              <p className="font-semibold text-sm mb-2" style={{ color: 'var(--accent-light)' }}>
+              <p className="font-semibold text-sm mb-1.5" style={{ color: 'var(--navy)' }}>
                 學術倫理聲明
               </p>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                我們堅守學術誠信，<strong style={{ color: '#fff' }}>絕不提供任何形式的代寫服務</strong>。
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                我們堅守學術誠信，<strong style={{ color: 'var(--navy)' }}>絕不提供任何形式的代寫服務</strong>。
                 我們的角色是「研究教練」——協助你梳理架構、強化邏輯、理解文獻，
                 但每一個論點、每一段文字，都必須出自你本人。
               </p>
