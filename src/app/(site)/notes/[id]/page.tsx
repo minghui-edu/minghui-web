@@ -89,13 +89,13 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
             返回筆記商城
           </Link>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
             {/* Title block */}
-            <div className="flex gap-6 items-start">
+            <div className="flex gap-6 items-start flex-1 min-w-0">
               {/* Cover thumbnail */}
               <div
                 className="hidden sm:block relative shrink-0 overflow-hidden"
-                style={{ width: '80px', height: '107px', border: '2px solid rgba(232,144,39,0.4)' }}
+                style={{ width: '72px', height: '96px', border: '2px solid rgba(232,144,39,0.4)' }}
               >
                 {note.cover ? (
                   <Image
@@ -113,7 +113,7 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                 )}
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {note.subject && (
                     <span
@@ -134,7 +134,7 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                 </div>
                 <h1
                   className="font-display font-bold leading-tight mb-2"
-                  style={{ color: '#FFFFFF', fontSize: 'clamp(1.5rem, 4vw, 2.2rem)' }}
+                  style={{ color: '#FFFFFF', fontSize: 'clamp(1.25rem, 3vw, 1.75rem)' }}
                 >
                   {note.title}
                 </h1>
