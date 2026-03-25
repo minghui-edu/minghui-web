@@ -47,7 +47,7 @@ const destinations: Record<Dest, DestData> = {
     dates: '2026 / 08 / 01 — 08 / 07',
     duration: '7 天 6 晚',
     price: 75000,
-    audience: '國中生 ～ 高中生',
+    audience: '國中生 ～ 大學生',
     minPeople: 10,
     pillars: [
       { icon: GraduationCap, label: '名校探索' },
@@ -116,7 +116,7 @@ const destinations: Record<Dest, DestData> = {
     dates: '2026 / 07 / 20 — 07 / 29',
     duration: '10 天 9 晚',
     price: 150000,
-    audience: '國中生 ～ 高中生',
+    audience: '國中生 ～ 大學生',
     minPeople: 10,
     pillars: [
       { icon: GraduationCap, label: '名校探索' },
@@ -232,13 +232,18 @@ export default function DestinationTabs() {
               ))}
             </dl>
             {/* 報名線上說明會 */}
-            <a
-              href="#"
-              className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide shrink-0"
-            >
-              報名線上說明會
-              <ChevronRight aria-hidden="true" size={15} />
-            </a>
+            <div className="flex flex-col items-start md:items-end gap-1.5 shrink-0">
+              <a
+                href="#"
+                className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide"
+              >
+                報名線上說明會
+                <ChevronRight aria-hidden="true" size={15} />
+              </a>
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                ＊詳細行程及費用以說明會內容為主
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -357,7 +362,7 @@ export default function DestinationTabs() {
               </div>
             ))}
           </div>
-          <p className="text-sm leading-relaxed max-w-2xl" style={{ color: 'var(--muted)' }}>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
             每所大學均安排在校學長姐進行閉門分享，涵蓋升學路徑、選系建議、獎學金申請秘訣，都是網路上找不到的第一手資訊。
           </p>
         </div>
