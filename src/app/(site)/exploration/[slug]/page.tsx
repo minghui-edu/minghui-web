@@ -288,9 +288,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-10" style={{ color: 'var(--navy)' }}>
               行程大綱
             </h2>
-            <div className="max-w-2xl space-y-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
               {activity.schedule.map((item, i) => (
-                <div key={i} className="flex gap-5 pb-6">
+                <div key={i} className="flex gap-4 pb-6">
                   <div className="flex flex-col items-center shrink-0">
                     <div
                       className="w-8 h-8 flex items-center justify-center font-display font-bold text-sm shrink-0"
@@ -298,11 +298,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                     >
                       {i + 1}
                     </div>
-                    {i < (activity.schedule?.length ?? 0) - 1 && (
-                      <div className="w-px flex-1 mt-2" style={{ background: 'var(--border)' }} />
-                    )}
+                    <div className="w-px flex-1 mt-2" style={{ background: 'var(--border)', minHeight: '1rem' }} />
                   </div>
-                  <p className="text-sm leading-relaxed pt-1.5" style={{ color: 'var(--muted)' }}>{item}</p>
+                  <p className="text-sm leading-relaxed pt-1.5 pb-2" style={{ color: 'var(--muted)' }}>{item}</p>
                 </div>
               ))}
             </div>
@@ -352,8 +350,8 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
       )}
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--navy)' }}>
-        <div className="dot-grid absolute pointer-events-none" aria-hidden="true" />
+      <section className="relative overflow-hidden" style={{ background: 'var(--navy)' }}>
+        <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div className={`relative ${inner} py-20 text-center`}>
           <SectionLabel light>立即行動</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: '#FFFFFF' }}>
