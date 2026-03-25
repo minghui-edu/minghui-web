@@ -135,9 +135,15 @@ export default function DestinationTabs() {
   return (
     <>
       {/* ── Tab Selector ─────────────────────────────────────── */}
-      <div style={{ background: 'var(--surface)', borderBottom: '2px solid var(--border)' }}>
-        <div className={inner}>
-          <div className="grid grid-cols-2" role="group" aria-label="選擇遊學目的地">
+      <div style={{ background: 'var(--cream)', borderBottom: '1px solid var(--border)' }}>
+        <div className={`${inner} py-10`}>
+          <p
+            className="text-xs font-semibold tracking-[0.18em] uppercase text-center mb-8"
+            style={{ color: 'var(--muted)' }}
+          >
+            選擇遊學目的地
+          </p>
+          <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto" role="group" aria-label="選擇遊學目的地">
             {(['japan', 'australia'] as Dest[]).map((dest) => {
               const item = destinations[dest];
               const isActive = active === dest;
@@ -146,40 +152,59 @@ export default function DestinationTabs() {
                   key={dest}
                   onClick={() => setActive(dest)}
                   aria-pressed={isActive}
-                  className="relative p-6 md:p-10 text-left transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-amber-400"
+                  className="relative p-6 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
-                    background: isActive ? 'var(--navy)' : 'transparent',
-                    borderTop: `4px solid ${isActive ? 'var(--accent)' : 'transparent'}`,
-                    borderRight: dest === 'japan' ? '1px solid var(--border)' : 'none',
+                    background: isActive ? 'var(--navy)' : '#fff',
+                    border: `2px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
+                    boxShadow: isActive ? '0 8px 28px rgba(11,10,63,0.18)' : '0 1px 4px rgba(0,0,0,0.05)',
+                    transform: isActive ? 'translateY(-3px)' : 'translateY(0)',
                   }}
                 >
-                  <p
-                    className="text-xs font-semibold tracking-[0.12em] uppercase mb-2"
-                    style={{ color: isActive ? 'var(--accent-light)' : 'var(--muted)' }}
+                  {/* Duration badge */}
+                  <span
+                    className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-1 mb-4"
+                    style={{
+                      background: isActive ? 'rgba(232,144,39,0.18)' : 'rgba(11,10,63,0.05)',
+                      color: isActive ? 'var(--accent)' : 'var(--muted)',
+                    }}
                   >
-                    {item.tagline}
-                  </p>
-                  <p
-                    className="font-display font-bold text-xl md:text-2xl mb-3 leading-tight"
-                    style={{ color: isActive ? '#fff' : 'var(--navy)' }}
-                  >
-                    {item.title}
-                  </p>
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="text-sm" style={{ color: isActive ? 'rgba(255,255,255,0.5)' : 'var(--muted)' }}>
-                      {item.dates}
+                    {item.duration}
+                  </span>
+                  {/* Flag + Title */}
+                  <div className="flex items-start gap-2 mb-2">
+                    <span className="text-xl mt-0.5 shrink-0" aria-hidden="true">
+                      {dest === 'japan' ? '🇯🇵' : '🇦🇺'}
                     </span>
-                    <span className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--accent)' }}>
-                      NT$&nbsp;{item.price.toLocaleString()}
-                    </span>
+                    <p
+                      className="font-display font-bold text-lg leading-snug"
+                      style={{ color: isActive ? '#fff' : 'var(--navy)' }}
+                    >
+                      {item.title}
+                    </p>
                   </div>
-                  {/* Active bottom rule */}
+                  {/* Dates */}
+                  <p
+                    className="text-xs mb-4 ml-7"
+                    style={{ color: isActive ? 'rgba(255,255,255,0.5)' : 'var(--muted)' }}
+                  >
+                    {item.dates}
+                  </p>
+                  {/* Price */}
+                  <p
+                    className="font-display font-bold text-2xl"
+                    style={{ color: 'var(--accent)' }}
+                  >
+                    NT$&nbsp;{item.price.toLocaleString()}
+                  </p>
+                  {/* Active check */}
                   {isActive && (
-                    <div
-                      className="absolute bottom-0 left-0 right-0 h-0.5"
-                      style={{ background: 'var(--accent)' }}
+                    <span
+                      className="absolute top-4 right-4 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
+                      style={{ background: 'var(--accent)', color: 'var(--navy)' }}
                       aria-hidden="true"
-                    />
+                    >
+                      ✓
+                    </span>
                   )}
                 </button>
               );
