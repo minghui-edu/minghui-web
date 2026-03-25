@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
-import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield, Image as ImageIcon } from 'lucide-react';
+
+// 替換成真實照片路徑，例如 '/images/hero-thesis.jpg'
+const heroImage: string | null = null;
 
 export const metadata: Metadata = {
   title: '論文顧問',
@@ -95,6 +99,21 @@ export default function ThesisPage() {
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        {/* Right-side hero photo (md+) */}
+        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-y-0 right-0 w-[58%]">
+            {heroImage ? (
+              <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
+                <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
+                <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
+              </div>
+            )}
+          </div>
+          {/* Fade gradient: navy → transparent */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
+        </div>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div
           className="absolute inset-0 pointer-events-none"

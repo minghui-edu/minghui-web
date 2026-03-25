@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, Calendar, Users, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
+
+// 替換成真實照片路徑，例如 '/images/hero-exploration.jpg'
+const heroImage: string | null = null;
 
 export const metadata: Metadata = {
   title: '科系探索',
@@ -64,38 +69,38 @@ const highlights = [
 
 type ActivityStatus = '報名中' | '即將開放' | '已截止';
 
-const activities: { title: string; date: string; audience: string; tags: string[]; status: ActivityStatus; registrationHref: string }[] = [
+const activities: { title: string; slug: string; date: string; audience: string; tags: string[]; status: ActivityStatus }[] = [
   {
     title: '醫學系探索營',
+    slug: 'medical-exploration',
     date: '2025 暑期梯次',
     audience: '高一、高二',
     tags: ['解剖實作', 'PBL討論', '醫院參訪'],
     status: '即將開放',
-    registrationHref: '#',
   },
   {
     title: '資工 AI 實作營',
+    slug: 'ai-engineering-camp',
     date: '2025 暑期梯次',
     audience: '國中、高中',
     tags: ['Python基礎', 'AI模型訓練', '專案發表'],
     status: '即將開放',
-    registrationHref: '#',
   },
   {
     title: 'DELC 科系探索領袖營',
+    slug: 'delc-leadership-camp',
     date: '2025 寒假梯次',
     audience: '國中、高一',
     tags: ['黑客松', '校園解謎', '跨領域實作'],
     status: '報名中',
-    registrationHref: '#',
   },
   {
     title: '法律系深度講座 & 模擬法庭',
+    slug: 'law-exploration',
     date: '2025 秋季梯次',
     audience: '高一、高二',
     tags: ['模擬法庭', '法條解析', '職涯分享'],
     status: '即將開放',
-    registrationHref: '#',
   },
 ];
 
@@ -143,6 +148,21 @@ export default function ExplorationPage() {
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        {/* Right-side hero photo (md+) */}
+        <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-y-0 right-0 w-[58%]">
+            {heroImage ? (
+              <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
+                <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
+                <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
+              </div>
+            )}
+          </div>
+          {/* Fade gradient: navy → transparent */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
+        </div>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div className="absolute top-0 right-0 pointer-events-none" style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }} aria-hidden="true" />
         <div className={`relative ${inner}`}>
@@ -314,15 +334,18 @@ export default function ExplorationPage() {
                         </span>
                       ))}
                     </div>
-                    <a
-                      href={act.registrationHref}
-                      className="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold transition-colors duration-150"
-                      style={{ color: act.status === '已截止' ? 'var(--muted)' : 'var(--accent)' }}
-                      aria-disabled={act.status === '已截止'}
-                    >
-                      {act.status === '已截止' ? '報名已截止' : '查看詳細簡章 / 立即報名'}
-                      {act.status !== '已截止' && <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-150 group-hover:translate-x-0.5" />}
-                    </a>
+                    {act.status === '已截止' ? (
+                      <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>報名已截止</span>
+                    ) : (
+                      <Link
+                        href={`/exploration/${act.slug}`}
+                        className="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold group hover:underline active:opacity-70 transition-opacity duration-100"
+                        style={{ color: 'var(--accent)' }}
+                      >
+                        查看詳細簡章 / 立即報名
+                        <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-100 group-hover:translate-x-0.5" />
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

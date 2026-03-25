@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const testimonials = [
@@ -48,11 +48,24 @@ export default function TestimonialsCarousel({ items }: { items?: Testimonial[] 
   const list = items ?? testimonials;
   const [idx, setIdx] = useState(0);
   const [fading, setFading] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
 
   const go = (newIdx: number) => {
     if (newIdx === idx || fading) return;
+    if (reducedMotion) { setIdx(newIdx); return; }
     setFading(true);
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setIdx(newIdx);
       setFading(false);
     }, 180);
@@ -88,7 +101,7 @@ export default function TestimonialsCarousel({ items }: { items?: Testimonial[] 
             border: '1px solid rgba(255,255,255,0.08)',
             borderTop: '3px solid var(--accent)',
             opacity: fading ? 0 : 1,
-            transition: 'opacity 0.18s ease',
+            transition: reducedMotion ? 'none' : 'opacity 0.18s ease',
             minHeight: '260px',
           }}
         >

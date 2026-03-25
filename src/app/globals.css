@@ -30,6 +30,13 @@
   --font-display: var(--font-baskerville), 'Libre Baskerville', Georgia, 'Times New Roman', serif;
 }
 
+/* ─── Global touch / tap ────────────────────── */
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* ─── Base ─────────────────────────────────── */
 
 body {
@@ -81,6 +88,9 @@ body {
   border-color: rgba(232,144,39,0.4);
   color: var(--accent-light);
 }
+.footer-social:active {
+  background: rgba(232,144,39,0.25);
+}
 
 .footer-link {
   color: #7A8FA8;
@@ -113,31 +123,42 @@ body {
   background: rgba(232,144,39,0.22);
   border-color: rgba(232,144,39,0.5);
 }
+.footer-cta:active {
+  background: rgba(232,144,39,0.32);
+}
 
 /* ─── Homepage CTA buttons ───────────────────── */
 
 .hero-cta-primary {
   background: var(--accent);
   color: var(--navy);
-  transition: background 0.15s, transform 0.2s;
+  transition: background 0.15s, transform 0.12s ease-out;
 }
 .hero-cta-primary:hover {
   background: var(--accent-light);
   transform: translateY(-2px);
 }
+.hero-cta-primary:active {
+  transform: scale(0.97);
+  background: var(--accent);
+}
 @media (prefers-reduced-motion: reduce) {
-  .hero-cta-primary:hover { transform: none; }
+  .hero-cta-primary:hover,
+  .hero-cta-primary:active { transform: none; }
 }
 
 .hero-cta-secondary {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.85);
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .hero-cta-secondary:hover {
   border-color: rgba(255,255,255,0.5);
   color: #fff;
+}
+.hero-cta-secondary:active {
+  background: rgba(255,255,255,0.08);
 }
 
 .about-link {
@@ -154,6 +175,10 @@ body {
   background: rgba(232,144,39,0.12);
   border-color: rgba(232,144,39,0.4);
   color: var(--accent-light);
+}
+.testimonial-nav-btn:active {
+  background: rgba(232,144,39,0.22);
+  transform: scale(0.95);
 }
 
 /* ─── Navbar nav-link hover underline ──────────── */

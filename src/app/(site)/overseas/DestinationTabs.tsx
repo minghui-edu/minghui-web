@@ -199,7 +199,7 @@ export default function DestinationTabs() {
                   key={dest}
                   onClick={() => setActive(dest)}
                   aria-pressed={isActive}
-                  className="px-6 py-2.5 text-sm font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                  className="px-6 py-2.5 text-sm font-semibold transition-[background-color,color,border-color] duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
                     background: isActive ? 'var(--accent)' : 'transparent',
                     color: isActive ? 'var(--navy)' : 'rgba(255,255,255,0.6)',
@@ -373,7 +373,7 @@ export default function DestinationTabs() {
         <div className={`${inner} py-16`}>
           <SectionLabel>費用說明</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-1" style={{ color: 'var(--navy)' }}>
-            NT$&nbsp;<span style={{ color: 'var(--accent)' }}>{d.price.toLocaleString()}</span>&nbsp;包含以下項目
+            NT$&nbsp;<span style={{ color: 'var(--accent)' }}>{new Intl.NumberFormat('zh-TW').format(d.price)}</span>&nbsp;包含以下項目
           </h2>
           <p className="text-sm mb-10" style={{ color: 'var(--muted)' }}>每人含稅總費用</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
