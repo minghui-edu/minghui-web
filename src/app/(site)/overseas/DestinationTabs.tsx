@@ -135,15 +135,9 @@ export default function DestinationTabs() {
   return (
     <>
       {/* ── Tab Selector ─────────────────────────────────────── */}
-      <div style={{ background: 'var(--cream)', borderBottom: '1px solid var(--border)' }}>
-        <div className={`${inner} py-10`}>
-          <p
-            className="text-xs font-semibold tracking-[0.18em] uppercase text-center mb-8"
-            style={{ color: 'var(--muted)' }}
-          >
-            選擇遊學目的地
-          </p>
-          <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto" role="group" aria-label="選擇遊學目的地">
+      <div style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)' }}>
+        <div className={inner}>
+          <div className="flex" role="group" aria-label="選擇遊學目的地">
             {(['japan', 'australia'] as Dest[]).map((dest) => {
               const item = destinations[dest];
               const isActive = active === dest;
@@ -152,60 +146,15 @@ export default function DestinationTabs() {
                   key={dest}
                   onClick={() => setActive(dest)}
                   aria-pressed={isActive}
-                  className="relative p-6 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                  className="relative px-8 py-5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-amber-400"
                   style={{
-                    background: isActive ? 'var(--navy)' : '#fff',
-                    border: `2px solid ${isActive ? 'var(--accent)' : 'var(--border)'}`,
-                    boxShadow: isActive ? '0 8px 28px rgba(11,10,63,0.18)' : '0 1px 4px rgba(0,0,0,0.05)',
-                    transform: isActive ? 'translateY(-3px)' : 'translateY(0)',
+                    color: isActive ? 'var(--navy)' : 'var(--muted)',
+                    background: 'transparent',
+                    borderBottom: `3px solid ${isActive ? 'var(--accent)' : 'transparent'}`,
+                    marginBottom: '-1px',
                   }}
                 >
-                  {/* Duration badge */}
-                  <span
-                    className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-1 mb-4"
-                    style={{
-                      background: isActive ? 'rgba(232,144,39,0.18)' : 'rgba(11,10,63,0.05)',
-                      color: isActive ? 'var(--accent)' : 'var(--muted)',
-                    }}
-                  >
-                    {item.duration}
-                  </span>
-                  {/* Flag + Title */}
-                  <div className="flex items-start gap-2 mb-2">
-                    <span className="text-xl mt-0.5 shrink-0" aria-hidden="true">
-                      {dest === 'japan' ? '🇯🇵' : '🇦🇺'}
-                    </span>
-                    <p
-                      className="font-display font-bold text-lg leading-snug"
-                      style={{ color: isActive ? '#fff' : 'var(--navy)' }}
-                    >
-                      {item.title}
-                    </p>
-                  </div>
-                  {/* Dates */}
-                  <p
-                    className="text-xs mb-4 ml-7"
-                    style={{ color: isActive ? 'rgba(255,255,255,0.5)' : 'var(--muted)' }}
-                  >
-                    {item.dates}
-                  </p>
-                  {/* Price */}
-                  <p
-                    className="font-display font-bold text-2xl"
-                    style={{ color: 'var(--accent)' }}
-                  >
-                    NT$&nbsp;{item.price.toLocaleString()}
-                  </p>
-                  {/* Active check */}
-                  {isActive && (
-                    <span
-                      className="absolute top-4 right-4 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
-                      style={{ background: 'var(--accent)', color: 'var(--navy)' }}
-                      aria-hidden="true"
-                    >
-                      ✓
-                    </span>
-                  )}
+                  {dest === 'japan' ? '🇯🇵' : '🇦🇺'}&ensp;{item.duration}&ensp;·&ensp;{item.title}
                 </button>
               );
             })}
