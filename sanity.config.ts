@@ -6,6 +6,7 @@ import { sanityConfig } from './src/lib/sanity/config';
 export default defineConfig({
   name: 'minghui-edu',
   title: '明慧教育 CMS',
+  basePath: '/studio',
   projectId: sanityConfig.projectId,
   dataset: sanityConfig.dataset,
   plugins: [
