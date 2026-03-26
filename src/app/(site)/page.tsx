@@ -362,6 +362,11 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── YouTube 留言截圖牆（只有 Sanity 有截圖資料時才顯示）── */}
+      {screenshotItems.length > 0 && (
+        <FloatingTestimonials items={screenshotItems} />
+      )}
+
       {/* ── Services ──────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
@@ -446,11 +451,6 @@ export default async function HomePage() {
           </RevealOnScroll>
         </div>
       </section>
-
-      {/* ── YouTube 留言截圖牆（只有 Sanity 有截圖資料時才顯示）── */}
-      {screenshotItems.length > 0 && (
-        <FloatingTestimonials items={screenshotItems} />
-      )}
 
       {/* ── A: 學員心聲輪播 ────────────────────── */}
       <section className="py-20" style={{ background: 'var(--navy)' }}>
