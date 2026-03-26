@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -112,16 +113,19 @@ const mediaItems = [
     outlet: '壹電視 NEXT TV',
     title: '台大碩士生「黃金家教」年收破百萬，家教行程滿檔',
     href: 'https://youtu.be/5OYc3CdTUEQ?si=kp3iLx6QLt60Hm0W',
+    image: 'https://img.youtube.com/vi/5OYc3CdTUEQ/hqdefault.jpg',
   },
   {
     outlet: '1111人力銀行',
     title: '創辦人家教經驗豐富，受邀分享未來線上教育趨勢',
     href: 'https://youtu.be/QQ3POug3gwc?si=2YKW_lthl3m05PWm&t=136',
+    image: 'https://img.youtube.com/vi/QQ3POug3gwc/hqdefault.jpg',
   },
   {
     outlet: 'ETtoday 財經雲',
     title: '台大男擔任家教收13學生，網全跪了',
     href: 'https://finance.ettoday.net/news/1958005',
+    image: 'https://cdn2.ettoday.net/images/4276/e4276749.jpg',
   },
 ];
 
@@ -355,22 +359,35 @@ export default function AboutPage() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="media-card group flex flex-col p-6 bg-white transition-shadow duration-200 hover:shadow-lg"
+                className="media-card group flex flex-col bg-white transition-shadow duration-200 hover:shadow-lg overflow-hidden"
                 style={{ border: '1px solid var(--border)', borderTop: '3px solid var(--accent)' }}
               >
-                <span
-                  className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-4 px-2 py-1 self-start"
-                  style={{ background: 'var(--accent-dim)', color: 'var(--accent)' }}
-                >
-                  {item.outlet}
-                </span>
-                <p className="font-display font-bold text-base leading-snug flex-grow mb-6" style={{ color: 'var(--navy)' }}>
-                  {item.title}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                  閱讀報導
-                  <ExternalLink aria-hidden="true" size={12} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
-                </span>
+                {/* Thumbnail */}
+                <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:group-hover:scale-100"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                {/* Content */}
+                <div className="flex flex-col flex-grow p-6">
+                  <span
+                    className="text-[11px] font-semibold tracking-[0.12em] uppercase mb-3 px-2 py-1 self-start"
+                    style={{ background: 'var(--accent-dim)', color: 'var(--accent)' }}
+                  >
+                    {item.outlet}
+                  </span>
+                  <p className="font-display font-bold text-base leading-snug flex-grow mb-5" style={{ color: 'var(--navy)' }}>
+                    {item.title}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                    閱讀報導
+                    <ExternalLink aria-hidden="true" size={12} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
+                  </span>
+                </div>
               </a>
             ))}
           </div>
