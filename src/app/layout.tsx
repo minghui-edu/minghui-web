@@ -33,11 +33,13 @@ export const metadata: Metadata = {
     siteName: '明慧教育',
     title: '明慧教育 — 啟發潛能，探索無限未來',
     description: '明慧教育提供科系探索營隊、海外名校遊學、專業家教媒合、高分筆記與論文顧問服務，幫助學生找到未來的方向。',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: '明慧教育' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: '明慧教育 — 啟發潛能，探索無限未來',
     description: '明慧教育提供科系探索營隊、海外名校遊學、專業家教媒合、高分筆記與論文顧問服務，幫助學生找到未來的方向。',
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://www.minghuiedu.com',
