@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Youtube } from 'lucide-react';
 
 export type ScreenshotTestimonial = {
   name: string;
@@ -221,18 +220,6 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                       sizes={`${w}px`}
                       style={{ width: `${w}px`, height: 'auto', display: 'block' }}
                     />
-                    <figcaption
-                      className="px-3 py-2 flex items-center gap-1.5"
-                      style={{ background: 'rgba(10,12,40,0.90)' }}
-                    >
-                      <Youtube aria-hidden="true" size={12} style={{ color: '#FF0000', flexShrink: 0 }} />
-                      <span
-                        className="font-medium truncate"
-                        style={{ fontSize: `${Math.round(w * 0.043)}px`, color: 'rgba(255,255,255,0.85)' }}
-                      >
-                        {item.name}
-                      </span>
-                    </figcaption>
                   </figure>
                 </div>
               </div>
@@ -260,15 +247,6 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 sizes="50vw"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
-              <figcaption
-                className="px-3 py-2 flex items-center gap-1.5"
-                style={{ background: 'rgba(10,12,40,0.90)' }}
-              >
-                <Youtube aria-hidden="true" size={11} style={{ color: '#FF0000', flexShrink: 0 }} />
-                <span className="text-[11px] font-medium truncate" style={{ color: 'rgba(255,255,255,0.85)' }}>
-                  {item.name}
-                </span>
-              </figcaption>
             </figure>
           ))}
         </div>
