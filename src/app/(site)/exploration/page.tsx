@@ -14,8 +14,14 @@ export const revalidate = 60;
 const heroImage: string | null = null;
 
 export const metadata: Metadata = {
-  title: '科系探索',
-  description: '透過實作與參訪，提早認識大學科系，豐富學習歷程。',
+  title: '科系探索營隊',
+  description: '明慧教育科系探索營隊，帶領高中生深入台大、政大等頂尖科系實作體驗，釐清興趣志向，豐富備審學習歷程，每年超過 20 梯次，10,000+ 學生受益。',
+  openGraph: {
+    title: '科系探索營隊 | 明慧教育',
+    description: '帶領高中生深入頂尖科系實作體驗，釐清興趣志向，豐富備審學習歷程。',
+    url: 'https://www.minghuiedu.com/exploration',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/exploration' },
 };
 
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';

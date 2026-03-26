@@ -2,8 +2,14 @@ import type { Metadata } from 'next';
 import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: '關於我們',
-  description: '了解明慧教育的創辦理念、團隊背景與12年發展歷程。',
+  title: '關於明慧教育',
+  description: '明慧教育創立於2012年，12年補教教育經驗，舉辦超過 20 梯次營隊，協助 10,000+ 學生找到未來方向，錄取 120+ 世界前100名校。',
+  openGraph: {
+    title: '關於明慧教育',
+    description: '12年補教教育經驗，舉辦超過 20 梯次營隊，協助 10,000+ 學生找到未來方向。',
+    url: 'https://www.minghuiedu.com/about',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/about' },
 };
 
 /* ─── Shared layout token ───────────────────── */

@@ -7,8 +7,14 @@ import { urlFor } from '@/lib/sanity/image';
 import YouTubeLiteEmbed from '@/components/YouTubeLiteEmbed';
 
 export const metadata: Metadata = {
-  title: '高分筆記',
-  description: '嚴選台清交成筆記，結合觀念講解影片，高效提升學習成效。',
+  title: '學霸筆記商城',
+  description: '明慧教育嚴選台大、清大、交大、成大學霸筆記，搭配觀念講解影片，涵蓋數學、物理、化學、英文等科目，高效提升學習成效與考試分數。',
+  openGraph: {
+    title: '學霸筆記商城 | 明慧教育',
+    description: '嚴選台清交成學霸筆記，搭配觀念講解影片，高效提升學習成效。',
+    url: 'https://www.minghuiedu.com/notes',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/notes' },
 };
 
 export const revalidate = 60; // ISR：每 60 秒重新驗證

@@ -10,8 +10,14 @@ import { FadeIn } from '@/components/ui/FadeIn';
 const heroImage: string | null = null;
 
 export const metadata: Metadata = {
-  title: '海外名校遊學',
-  description: '東京 × 澳洲兩大遊學行程，走訪 QS 前 25 頂尖名校，與在校學長姐閉門交流，提前掌握留學關鍵資訊。',
+  title: '海外名校遊學參訪',
+  description: '明慧教育海外遊學參訪，東京 × 澳洲兩大行程，走訪 QS 前 25 頂尖名校，與在校學長姐閉門交流，帶領高中生提前掌握留學申請關鍵資訊。',
+  openGraph: {
+    title: '海外名校遊學參訪 | 明慧教育',
+    description: '東京 × 澳洲兩大遊學行程，走訪 QS 前 25 頂尖名校，提前掌握留學關鍵資訊。',
+    url: 'https://www.minghuiedu.com/overseas',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/overseas' },
 };
 
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';

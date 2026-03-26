@@ -8,8 +8,14 @@ import { urlFor } from '@/lib/sanity/image';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: '專業家教',
-  description: '零抽成、透明化的優質家教平台，專注於國外升學輔導與留學諮詢。',
+  title: '國外升學家教媒合',
+  description: '明慧教育家教媒合平台，零抽成透明化，嚴格篩選台清交成師資，專注國外升學輔導與留學諮詢，讓您找到真正合適的家教老師。',
+  openGraph: {
+    title: '國外升學家教媒合 | 明慧教育',
+    description: '零抽成透明化，嚴格篩選台清交成師資，專注國外升學輔導與留學諮詢。',
+    url: 'https://www.minghuiedu.com/tutor',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/tutor' },
 };
 
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';

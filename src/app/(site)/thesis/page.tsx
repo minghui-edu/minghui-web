@@ -8,8 +8,14 @@ import { FadeIn } from '@/components/ui/FadeIn';
 const heroImage: string | null = null;
 
 export const metadata: Metadata = {
-  title: '論文顧問',
-  description: '由知名期刊編輯坐鎮指導，提供期刊選擇、審稿加速、重修再投稿與文獻速讀整理，全面提升學術發表成功率。',
+  title: '論文與研究顧問',
+  description: '明慧教育論文顧問服務，由知名期刊編輯坐鎮指導，提供期刊選擇策略、審稿加速、重修再投稿與文獻速讀整理，全面提升學術論文發表成功率。',
+  openGraph: {
+    title: '論文與研究顧問 | 明慧教育',
+    description: '知名期刊編輯坐鎮指導，提供期刊選擇、審稿加速、重修再投稿服務，全面提升學術發表成功率。',
+    url: 'https://www.minghuiedu.com/thesis',
+  },
+  alternates: { canonical: 'https://www.minghuiedu.com/thesis' },
 };
 
 const inner = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8';
