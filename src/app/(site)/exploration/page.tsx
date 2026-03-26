@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, Calendar, Users, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
@@ -172,7 +173,7 @@ export default async function ExplorationPage() {
           <FadeIn delay={0}><SectionLabel light>科系探索營隊</SectionLabel></FadeIn>
           <FadeIn delay={0.1}>
             <h1 className="font-display font-bold leading-[1.1] mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}>
-              在選擇科系之前
+              台灣科系探索營隊推薦
               <br />
               <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>先來親身體驗看看</em>
             </h1>
@@ -429,6 +430,15 @@ export default async function ExplorationPage() {
           <TestimonialsCarousel items={explorationTestimonials} />
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────── */}
+      <FaqSection items={[
+        { q: '幾年級的學生適合參加科系探索營隊？', a: '國中八年級到高中三年級都適合，尤其是高一、高二最能充分運用探索成果。越早了解科系差異，填志願時就越有把握，也有更多時間豐富學習歷程。' },
+        { q: '參加科系探索有什麼具體收穫？', a: '親身走訪大學科系實驗室與課堂、與在校學長姐近距離交流、完成科系實作任務，並獲得可放入備審資料的學習歷程紀錄。許多學員表示參加後對志願選填更有方向。' },
+        { q: '參加營隊可以用在學習歷程備審嗎？', a: '可以。明慧教育的科系探索營隊具有正式活動記錄，參加後可作為高中學習歷程的課外活動佐證資料，呈現自主學習與科系探索的動機與歷程。' },
+        { q: '科系探索營隊費用是多少？', a: '費用依梯次、目的地與行程天數而有所不同，詳細金額請參閱各梯次頁面，或加入 LINE 官方帳號詢問最新報價與早鳥優惠。' },
+        { q: '如果想參加但還不確定想探索哪個科系，怎麼辦？', a: '這正是我們最常見的情況！許多同學在參加前完全沒有方向，我們會在行前提供科系探索引導，幫助你在親身體驗中找到感興趣的方向。' },
+      ]} />
 
       {/* ── CTA ───────────────────────────────── */}
       <section className="py-20 relative overflow-hidden" style={{ background: 'var(--cream)' }}>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield, Image as ImageIcon } from 'lucide-react';
+import FaqSection from '@/components/ui/FaqSection';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 
@@ -136,7 +137,7 @@ export default function ThesisPage() {
               className="font-display font-bold leading-[1.1] mb-6"
               style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
             >
-              由期刊編輯坐鎮
+              台灣專業學術論文顧問
               <br />
               <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>提升論文發表成功率</em>
             </h1>
@@ -325,6 +326,15 @@ export default function ThesisPage() {
           </div>
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────────────────────── */}
+      <FaqSection items={[
+        { q: '論文顧問服務適合哪些人？', a: '適合大學生、研究生、博士生，以及需要在國際期刊發表論文的學術研究者。無論是第一次投稿，還是已被拒稿需要重修，我們都能提供針對性的指導。' },
+        { q: '如何選擇適合的期刊投稿？', a: '我們的顧問會根據你的研究主題、目標讀者與時程需求，分析適合的期刊清單，評估接受率、影響因子與審稿週期，幫助你做出最有利的投稿策略。' },
+        { q: '如果論文被退稿，你們能協助重投嗎？', a: '可以。這是我們最常見的服務之一。我們會仔細分析審稿意見，協助你針對性地修改論文，撰寫有力的 Rebuttal Letter，提升重投後被接受的機率。' },
+        { q: '服務有保密協議嗎？', a: '有。我們對所有客戶的研究內容、投稿目標與合作細節嚴格保密，絕不對外揭露，請放心諮詢。' },
+        { q: '費用如何計算？', a: '依論文類型、字數、服務項目（審閱、修改、翻譯、回覆審稿意見等）進行客製化報價。請加入 LINE 說明你的研究狀況，我們將提供免費的初步諮詢。' },
+      ]} />
 
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section style={{ background: 'var(--cream)' }}>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake } from 'lucide-react';
+import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
 
@@ -133,7 +134,7 @@ export default async function TutorPage() {
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
           >
-            找到最適合你的老師
+            國外升學家教媒合平台
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>零抽成，透明媒合</em>
           </h1>
@@ -357,6 +358,15 @@ export default async function TutorPage() {
           )}
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────── */}
+      <FaqSection items={[
+        { q: '什麼是「零抽成」家教媒合？', a: '媒合成功後，我們只收一次性媒合費，後續老師收到的所有家教費用我們完全不抽成。這讓老師可以專注在教學品質，學生也能和老師建立長期穩定的師生關係。' },
+        { q: '家教老師的資格如何審核？', a: '每位老師都需提交學歷證明（台清交成等頂尖名校優先），並通過我們的背景審查與教學能力評估，確保師資品質。我們不是開放式刊登平台，每位老師都經過篩選。' },
+        { q: '可以找到專精國外升學的家教嗎？', a: '可以。我們有多位具留學背景的老師，專精 SOP 撰寫、推薦信規劃、TOEFL / IELTS / GRE 準備、美國/英國/日本大學申請策略等，可根據你的目標學校量身規劃。' },
+        { q: '如何開始申請家教媒合？', a: '加入我們的 LINE 官方帳號，說明你的需求（科目、目標、時間、地點），我們會在 3 個工作天內為你配對合適的老師，並安排免費的試教前諮詢。' },
+        { q: '如果試教後不滿意，可以更換老師嗎？', a: '可以。我們重視師生適配度，如果試教後雙方不合適，可以提出重新配對，確保你找到真正合適的師資。' },
+      ]} />
 
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, ChevronRight, Smartphone, ShoppingCart } from 'lucide-react';
+import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
 import YouTubeLiteEmbed from '@/components/YouTubeLiteEmbed';
@@ -87,7 +88,7 @@ export default async function NotesPage() {
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
           >
-            名校學長姐的秘密武器
+            台清交成學霸筆記商城
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>嚴選筆記，高效學習</em>
           </h1>
@@ -223,6 +224,15 @@ export default async function NotesPage() {
           )}
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────── */}
+      <FaqSection items={[
+        { q: '筆記是電子版還是紙本？', a: '目前為電子版 PDF 格式，購買後可立即下載，方便在電腦、平板、手機等各裝置上使用，也可自行列印成紙本。' },
+        { q: '筆記的作者是誰？品質如何保證？', a: '所有筆記均由台灣大學、清華大學、交通大學、成功大學等頂尖名校的在校生或畢業生撰寫，學業成績優異。我們在上架前會嚴格審查筆記內容的正確性、完整性與可讀性。' },
+        { q: '這些筆記適合哪些考試？', a: '涵蓋學測、指考（分科測驗）、大學期中期末考、研究所考試等，各筆記頁面都會標示適用對象與考試範圍，請購買前仔細確認。' },
+        { q: '購買後可以退款嗎？', a: '由於筆記為數位商品，下載後恕不接受退款申請。建議購買前仔細閱讀筆記介紹、預覽頁面，若有任何疑問也歡迎先加入 LINE 詢問。' },
+        { q: '一本筆記可以分享給朋友嗎？', a: '每份購買授權僅限個人使用，請勿轉傳或複製分享，以保障作者的創作權益。如需多人使用，請各自購買。' },
+      ]} />
 
       {/* ── APP 預告 ───────────────────────────── */}
       <section className="py-20 relative overflow-hidden" style={{ background: 'var(--navy)' }}>

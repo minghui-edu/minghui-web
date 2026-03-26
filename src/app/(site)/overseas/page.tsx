@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ChevronRight, Image as ImageIcon } from 'lucide-react';
+import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
@@ -69,7 +70,7 @@ export default function OverseasPage() {
               className="font-display font-bold leading-[1.1] mb-6"
               style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
             >
-              走進頂尖名校
+              台灣高中生海外名校遊學參訪
               <br />
               <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身感受留學生活</em>
             </h1>
@@ -101,6 +102,15 @@ export default function OverseasPage() {
           <TestimonialsCarousel />
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────────────────────── */}
+      <FaqSection items={[
+        { q: '海外遊學參訪適合幾年級的學生？', a: '主要適合高一到高三學生，越早參加越能將名校資訊運用到備審與選填志願。許多學員回台後對留學目標更明確，也開始提早準備語言考試。' },
+        { q: '目前有哪些遊學目的地？', a: '目前提供東京（東京大學、慶應義塾大學等日本頂尖名校）及澳洲（QS 前 25 大學，含澳洲國立大學、墨爾本大學等）兩大行程，各有不同的文化與學術風格。' },
+        { q: '遊學行程和一般旅遊有什麼不同？', a: '我們的行程包含正式校園深度參訪、與在校台灣留學生閉門交流座談、留學申請資訊講座，以及文化沉浸體驗。是有教育目的的深度學習之旅，不是觀光旅遊。' },
+        { q: '費用包含哪些項目？', a: '費用通常包含機票、住宿、大部分餐食、校園參訪費用及保險。詳細費用與包含項目請參閱各梯次頁面，或加入 LINE 索取完整報價。' },
+        { q: '需要先會日文或英文才能參加嗎？', a: '不需要。行程全程有中文翻譯與帶隊老師陪同，但我們鼓勵學員積極嘗試使用英文與當地學生交流，這也是遊學最寶貴的體驗之一。' },
+      ]} />
 
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
