@@ -100,11 +100,11 @@ const featuredTutors = [
 ];
 
 const partners = [
-  '台北市政府青年局',
-  '東京大學台灣留學生會',
-  '慶應義塾大學台灣留學生會',
-  '北京大學兩岸文化交流協會',
-  '星創音樂',
+  { name: '台北市政府青年局',       abbr: '北市府' },
+  { name: '東京大學台灣留學生會',   abbr: 'UTokyo' },
+  { name: '慶應義塾大學台灣留學生會', abbr: 'Keio'  },
+  { name: '北京大學兩岸文化交流協會', abbr: 'PKU'   },
+  { name: '星創音樂',               abbr: '星創'   },
 ];
 
 /* ─── Shared layout token ───────────────────── */
@@ -466,25 +466,64 @@ export default async function HomePage() {
       </section>
 
       {/* ── E: 過往合作夥伴 ───────────────────── */}
-      <section className="py-16" style={{ background: 'var(--cream)' }}>
-        <div className={inner}>
-          <div className="text-center mb-10">
-            <SectionLabel>信任與合作</SectionLabel>
-            <h2 className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--navy)' }}>
-              過往合作夥伴
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            {partners.map((name) => (
+      <section className="py-16 overflow-hidden" style={{ background: 'var(--surface)' }}>
+        <style>{`
+          @keyframes partners-scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+        `}</style>
+        <div className={`${inner} mb-10`}>
+          <SectionLabel>信任與合作</SectionLabel>
+          <h2 className="font-display font-bold text-2xl md:text-3xl" style={{ color: 'var(--navy)' }}>
+            過往合作夥伴
+          </h2>
+        </div>
+
+        {/* Marquee strip */}
+        <div style={{
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          maskImage:        'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        }}>
+          <div
+            className="flex items-center"
+            style={{
+              width: 'max-content',
+              gap: '32px',
+              animation: 'partners-scroll 28s linear infinite',
+            }}
+          >
+            {[...partners, ...partners].map((p, i) => (
               <div
-                key={name}
-                className="px-6 py-3 text-sm font-medium tracking-wide"
-                style={{ border: '1px solid var(--border)', color: 'var(--muted)', background: 'var(--surface)' }}
+                key={i}
+                className="flex items-center gap-4 shrink-0 px-6 py-4"
+                style={{
+                  border: '1px solid var(--border)',
+                  background: '#fff',
+                  minWidth: '240px',
+                }}
               >
-                {name}
+                {/* 1:1 logo placeholder — replace with <Image> when logo is ready */}
+                <div
+                  className="shrink-0 flex items-center justify-center font-display font-bold text-sm"
+                  style={{
+                    width: '52px',
+                    height: '52px',
+                    background: 'rgba(11,10,63,0.06)',
+                    border: '1px solid rgba(11,10,63,0.10)',
+                    color: 'var(--navy)',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {p.abbr}
+                </div>
+                <span className="font-medium text-sm leading-snug" style={{ color: 'var(--navy)' }}>
+                  {p.name}
+                </span>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </section>
 
