@@ -93,7 +93,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                     className="shrink-0 overflow-hidden"
                     style={{
                       width: `${CARD_W}px`,
-                      borderRadius: '12px',
+                      borderRadius: 0,
                       background: '#fff',
                       boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
                     }}
