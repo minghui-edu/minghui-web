@@ -108,15 +108,14 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                     background: 'rgba(255,255,255,0.04)',
                   }}
                 >
-                  <div className="relative" style={{ aspectRatio: '4/5' }}>
-                    <Image
-                      src={item.screenshot}
-                      alt={`${item.name} 的 YouTube 留言`}
-                      fill
-                      className="object-cover object-top"
-                      sizes="180px"
-                    />
-                  </div>
+                  <Image
+                    src={item.screenshot}
+                    alt={`${item.name} 的 YouTube 留言`}
+                    width={0}
+                    height={0}
+                    sizes="180px"
+                    style={{ width: '180px', height: 'auto', display: 'block' }}
+                  />
                   <figcaption
                     className="px-3 py-2 flex items-center gap-1.5"
                     style={{ background: 'rgba(0,0,0,0.5)' }}
@@ -144,15 +143,14 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 background: 'rgba(255,255,255,0.04)',
               }}
             >
-              <div className="relative" style={{ aspectRatio: '4/5' }}>
-                <Image
-                  src={item.screenshot}
-                  alt={`${item.name} 的 YouTube 留言`}
-                  fill
-                  className="object-cover object-top"
-                  sizes="50vw"
-                />
-              </div>
+              <Image
+                src={item.screenshot}
+                alt={`${item.name} 的 YouTube 留言`}
+                width={0}
+                height={0}
+                sizes="50vw"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
               <figcaption
                 className="px-3 py-2 flex items-center gap-1.5"
                 style={{ background: 'rgba(0,0,0,0.5)' }}
