@@ -33,7 +33,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
   );
 
   return (
-    <section className="py-20" style={{ background: 'var(--navy)', overflow: 'hidden' }}>
+    <section className="py-20" style={{ background: 'var(--cream)', overflow: 'hidden' }}>
       <style>{`
         @keyframes mh-marquee {
           from { transform: translateX(0); }
@@ -54,7 +54,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
           YouTube 留言
           <span className="w-5 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
         </p>
-        <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: '#FFFFFF' }}>
+        <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
           他們這樣說
         </h2>
       </div>
@@ -96,7 +96,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                       width: `${CARD_W}px`,
                       borderRadius: '12px',
                       background: '#fff',
-                      boxShadow: '0 4px 24px rgba(0,0,0,0.35)',
+                      boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
                     }}
                     aria-hidden={i >= row.length} /* duplicates are decorative */
                   >
