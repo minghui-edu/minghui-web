@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, ShieldCheck, Banknote, Award } from 'lucide-react';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
+import FloatingTestimonials from '@/components/home/FloatingTestimonials';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
@@ -201,15 +202,26 @@ export default async function HomePage() {
     .fetch(`*[_type == "testimonial" && featured == true] | order(order asc){ quote, name, context, year, screenshot }`)
     .catch(() => []);
 
-  const testimonialItems = sanityTestimonials.length > 0
-    ? sanityTestimonials.map((t) => ({
-        quote: t.quote,
-        name: t.name,
-        context: t.context ?? '',
-        year: t.year ?? '',
-        screenshot: t.screenshot ? urlFor(t.screenshot).width(600).url() : undefined,
-      }))
-    : undefined; // fallback to hardcoded
+  // Split on raw Sanity data BEFORE URL conversion, so we don't rely on urlFor() returning truthy
+  const rawWithScreenshot = sanityTestimonials.filter((t) => t.screenshot?.asset?._ref);
+  const rawTextOnly       = sanityTestimonials.filter((t) => !t.screenshot?.asset?._ref);
+
+  // Screenshot testimonials → FloatingTestimonials wall
+  const screenshotItems = rawWithScreenshot.map((t) => ({
+    quote: t.quote,
+    name: t.name,
+    context: t.context,
+    screenshot: urlFor(t.screenshot).width(600).url(),
+  }));
+
+  // Text-only testimonials → carousel (falls back to hardcoded if none from Sanity)
+  const textMapped = rawTextOnly.map((t) => ({
+    quote: t.quote,
+    name: t.name,
+    context: t.context ?? '',
+    year: t.year ?? '',
+  }));
+  const carouselItems = textMapped.length > 0 ? textMapped : undefined;
   return (
     <div>
       <script
@@ -435,7 +447,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── A: 學員心聲 ───────────────────────── */}
+      {/* ── YouTube 留言截圖牆（只有 Sanity 有截圖資料時才顯示）── */}
+      {screenshotItems.length > 0 && (
+        <FloatingTestimonials items={screenshotItems} />
+      )}
+
+      {/* ── A: 學員心聲輪播 ────────────────────── */}
       <section className="py-20" style={{ background: 'var(--navy)' }}>
         <div className={inner}>
           <div className="text-center mb-14">
@@ -444,7 +461,7 @@ export default async function HomePage() {
               他們的故事
             </h2>
           </div>
-          <TestimonialsCarousel items={testimonialItems} />
+          <TestimonialsCarousel items={carouselItems} />
         </div>
       </section>
 
