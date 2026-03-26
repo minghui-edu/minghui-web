@@ -47,12 +47,11 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
       `}</style>
 
       {/* Heading */}
-      <div className="text-center mb-12 px-4">
-        <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center justify-center gap-2"
+      <div className="mb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
            style={{ color: 'var(--accent)' }}>
           <span className="w-5 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
           YouTube 留言
-          <span className="w-5 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
         </p>
         <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
           他們這樣說
