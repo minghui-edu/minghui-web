@@ -11,16 +11,22 @@ export type ScreenshotTestimonial = {
   quote: string;
 };
 
-/* ── Card sizes by order ─────────────────────────────
-   Index 0–4   → large  (440px)
-   Index 5–11  → medium (350px)
-   Index 12–19 → small  (260px)
+/* ── Card widths — mixed L/M/S by position ──────────
+   Sizes spread across the wall so each row has variety.
+   Right-edge positions (left > 700) are capped at M or S
+   to avoid overflowing the ~1200px container.
+
+   Row 1: L  S  M  L  S
+   Row 2: M  L  M  S  L
+   Row 3: M  S  M  S  L
+   Row 4: M  S  S  M  S
 ─────────────────────────────────────────────────── */
-function cardWidth(i: number): number {
-  if (i < 5)  return 440;
-  if (i < 12) return 350;
-  return 260;
-}
+const CARD_WIDTHS = [
+  440, 260, 350, 440, 260,
+  350, 440, 350, 260, 440,
+  350, 260, 350, 260, 440,
+  350, 260, 260, 350, 260,
+];
 
 /*
  * Positions (left px, top px) — designed for ~1200px inner width.
@@ -163,7 +169,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
             const v    = FLOAT_VARIANTS[i];
             const rot  = ROTATIONS[i];
             const z    = Z_INDICES[i];
-            const w    = cardWidth(i);
+            const w    = CARD_WIDTHS[i] ?? 350;
             /* Pop-in delay (staggered) — after pop completes, float starts */
             const popDelay  = reducedMotion ? 0 : i * POP_STAGGER_MS;
             const popVisible = inView || reducedMotion;
