@@ -109,19 +109,19 @@ const coreValues = [
 
 const mediaItems = [
   {
-    outlet: '媒體名稱',
-    title: '報導標題（請填入實際報導標題）',
-    href: '#',
+    outlet: '壹電視 NEXT TV',
+    title: '台大碩士生「黃金家教」年收破百萬，家教行程滿檔',
+    href: 'https://youtu.be/5OYc3CdTUEQ?si=kp3iLx6QLt60Hm0W',
   },
   {
-    outlet: '媒體名稱',
-    title: '報導標題（請填入實際報導標題）',
-    href: '#',
+    outlet: '1111人力銀行',
+    title: '創辦人家教經驗豐富，受邀分享未來線上教育趨勢',
+    href: 'https://youtu.be/QQ3POug3gwc?si=2YKW_lthl3m05PWm&t=136',
   },
   {
-    outlet: '媒體名稱',
-    title: '報導標題（請填入實際報導標題）',
-    href: '#',
+    outlet: 'ETtoday 財經雲',
+    title: '台大男擔任家教收13學生，網全跪了',
+    href: 'https://finance.ettoday.net/news/1958005',
   },
 ];
 
