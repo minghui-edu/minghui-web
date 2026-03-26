@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { Quote, ChevronLeft, ChevronRight, Youtube } from 'lucide-react';
 
 const testimonials = [
   {
@@ -42,10 +43,10 @@ const testimonials = [
   },
 ];
 
-export type Testimonial = (typeof testimonials)[0];
+export type Testimonial = { quote: string; name: string; context: string; year: string; screenshot?: string };
 
 export default function TestimonialsCarousel({ items }: { items?: Testimonial[] }) {
-  const list = items ?? testimonials;
+  const list: Testimonial[] = items ?? testimonials;
   const [idx, setIdx] = useState(0);
   const [fading, setFading] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -95,7 +96,7 @@ export default function TestimonialsCarousel({ items }: { items?: Testimonial[] 
 
         {/* Card */}
         <div
-          className="flex-1 p-8 md:p-12 flex flex-col"
+          className="flex-1 flex flex-col md:flex-row"
           style={{
             background: 'rgba(255,255,255,0.04)',
             border: '1px solid rgba(255,255,255,0.08)',
@@ -105,25 +106,48 @@ export default function TestimonialsCarousel({ items }: { items?: Testimonial[] 
             minHeight: '260px',
           }}
         >
-          <Quote
-            aria-hidden="true"
-            size={32}
-            className="mb-6 shrink-0"
-            style={{ color: 'var(--accent)', opacity: 0.55 }}
-          />
-          <p
-            className="font-display italic leading-relaxed flex-grow mb-8 text-base md:text-lg"
-            style={{ color: 'rgba(255,255,255,0.82)' }}
-          >
-            {t.quote}
-          </p>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1rem' }}>
-            <p className="font-semibold text-sm" style={{ color: 'var(--accent-light)' }}>
-              {t.name}
+          {/* Screenshot (if available) */}
+          {t.screenshot && (
+            <div className="relative shrink-0 md:w-52 overflow-hidden" style={{ minHeight: '160px' }}>
+              <Image
+                src={t.screenshot}
+                alt={`${t.name} 的 YouTube 留言截圖`}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 208px"
+              />
+              <div
+                className="absolute bottom-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold"
+                style={{ background: '#FF0000', color: '#fff' }}
+              >
+                <Youtube aria-hidden="true" size={10} />
+                YouTube
+              </div>
+            </div>
+          )}
+
+          {/* Text */}
+          <div className="flex flex-col flex-grow p-8 md:p-10">
+            <Quote
+              aria-hidden="true"
+              size={28}
+              className="mb-5 shrink-0"
+              style={{ color: 'var(--accent)', opacity: 0.55 }}
+            />
+            <p
+              className="font-display italic leading-relaxed flex-grow mb-8 text-base md:text-lg"
+              style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+              {t.quote}
             </p>
-            <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.38)' }}>
-              {t.context} · {t.year}
-            </p>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1rem' }}>
+              <p className="font-semibold text-sm" style={{ color: 'var(--accent-light)' }}>
+                {t.name}
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                {[t.context, t.year].filter(Boolean).join(' · ')}
+              </p>
+            </div>
           </div>
         </div>
 

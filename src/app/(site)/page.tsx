@@ -5,6 +5,8 @@ import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { sanityClient } from '@/lib/sanity/client';
+import { urlFor } from '@/lib/sanity/image';
 
 /* ─── Data ──────────────────────────────────── */
 
@@ -189,7 +191,25 @@ const websiteSchema = {
   url: 'https://www.minghuiedu.com',
 };
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const sanityTestimonials: {
+    quote: string; name: string; context?: string; year?: string;
+    screenshot?: { asset: { _ref: string } };
+  }[] = await sanityClient
+    .fetch(`*[_type == "testimonial" && featured == true] | order(order asc){ quote, name, context, year, screenshot }`)
+    .catch(() => []);
+
+  const testimonialItems = sanityTestimonials.length > 0
+    ? sanityTestimonials.map((t) => ({
+        quote: t.quote,
+        name: t.name,
+        context: t.context ?? '',
+        year: t.year ?? '',
+        screenshot: t.screenshot ? urlFor(t.screenshot).width(600).url() : undefined,
+      }))
+    : undefined; // fallback to hardcoded
   return (
     <div>
       <script
@@ -424,7 +444,7 @@ export default function HomePage() {
               他們的故事
             </h2>
           </div>
-          <TestimonialsCarousel />
+          <TestimonialsCarousel items={testimonialItems} />
         </div>
       </section>
 
