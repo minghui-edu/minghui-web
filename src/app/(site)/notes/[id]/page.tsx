@@ -86,8 +86,33 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
   /* Whether new structured description fields are filled */
   const hasNewDesc = !!(note.targetAudience || note.features || note.aboutAuthor);
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: note.title,
+    description: note.targetAudience ?? note.features ?? note.description,
+    ...(note.cover && { image: urlFor(note.cover).width(800).height(800).fit('crop').url() }),
+    brand: { '@type': 'Brand', name: '明慧教育' },
+    ...(note.author && { author: { '@type': 'Person', name: note.author } }),
+    ...(note.price != null && {
+      offers: {
+        '@type': 'Offer',
+        price: note.price,
+        priceCurrency: 'TWD',
+        availability: 'https://schema.org/InStock',
+        seller: { '@type': 'Organization', name: '明慧教育' },
+        ...(note.purchaseUrl && { url: note.purchaseUrl }),
+      },
+    }),
+    ...(note.subject && { category: note.subject }),
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
 
       {/* ── Header ────────────────────────────── */}
       <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>

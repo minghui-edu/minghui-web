@@ -159,9 +159,43 @@ function ServiceCard({ num, title, desc, cta, href, accentVar, accentBg, accentB
 
 /* ─── Page ──────────────────────────────────── */
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: '明慧教育',
+  alternateName: 'Minghui Education',
+  url: 'https://www.minghuiedu.com',
+  logo: 'https://www.minghuiedu.com/logo.svg',
+  description: '明慧教育提供科系探索營隊、海外名校遊學、專業家教媒合、高分筆記與論文顧問服務，幫助學生找到未來的方向。',
+  foundingDate: '2012',
+  areaServed: 'TW',
+  sameAs: [
+    'https://www.facebook.com/delc2022',
+    'https://www.instagram.com/delc_2022',
+    'https://www.youtube.com/@gotontu4507',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'timy@minghuiedu.com',
+    contactType: 'customer service',
+    availableLanguage: 'Chinese',
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: '明慧教育',
+  url: 'https://www.minghuiedu.com',
+};
+
 export default function HomePage() {
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema]) }}
+      />
 
       {/* ── Hero ──────────────────────────────── */}
       <section

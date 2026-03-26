@@ -107,8 +107,36 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
     ? urlFor(activity.image).width(720).height(960).fit('crop').url()
     : null;
 
+  const eventSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: activity.title,
+    description: activity.description,
+    ...(activity.date && { startDate: activity.date }),
+    ...(activity.location && {
+      location: { '@type': 'Place', name: activity.location, address: { '@type': 'PostalAddress', addressCountry: 'TW' } },
+    }),
+    ...(activity.price != null && {
+      offers: {
+        '@type': 'Offer',
+        price: activity.price,
+        priceCurrency: 'TWD',
+        availability: activity.status === '報名中'
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/SoldOut',
+        ...(activity.registrationUrl && { url: activity.registrationUrl }),
+      },
+    }),
+    organizer: { '@type': 'Organization', name: '明慧教育', url: 'https://www.minghuiedu.com' },
+    ...(heroImageUrl && { image: heroImageUrl }),
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
