@@ -35,29 +35,26 @@ const CARD_WIDTHS = [
  * Cards overlap intentionally for a natural scattered feel.
  */
 const POSITIONS = [
-  // ── Large (0-4, 440px) ──────────────────
-  { left:   0, top:  25 },
-  { left: 395, top:   8 },
-  { left: 760, top:  22 },
-  { left: 190, top: 300 },
-  { left: 600, top: 285 },
-  // ── Medium (5-11, 350px) ────────────────
-  { left:  55, top: 185 },
-  { left: 460, top: 172 },
-  { left: 840, top: 185 },
-  { left:  10, top: 490 },
-  { left: 405, top: 475 },
-  { left: 780, top: 488 },
-  { left: 230, top: 645 },
-  // ── Small (12-19, 260px) ────────────────
-  { left: 590, top: 640 },
-  { left: 880, top: 630 },
-  { left: 135, top: 390 },
-  { left: 710, top: 375 },
-  { left: 350, top: 168 },
-  { left: 940, top: 360 },
-  { left: 490, top: 755 },
-  { left: 745, top: 758 },
+  { left:   0, top:  15 },  // 0  L
+  { left: 400, top:   0 },  // 1  S
+  { left: 720, top:  18 },  // 2  M
+  { left: 190, top: 225 },  // 3  L
+  { left: 610, top: 210 },  // 4  S
+  { left:  55, top: 110 },  // 5  M
+  { left: 440, top:  98 },  // 6  L
+  { left: 820, top: 112 },  // 7  M
+  { left:  15, top: 385 },  // 8  S
+  { left: 400, top: 368 },  // 9  L
+  { left: 770, top: 380 },  // 10 M
+  { left: 230, top: 500 },  // 11 S
+  { left: 580, top: 492 },  // 12 M
+  { left: 880, top: 482 },  // 13 S
+  { left: 130, top: 298 },  // 14 L
+  { left: 710, top: 285 },  // 15 M
+  { left: 340, top: 102 },  // 16 S
+  { left: 940, top: 272 },  // 17 S
+  { left: 488, top: 562 },  // 18 M
+  { left: 745, top: 558 },  // 19 S
 ];
 
 /* Rotation per card — subtle, natural scatter */
@@ -132,7 +129,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
   const cards = items.slice(0, POSITIONS.length);
   /* Container height — expands with more rows */
   const rows = Math.ceil(cards.length / 5);
-  const containerH = rows <= 1 ? 320 : rows <= 2 ? 520 : rows <= 3 ? 700 : rows <= 4 ? 870 : 870;
+  const containerH = rows <= 1 ? 260 : rows <= 2 ? 400 : rows <= 3 ? 540 : rows <= 4 ? 670 : 670;
 
   return (
     <section ref={sectionRef} className="py-20" style={{ background: 'var(--navy)' }}>
