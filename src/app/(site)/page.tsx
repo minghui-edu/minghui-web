@@ -211,7 +211,7 @@ export default async function HomePage() {
     quote: t.quote,
     name: t.name,
     context: t.context,
-    screenshot: urlFor(t.screenshot).width(600).url(),
+    screenshot: urlFor(t.screenshot).width(800).url(),
   }));
 
   // Text-only testimonials → carousel (falls back to hardcoded if none from Sanity)
