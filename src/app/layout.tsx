@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Libre_Baskerville, Outfit } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const baskerville = Libre_Baskerville({
@@ -42,6 +43,7 @@ export default function RootLayout({
           跳至主要內容
         </a>
         {children}
+        <Analytics />
       </body>
     </html>
   );
