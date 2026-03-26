@@ -9,11 +9,11 @@ import { urlFor } from '@/lib/sanity/image';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: '國外升學家教媒合',
-  description: '明慧教育家教媒合平台，零抽成透明化，嚴格篩選台清交成師資，專注國外升學輔導與留學諮詢，讓您找到真正合適的家教老師。',
+  title: '專業家教媒合平台',
+  description: '明慧教育家教媒合平台，零抽成透明化，嚴格篩選台清交成師資，提供海內外升學輔導、各科補強、考試準備等專業家教服務，讓您找到真正合適的家教老師。',
   openGraph: {
-    title: '國外升學家教媒合 | 明慧教育',
-    description: '零抽成透明化，嚴格篩選台清交成師資，專注國外升學輔導與留學諮詢。',
+    title: '專業家教媒合平台 | 明慧教育',
+    description: '零抽成透明化，嚴格篩選台清交成師資，提供海內外升學輔導與各科專業家教服務。',
     url: 'https://www.minghuiedu.com/tutor',
   },
   alternates: { canonical: 'https://www.minghuiedu.com/tutor' },
@@ -134,13 +134,13 @@ export default async function TutorPage() {
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
           >
-            國外升學家教媒合平台
+            專業家教媒合平台
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>零抽成，透明媒合</em>
           </h1>
           <div className="gold-rule w-20 mb-8" aria-hidden="true" />
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-            我們專注於國外升學輔導與留學諮詢，嚴選頂尖師資，以半人工精緻媒合，讓每一次配對都真正有效。
+            提供海內外升學輔導、各科補強與考試準備等專業家教服務，嚴選頂尖師資，以半人工精緻媒合，讓每一次配對都真正有效。
           </p>
         </div>
       </section>
@@ -264,7 +264,7 @@ export default async function TutorPage() {
             <div>
               <SectionLabel>精選師資</SectionLabel>
               <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
-                國外升學專區
+                精選師資陣容
               </h2>
             </div>
           </div>
@@ -361,9 +361,11 @@ export default async function TutorPage() {
 
       {/* ── FAQ ───────────────────────────────── */}
       <FaqSection items={[
+        { q: '專業家教適合哪些學生？', a: '專業家教適合需要補強特定科目、建立讀書方法、準備考試，或希望提升整體學習效率的學生。無論是國內升學、海外申請，還是單純想提升學科能力，都能透過家教媒合找到合適的老師。' },
+        { q: '明慧教育的家教和一般家教有什麼不同？', a: '明慧教育的家教不只重視單次上課內容，也重視學生程度分析、學習習慣調整與長期進步規劃，幫助學生更穩定地成長，而非只是短期刷題衝分。' },
+        { q: '專業家教只適合準備考試的學生嗎？', a: '不一定。除了考試準備之外，專業家教也適合想建立讀書習慣、改善學習效率，或希望提前打好基礎的學生，不限科目與學習階段。' },
         { q: '什麼是「零抽成」家教媒合？', a: '媒合成功後，我們只收一次性媒合費，後續老師收到的所有家教費用我們完全不抽成。這讓老師可以專注在教學品質，學生也能和老師建立長期穩定的師生關係。' },
         { q: '家教老師的資格如何審核？', a: '每位老師都需提交學歷證明（台清交成等頂尖名校優先），並通過我們的背景審查與教學能力評估，確保師資品質。我們不是開放式刊登平台，每位老師都經過篩選。' },
-        { q: '可以找到專精國外升學的家教嗎？', a: '可以。我們有多位具留學背景的老師，專精 SOP 撰寫、推薦信規劃、TOEFL / IELTS / GRE 準備、美國/英國/日本大學申請策略等，可根據你的目標學校量身規劃。' },
         { q: '如何開始申請家教媒合？', a: '加入我們的 LINE 官方帳號，說明你的需求（科目、目標、時間、地點），我們會在 3 個工作天內為你配對合適的老師，並安排免費的試教前諮詢。' },
         { q: '如果試教後不滿意，可以更換老師嗎？', a: '可以。我們重視師生適配度，如果試教後雙方不合適，可以提出重新配對，確保你找到真正合適的師資。' },
       ]} />
