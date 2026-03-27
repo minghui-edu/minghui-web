@@ -38,6 +38,7 @@ type DestData = {
   registrationFlow: string[];
   cancelPolicy: string;
   visa: string;
+  registrationUrl: string;
 };
 
 const destinations: Record<Dest, DestData> = {
@@ -108,6 +109,7 @@ const destinations: Record<Dest, DestData> = {
     ],
     cancelPolicy: '依中華民國旅行業管理規則辦理退費，報名前請詳閱報名合約。',
     visa: '台灣護照赴日免簽，無需另行辦理簽證。',
+    registrationUrl: 'https://forms.gle/yeSuA9z9TG7Xi71Q8',
   },
 
   australia: {
@@ -177,6 +179,7 @@ const destinations: Record<Dest, DestData> = {
     ],
     cancelPolicy: '依中華民國旅行業管理規則辦理退費，報名前請詳閱報名合約。',
     visa: '需自行申辦澳洲 ETA 電子簽（費用約 NT$100），可於線上辦理，通常即時核准。',
+    registrationUrl: 'https://forms.gle/itv9yCRyqCFHcVuT9',
   },
 };
 
@@ -234,7 +237,9 @@ export default function DestinationTabs() {
             {/* 報名線上說明會 */}
             <div className="flex flex-col items-start md:items-end gap-1.5 shrink-0">
               <a
-                href="#"
+                href={d.registrationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide"
               >
                 報名線上說明會
