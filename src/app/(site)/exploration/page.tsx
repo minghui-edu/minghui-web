@@ -8,6 +8,7 @@ import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { sanityClient } from '@/lib/sanity/client';
+import { urlFor } from '@/lib/sanity/image';
 
 export const revalidate = 60;
 
@@ -107,7 +108,7 @@ const statusStyle: Record<string, { bg: string; color: string; border: string }>
   '已結束':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',       border: 'rgba(100,100,100,0.2)' },
 };
 
-// 活動照片佔位格數量
+// 活動照片佔位格數量（Sanity 無資料時顯示）
 const photoSlots = 6;
 
 const explorationTestimonials: Testimonial[] = [
@@ -140,11 +141,17 @@ const explorationTestimonials: Testimonial[] = [
 /* ─── Page ──────────────────────────────────── */
 
 export default async function ExplorationPage() {
-  const activities: SanityActivity[] = await sanityClient.fetch(
-    ACTIVITIES_QUERY,
-    {},
-    { next: { revalidate: 60 } },
-  );
+  const [activities, campHighlights, guests] = await Promise.all([
+    sanityClient.fetch<SanityActivity[]>(ACTIVITIES_QUERY, {}, { next: { revalidate: 60 } }),
+    sanityClient.fetch<{ photo: { asset: { _ref: string } }; caption?: string }[]>(
+      `*[_type == "campHighlight"] | order(order asc){ photo, caption }`,
+      {}, { next: { revalidate: 60 } }
+    ).catch(() => []) as Promise<{ photo: { asset: { _ref: string } }; caption?: string }[]>,
+    sanityClient.fetch<{ photo: { asset: { _ref: string } }; name: string; title: string }[]>(
+      `*[_type == "campGuest"] | order(order asc){ photo, name, title }`,
+      {}, { next: { revalidate: 60 } }
+    ).catch(() => []),
+  ]);
 
   return (
     <div>
@@ -387,21 +394,56 @@ export default async function ExplorationPage() {
         </div>
       </section>
 
-      {/* ── 活動照片 ───────────────────────────── */}
-      <section className="py-20" style={{ background: 'var(--navy)' }}>
-        <div className={inner}>
-          <div className="text-center mb-14">
-            <SectionLabel light>活動花絮</SectionLabel>
-            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: '#FFFFFF' }}>
-              現場是這樣的
-            </h2>
+      {/* ── 活動花絮 跑馬燈 ─────────────────────── */}
+      <section className="py-20 overflow-hidden" style={{ background: 'var(--navy)' }}>
+        <style>{`
+          @keyframes highlights-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+          @keyframes highlights-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        `}</style>
+        <div className={`${inner} mb-12`}>
+          <SectionLabel light>活動花絮</SectionLabel>
+          <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: '#FFFFFF' }}>
+            現場是這樣的
+          </h2>
+        </div>
+
+        {campHighlights.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            {[0, 1].map((row) => {
+              const rowItems = campHighlights.filter((_, i) => i % 2 === row);
+              if (rowItems.length === 0) return null;
+              const doubled = [...rowItems, ...rowItems];
+              return (
+                <div key={row} style={{
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+                  maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+                }}>
+                  <div className="flex" style={{
+                    width: 'max-content',
+                    gap: '12px',
+                    animation: `${row === 0 ? 'highlights-l' : 'highlights-r'} ${row === 0 ? 36 : 42}s linear infinite`,
+                  }}>
+                    {doubled.map((h, i) => (
+                      <div key={i} className="shrink-0 relative overflow-hidden" style={{ width: '320px', aspectRatio: '16/9' }}>
+                        <Image
+                          src={urlFor(h.photo).width(640).url()}
+                          alt={h.caption ?? '活動花絮'}
+                          fill
+                          className="object-cover"
+                          sizes="320px"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          {/* Photo grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        ) : (
+          /* 佔位格（尚未上傳照片時） */
+          <div className={`${inner} grid grid-cols-2 md:grid-cols-3 gap-3`}>
             {Array.from({ length: photoSlots }).map((_, i) => (
-              <div
-                key={i}
-                className="relative overflow-hidden flex items-center justify-center"
+              <div key={i} className="relative overflow-hidden flex items-center justify-center"
                 style={{
                   aspectRatio: i === 0 ? '16/9' : '4/3',
                   gridColumn: i === 0 ? 'span 2' : undefined,
@@ -410,13 +452,44 @@ export default async function ExplorationPage() {
                 }}
               >
                 <ImageIcon aria-hidden="true" size={24} style={{ color: 'rgba(255,255,255,0.15)' }} />
-                <span className="absolute top-0 left-0 w-6 h-6 pointer-events-none" style={{ borderTop: '1px solid rgba(232,144,39,0.3)', borderLeft: '1px solid rgba(232,144,39,0.3)' }} aria-hidden="true" />
-                <span className="absolute bottom-0 right-0 w-6 h-6 pointer-events-none" style={{ borderBottom: '1px solid rgba(232,144,39,0.3)', borderRight: '1px solid rgba(232,144,39,0.3)' }} aria-hidden="true" />
               </div>
             ))}
           </div>
-        </div>
+        )}
       </section>
+
+      {/* ── 誰來營隊 ─────────────────────────────── */}
+      {guests.length > 0 && (
+        <section className="py-20" style={{ background: 'var(--surface)' }}>
+          <div className={inner}>
+            <div className="mb-12">
+              <SectionLabel>特邀嘉賓</SectionLabel>
+              <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+                誰來營隊
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {guests.map((g, i) => (
+                <figure key={i} className="overflow-hidden" style={{ border: '1px solid var(--border)' }}>
+                  <div className="relative" style={{ aspectRatio: '16/9' }}>
+                    <Image
+                      src={urlFor(g.photo).width(640).height(360).fit('crop').url()}
+                      alt={g.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                  <figcaption className="px-4 py-3" style={{ background: 'var(--navy)', borderTop: '2px solid var(--accent)' }}>
+                    <p className="font-display font-bold text-base" style={{ color: '#FFFFFF' }}>{g.name}</p>
+                    <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>{g.title}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 學員心聲 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--navy)' }}>
