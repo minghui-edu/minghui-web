@@ -578,7 +578,7 @@ export default async function ExplorationPage() {
       ]} />
 
       {/* ── CTA ───────────────────────────────── */}
-      <section className="py-20 relative overflow-hidden" style={{ background: 'var(--cream)' }}>
+      <section className="py-20 relative overflow-hidden" style={{ background: 'var(--surface)' }}>
         <div className={`${inner} text-center`}>
           <SectionLabel>立即行動</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>

@@ -124,7 +124,7 @@ export default function OverseasPage() {
       ]} />
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="py-20" style={{ background: 'var(--cream)' }}>
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={`${inner} text-center`}>
           <SectionLabel>立即諮詢</SectionLabel>
           <h2

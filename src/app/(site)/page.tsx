@@ -368,7 +368,7 @@ export default async function HomePage() {
       )}
 
       {/* ── Services ──────────────────────────── */}
-      <section className="py-20" style={{ background: 'var(--cream)' }}>
+      <section className="py-20" style={{ background: 'var(--surface)' }}>
         <div className={inner}>
           <RevealOnScroll>
           <div className="flex items-end justify-between mb-12 gap-4">
@@ -390,7 +390,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── D: 精選師資 ───────────────────────── */}
-      <section className="py-20" style={{ background: 'var(--surface)' }}>
+      <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
           <RevealOnScroll>
           <div className="flex items-end justify-between mb-12 gap-4">

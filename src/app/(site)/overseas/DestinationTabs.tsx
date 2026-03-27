@@ -330,7 +330,7 @@ export default function DestinationTabs() {
       </section>
 
       {/* ── 四大主題 ─────────────────────────────────────────── */}
-      <section style={{ background: 'var(--cream)', paddingBottom: '4rem' }}>
+      <section style={{ background: 'var(--surface)', paddingBottom: '4rem' }}>
         <div className={inner}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {d.pillars.map(({ icon: Icon, label }) => (
