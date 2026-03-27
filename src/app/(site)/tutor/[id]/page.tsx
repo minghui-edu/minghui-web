@@ -79,8 +79,24 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
     ? urlFor(tutor.photo).width(160).height(160).fit('crop').url()
     : null;
 
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: tutor.name,
+    ...(tutor.title && { jobTitle: tutor.title }),
+    ...(tutor.tags && tutor.tags.length > 0 && { knowsAbout: tutor.tags }),
+    ...(photoUrl && { image: photoUrl }),
+    url: `https://www.minghuiedu.com/tutor/${tutor.slug}`,
+    worksFor: { '@type': 'Organization', name: '明慧教育', url: 'https://www.minghuiedu.com' },
+  };
+
   return (
     <div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
 
       {/* ── Header ────────────────────────────── */}
       <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>

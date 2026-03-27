@@ -136,11 +136,59 @@ const socials = [
   { href: '#', label: '明慧教育 YouTube 頻道', icon: Youtube, handle: 'YouTube 頻道' },
 ];
 
+/* ─── Structured Data ───────────────────────── */
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://www.minghuiedu.com/#organization',
+  name: '明慧教育',
+  alternateName: 'MingHui Education',
+  url: 'https://www.minghuiedu.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.minghuiedu.com/logo.png',
+  },
+  description: '明慧教育由台大校友創立，深耕補教教育超過12年，協助10,000+學生找到未來方向，120+學生錄取世界前100名校。',
+  foundingDate: '2025',
+  founders: [
+    {
+      '@type': 'Person',
+      name: '賴森奎',
+      jobTitle: '創辦人',
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: '國立臺灣大學',
+      },
+    },
+  ],
+  areaServed: 'TW',
+  knowsAbout: ['升學輔導', '科系探索', '海外遊學', '家教媒合'],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://www.minghuiedu.com/about#webpage',
+  url: 'https://www.minghuiedu.com/about',
+  name: '關於明慧教育',
+  description: '明慧教育創立於2012年，12年補教教育經驗，協助10,000+學生找到未來方向。',
+  isPartOf: { '@id': 'https://www.minghuiedu.com/#website' },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2'],
+  },
+};
+
 /* ─── Page ──────────────────────────────────── */
 
 export default function AboutPage() {
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, webPageSchema]) }}
+      />
 
       {/* ── Hero ──────────────────────────────── */}
       <section

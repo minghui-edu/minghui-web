@@ -110,6 +110,16 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
     ? urlFor(activity.image).width(720).height(960).fit('crop').url()
     : null;
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+      { '@type': 'ListItem', position: 2, name: '探索活動', item: 'https://www.minghuiedu.com/exploration' },
+      { '@type': 'ListItem', position: 3, name: activity.title, item: `https://www.minghuiedu.com/exploration/${slug}` },
+    ],
+  };
+
   const eventSchema = {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -138,7 +148,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
     <div>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
       />
 
       {/* ── Hero ──────────────────────────────────────────────── */}

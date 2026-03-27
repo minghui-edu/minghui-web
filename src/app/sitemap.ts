@@ -15,9 +15,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/about`, changeFrequency: 'monthly', priority: 0.6 },
   ];
 
-  // Dynamic: exploration camps
+  // Dynamic: exploration activities
   const camps: { slug: { current: string }; _updatedAt: string }[] = await sanityClient
-    .fetch(`*[_type == "camp" && defined(slug.current)]{ slug, _updatedAt }`)
+    .fetch(`*[_type == "activity" && defined(slug.current)]{ slug, _updatedAt }`)
     .catch(() => []);
 
   const campPages: MetadataRoute.Sitemap = camps.map((c) => ({
@@ -40,12 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Dynamic: tutors
-  const tutors: { _id: string; _updatedAt: string }[] = await sanityClient
-    .fetch(`*[_type == "tutor" && defined(_id)]{ _id, _updatedAt }`)
+  const tutors: { slug: { current: string }; _updatedAt: string }[] = await sanityClient
+    .fetch(`*[_type == "tutor" && defined(slug.current)]{ slug, _updatedAt }`)
     .catch(() => []);
 
   const tutorPages: MetadataRoute.Sitemap = tutors.map((t) => ({
-    url: `${BASE_URL}/tutor/${t._id}`,
+    url: `${BASE_URL}/tutor/${t.slug.current}`,
     lastModified: t._updatedAt,
     changeFrequency: 'monthly',
     priority: 0.7,
