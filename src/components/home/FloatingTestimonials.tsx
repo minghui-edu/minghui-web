@@ -10,7 +10,7 @@ export type ScreenshotTestimonial = {
   quote: string;
 };
 
-const CARD_W = 300;   // px
+const CARD_W = 480;   // px
 const GAP    = 14;    // px between cards
 /* Each row scrolls at a slightly different speed for organic feel */
 const SPEEDS  = [38, 32, 42]; // seconds per cycle
@@ -82,7 +82,6 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 style={{
                   width: 'max-content',
                   gap: `${GAP}px`,
-                  alignItems: 'flex-start',
                   animation: reducedMotion
                     ? 'none'
                     : `${reversed ? 'mh-marquee-r' : 'mh-marquee'} ${SPEEDS[ri]}s linear infinite`,
@@ -91,9 +90,10 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 {doubled.map((item, i) => (
                   <figure
                     key={i}
-                    className="shrink-0"
+                    className="shrink-0 relative overflow-hidden"
                     style={{
                       width: `${CARD_W}px`,
+                      aspectRatio: '960 / 160',
                       background: '#fff',
                       boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
                     }}
@@ -102,10 +102,9 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                     <Image
                       src={item.screenshot}
                       alt={i < row.length ? `${item.name} 的 YouTube 留言` : ''}
-                      width={600}
-                      height={900}
+                      fill
                       sizes={`${CARD_W}px`}
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                      className="object-cover object-top"
                     />
                   </figure>
                 ))}
