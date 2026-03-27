@@ -82,6 +82,7 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 style={{
                   width: 'max-content',
                   gap: `${GAP}px`,
+                  alignItems: 'flex-start',
                   animation: reducedMotion
                     ? 'none'
                     : `${reversed ? 'mh-marquee-r' : 'mh-marquee'} ${SPEEDS[ri]}s linear infinite`,
@@ -90,11 +91,9 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 {doubled.map((item, i) => (
                   <figure
                     key={i}
-                    className="shrink-0 relative overflow-hidden"
+                    className="shrink-0"
                     style={{
                       width: `${CARD_W}px`,
-                      aspectRatio: '3 / 4',
-                      borderRadius: 0,
                       background: '#fff',
                       boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
                     }}
@@ -103,9 +102,10 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                     <Image
                       src={item.screenshot}
                       alt={i < row.length ? `${item.name} 的 YouTube 留言` : ''}
-                      fill
+                      width={600}
+                      height={900}
                       sizes={`${CARD_W}px`}
-                      className="object-contain object-top"
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
                     />
                   </figure>
                 ))}
