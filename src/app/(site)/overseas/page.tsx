@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import { ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 
-// 替換成真實照片路徑，例如 '/images/hero-overseas.jpg'
-const heroImage: string | null = null;
 
 export const metadata: Metadata = {
   title: '海外名校遊學參訪',
@@ -42,21 +39,26 @@ export default function OverseasPage() {
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
         <ParallaxBg>
-          {/* Right-side hero photo (md+) */}
-          <div className="hidden md:block absolute inset-0">
-            <div className="absolute inset-y-0 right-0 w-[58%]">
-              {heroImage ? (
-                <Image src={heroImage} alt="" fill className="object-cover object-center" priority sizes="58vw" />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: 'rgba(255,255,255,0.025)' }}>
-                  <ImageIcon size={32} style={{ color: 'rgba(255,255,255,0.08)' }} />
-                  <span className="text-[10px] tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.06)' }}>Hero Photo</span>
-                </div>
-              )}
+          {/* Right-side YouTube Short (md+) */}
+          <div className="hidden md:flex absolute inset-0 items-center justify-end pr-16 lg:pr-24">
+            <div className="relative" style={{ height: 'min(72vh, 520px)', aspectRatio: '9/16' }}>
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/D0gyBKUT8Q0?autoplay=1&mute=1&controls=0&loop=1&playlist=D0gyBKUT8Q0&playsinline=1&rel=0&modestbranding=1"
+                title="海外遊學短片"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  display: 'block',
+                  borderRadius: 0,
+                }}
+              />
             </div>
-            {/* Fade gradient: navy → transparent */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
           </div>
+          {/* Fade gradient: navy → transparent */}
+          <div className="hidden md:block absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.18) 68%, transparent 84%)' }} />
           <div className="dot-grid absolute inset-0" />
           <div
             className="absolute inset-0"
