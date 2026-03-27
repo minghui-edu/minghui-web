@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Libre_Baskerville, Outfit } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -17,6 +17,10 @@ const outfit = Outfit({
   variable: '--font-outfit',
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  themeColor: '#0B0A3F',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.minghuiedu.com'),

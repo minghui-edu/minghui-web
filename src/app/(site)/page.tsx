@@ -476,6 +476,9 @@ export default async function HomePage() {
             from { transform: translateX(0); }
             to   { transform: translateX(-50%); }
           }
+          @media (prefers-reduced-motion: reduce) {
+            .partners-track { animation: none !important; }
+          }
         `}</style>
         <div className={`${inner} mb-10`}>
           <SectionLabel>信任與合作</SectionLabel>
@@ -490,7 +493,7 @@ export default async function HomePage() {
           maskImage:        'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
         }}>
           <div
-            className="flex items-center"
+            className="partners-track flex items-center"
             style={{
               width: 'max-content',
               gap: '32px',

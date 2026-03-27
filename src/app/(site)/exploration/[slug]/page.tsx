@@ -301,10 +301,13 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                     <ChevronRight aria-hidden="true" size={16} />
                   </a>
                 ) : (
-                  <div className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold"
-                    style={{ background: 'rgba(100,100,100,0.08)', color: '#9CA3AF', cursor: 'not-allowed' }}>
+                  <button
+                    disabled
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold"
+                    style={{ background: 'rgba(100,100,100,0.08)', color: '#9CA3AF', cursor: 'not-allowed' }}
+                  >
                     {activity.status === '即將開放' ? '報名尚未開放' : '報名已截止'}
-                  </div>
+                  </button>
                 )}
                 <p className="text-center text-xs mt-3" style={{ color: 'var(--muted)' }}>
                   有疑問？

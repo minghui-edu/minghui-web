@@ -26,6 +26,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
   return (
     <header
       className="sticky top-0 z-50 bg-white transition-shadow duration-300"
@@ -102,11 +110,11 @@ export default function Navbar() {
           {/* 手機版漢堡按鈕 */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded"
+            className="md:hidden p-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
             aria-label={mobileMenuOpen ? '關閉選單' : '開啟選單'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
-            style={{ color: 'var(--navy)' }}
+            style={{ color: 'var(--navy)', touchAction: 'manipulation' }}
           >
             {mobileMenuOpen
               ? <X aria-hidden="true" size={22} />

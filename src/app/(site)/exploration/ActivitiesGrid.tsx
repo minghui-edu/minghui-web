@@ -196,11 +196,12 @@ export function ActivitiesGrid({ activities }: { activities: SanityActivity[] })
         <div className="flex justify-center pt-2">
           <button
             onClick={() => setExpanded(true)}
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-colors duration-150 hover:opacity-80"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-colors duration-150 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
             style={{
               border: '1px solid var(--border)',
               color: 'var(--navy)',
               background: 'transparent',
+              touchAction: 'manipulation',
             }}
           >
             查看更多活動（{hiddenCount} 個）

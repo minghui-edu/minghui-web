@@ -456,7 +456,9 @@ export default function DestinationTabs() {
               </p>
             </div>
             <a
-              href="#"
+              href={d.registrationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide shrink-0"
             >
               報名線上說明會

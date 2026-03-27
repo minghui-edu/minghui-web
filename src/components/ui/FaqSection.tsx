@@ -48,14 +48,13 @@ export default function FaqSection({ items }: { items: FaqItem[] }) {
                   border: '1px solid var(--border)',
                   borderLeft: isOpen ? '4px solid var(--accent)' : '1px solid var(--border)',
                   background: 'var(--surface)',
-                  transition: 'border-left 150ms ease',
                 }}
               >
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : idx)}
                   aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--accent)]"
                   style={{ touchAction: 'manipulation' }}
                 >
                   <span className="font-display font-bold text-base" style={{ color: 'var(--navy)' }}>
@@ -72,7 +71,7 @@ export default function FaqSection({ items }: { items: FaqItem[] }) {
                   />
                 </button>
                 <div
-                  className="overflow-hidden transition-all duration-200"
+                  className="overflow-hidden motion-safe:transition-[max-height] motion-safe:duration-200"
                   style={{ maxHeight: isOpen ? '400px' : '0px' }}
                 >
                   <p className="px-6 pb-5 text-sm leading-relaxed" style={{ color: 'var(--muted)', whiteSpace: 'pre-line' }}>

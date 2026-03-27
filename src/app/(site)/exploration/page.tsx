@@ -321,6 +321,9 @@ export default async function ExplorationPage() {
         <style>{`
           @keyframes highlights-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
           @keyframes highlights-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+          @media (prefers-reduced-motion: reduce) {
+            .highlights-track { animation: none !important; }
+          }
         `}</style>
         <div className={`${inner} mb-12`}>
           <SectionLabel light>活動花絮</SectionLabel>
@@ -340,7 +343,7 @@ export default async function ExplorationPage() {
                   WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
                   maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
                 }}>
-                  <div className="flex" style={{
+                  <div className="highlights-track flex" style={{
                     width: 'max-content',
                     gap: '12px',
                     animation: `${row === 0 ? 'highlights-l' : 'highlights-r'} ${row === 0 ? 36 : 42}s linear infinite`,
