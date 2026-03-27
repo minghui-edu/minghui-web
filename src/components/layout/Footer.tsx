@@ -59,6 +59,8 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="footer-social w-9 h-9 flex items-center justify-center rounded"
                 >
                   <Icon aria-hidden="true" size={16} />

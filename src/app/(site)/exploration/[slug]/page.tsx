@@ -321,7 +321,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 )}
                 <p className="text-center text-xs mt-3" style={{ color: 'var(--muted)' }}>
                   有疑問？
-                  <a href="https://lin.ee/6uAXvJu" className="font-semibold" style={{ color: 'var(--accent)' }}> 加入 LINE 諮詢</a>
+                  <a href="https://lin.ee/6uAXvJu" target="_blank" rel="noopener noreferrer" className="font-semibold" style={{ color: 'var(--accent)' }}> 加入 LINE 諮詢</a>
                 </p>
               </div>
             </div>
@@ -448,6 +448,8 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
             )}
             <a
               href="https://lin.ee/6uAXvJu"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               加入 LINE 諮詢

@@ -458,6 +458,8 @@ export default function AboutPage() {
                 key={handle}
                 href={href}
                 aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer-social flex items-center gap-3 px-6 py-3"
               >
                 <Icon aria-hidden="true" size={16} />
