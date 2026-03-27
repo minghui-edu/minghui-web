@@ -90,9 +90,10 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                 {doubled.map((item, i) => (
                   <figure
                     key={i}
-                    className="shrink-0"
+                    className="shrink-0 relative overflow-hidden"
                     style={{
                       width: `${CARD_W}px`,
+                      aspectRatio: '3 / 4',
                       borderRadius: 0,
                       background: '#fff',
                       boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
@@ -102,10 +103,9 @@ export default function FloatingTestimonials({ items }: { items: ScreenshotTesti
                     <Image
                       src={item.screenshot}
                       alt={i < row.length ? `${item.name} 的 YouTube 留言` : ''}
-                      width={CARD_W}
-                      height={CARD_W}
+                      fill
                       sizes={`${CARD_W}px`}
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                      className="object-contain object-top"
                     />
                   </figure>
                 ))}
