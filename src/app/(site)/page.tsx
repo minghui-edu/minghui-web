@@ -9,6 +9,16 @@ import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
 
+type FeaturedTutor = {
+  id: string;
+  name: string;
+  title?: string;
+  tags?: string[];
+  shortExp?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  photo?: any;
+};
+
 /* ─── Data ──────────────────────────────────── */
 
 const services = [
@@ -75,29 +85,6 @@ const whyUs = [
   },
 ];
 
-const featuredTutors = [
-  {
-    id: 'jason',
-    name: '王老師 (Jason)',
-    title: 'Stanford University 電機碩士',
-    tags: ['留學申請輔導', 'SOP撰寫', 'TOEFL/GRE'],
-    shortExp: '協助 20+ 學生錄取美國 Top 30 名校。',
-  },
-  {
-    id: 'sarah',
-    name: '林老師 (Sarah)',
-    title: 'Cambridge University 生物博士',
-    tags: ['IB/AP 生物', '英國大學申請', '面試輔導'],
-    shortExp: '專精英國 G5 大學申請與全英面試特訓。',
-  },
-  {
-    id: 'kevin',
-    name: '陳老師 (Kevin)',
-    title: '台大資工系學士 / 競賽保送生',
-    tags: ['APCS 檢定', 'C++/Python', '演算法競賽'],
-    shortExp: '帶領多位高中生於資訊學科能力競賽獲獎。',
-  },
-];
 
 const partners = [
   { name: '台北市政府青年局',       abbr: '北市府' },
@@ -195,12 +182,18 @@ const websiteSchema = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const sanityTestimonials: {
-    quote: string; name: string; context?: string; year?: string;
-    screenshot?: { asset: { _ref: string } };
-  }[] = await sanityClient
-    .fetch(`*[_type == "testimonial" && featured == true] | order(order asc){ quote, name, context, year, screenshot }`)
-    .catch(() => []);
+  const [sanityTestimonials, featuredTutors] = await Promise.all([
+    sanityClient
+      .fetch<{ quote: string; name: string; context?: string; year?: string; screenshot?: { asset: { _ref: string } } }[]>(
+        `*[_type == "testimonial" && featured == true] | order(order asc){ quote, name, context, year, screenshot }`
+      )
+      .catch(() => []),
+    sanityClient
+      .fetch<FeaturedTutor[]>(
+        `*[_type == "tutor" && isActive == true] | order(order asc)[0...3]{ "id": slug.current, name, title, tags, shortExp, photo }`
+      )
+      .catch(() => []),
+  ]);
 
   // Split on raw Sanity data BEFORE URL conversion, so we don't rely on urlFor() returning truthy
   const rawWithScreenshot = sanityTestimonials.filter((t) => t.screenshot?.asset?._ref);
@@ -404,50 +397,61 @@ export default async function HomePage() {
               查看全部師資 <ChevronRight aria-hidden="true" size={14} />
             </Link>
           </div>
+          {featuredTutors.length === 0 ? (
+            <p className="text-center py-8" style={{ color: 'var(--muted)' }}>師資資料整理中，敬請期待。</p>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredTutors.map((tutor) => (
-              <Link
-                key={tutor.id}
-                href={`/tutor/${tutor.id}`}
-                className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
-                style={{ border: '1px solid var(--border)' }}
-              >
-                <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
-                  <div
-                    className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center font-display font-bold"
-                    style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}
-                    aria-hidden="true"
-                  >
-                    {tutor.name[0]}
+            {featuredTutors.map((tutor) => {
+              const photoUrl = tutor.photo
+                ? urlFor(tutor.photo).width(112).height(112).fit('crop').url()
+                : null;
+              return (
+                <Link
+                  key={tutor.id ?? tutor.name}
+                  href={tutor.id ? `/tutor/${tutor.id}` : '/tutor'}
+                  className="group bg-white p-6 flex flex-col transition-shadow duration-200 hover:shadow-lg"
+                  style={{ border: '1px solid var(--border)' }}
+                >
+                  <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
+                    <div className="w-14 h-14 rounded-full shrink-0 overflow-hidden flex items-center justify-center font-display font-bold"
+                      style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}>
+                      {photoUrl ? (
+                        <Image src={photoUrl} alt={tutor.name} width={56} height={56} className="object-cover w-full h-full" />
+                      ) : (
+                        <span aria-hidden="true">{tutor.name[0]}</span>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-base leading-tight mb-1 group-hover:text-[#1E56A0] transition-colors" style={{ color: 'var(--navy)' }}>
+                        {tutor.name}
+                      </h3>
+                      {tutor.title && <p className="text-xs leading-snug" style={{ color: 'var(--muted)' }}>{tutor.title}</p>}
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <h3 className="font-bold text-base leading-tight mb-1 group-hover:text-[#1E56A0] transition-colors" style={{ color: 'var(--navy)' }}>
-                      {tutor.name}
-                    </h3>
-                    <p className="text-xs leading-snug" style={{ color: 'var(--muted)' }}>{tutor.title}</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {tutor.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] px-2 py-0.5 font-medium"
-                      style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
-                  {tutor.shortExp}
-                </p>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
-                  查看完整介紹
-                  <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0" />
-                </span>
-              </Link>
-            ))}
+                  {tutor.tags && tutor.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {tutor.tags.map((tag) => (
+                        <span key={tag} className="text-[11px] px-2 py-0.5 font-medium"
+                          style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {tutor.shortExp && (
+                    <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
+                      {tutor.shortExp}
+                    </p>
+                  )}
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
+                    查看完整介紹
+                    <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
+          )}
           </RevealOnScroll>
         </div>
       </section>

@@ -28,6 +28,13 @@ export const tutorSchema = defineType({
       },
     }),
     defineField({ name: 'isActive', title: '顯示於網站', type: 'boolean', initialValue: true }),
+    defineField({
+      name: 'order',
+      title: '排列順序',
+      type: 'number',
+      description: '數字越小越靠前（首頁顯示排序第 1–3 位的老師）',
+      initialValue: 99,
+    }),
   ],
   preview: {
     select: { title: 'name', subtitle: 'tier', media: 'photo' },
