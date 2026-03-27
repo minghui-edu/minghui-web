@@ -90,15 +90,22 @@ type SanityActivity = {
   audience?: string;
   tags?: string[];
   status?: ActivityStatus;
+  featured?: boolean;
+  description?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image?: any;
 };
 
-const ACTIVITIES_QUERY = `*[_type == "activity"] | order(_createdAt desc) {
+const ACTIVITIES_QUERY = `*[_type == "activity"] | order(featured desc, _createdAt desc) {
   title,
   "slug": slug.current,
   date,
   audience,
   tags,
-  status
+  status,
+  featured,
+  description,
+  image
 }`;
 
 const statusStyle: Record<string, { bg: string; color: string; border: string }> = {
@@ -328,24 +335,61 @@ export default async function ExplorationPage() {
           </div>
           {activities.length === 0 ? (
             <p className="text-center py-12" style={{ color: 'var(--muted)' }}>目前尚無公開活動，請稍後再查看。</p>
-          ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {activities.map((act) => {
+          ) : (() => {
+            const featuredAct = activities.find((a) => a.featured);
+            const restActs = activities.filter((a) => !a.featured);
+
+            const ActivityCard = ({ act, large = false }: { act: SanityActivity; large?: boolean }) => {
               const s = statusStyle[act.status ?? '即將開放'] ?? statusStyle['即將開放'];
               const closed = act.status === '已額滿' || act.status === '已結束';
+              const imageUrl = act.image ? urlFor(act.image).width(large ? 800 : 480).height(large ? 480 : 320).fit('crop').url() : null;
               return (
-                <div key={act.slug} className="bg-white flex flex-col sm:flex-row overflow-hidden" style={{ border: '1px solid var(--border)' }}>
-                  {/* Photo placeholder */}
-                  <div className="sm:w-2/5 shrink-0 relative min-h-[160px] flex items-center justify-center" style={{ background: 'rgba(11,10,63,0.05)', borderRight: '1px solid var(--border-light)' }}>
-                    <ImageIcon aria-hidden="true" size={28} style={{ color: 'rgba(11,10,63,0.18)' }} />
+                <div
+                  className={`bg-white flex ${large ? 'flex-col md:flex-row' : 'flex-col sm:flex-row'} overflow-hidden`}
+                  style={{
+                    border: '1px solid var(--border)',
+                    borderTop: large ? '3px solid var(--accent)' : '1px solid var(--border)',
+                    opacity: closed ? 0.55 : 1,
+                    transition: 'opacity 150ms',
+                  }}
+                >
+                  {/* Photo */}
+                  <div
+                    className={`${large ? 'md:w-2/5' : 'sm:w-2/5'} shrink-0 relative flex items-center justify-center`}
+                    style={{
+                      minHeight: large ? '260px' : '160px',
+                      background: 'rgba(11,10,63,0.05)',
+                      borderRight: '1px solid var(--border-light)',
+                    }}
+                  >
+                    {imageUrl ? (
+                      <Image src={imageUrl} alt={act.title} fill className="object-cover" sizes={large ? '40vw' : '20vw'} />
+                    ) : (
+                      <ImageIcon aria-hidden="true" size={large ? 36 : 28} style={{ color: 'rgba(11,10,63,0.18)' }} />
+                    )}
+                    {large && (
+                      <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 tracking-wide" style={{ background: 'var(--accent)', color: 'var(--navy)' }}>
+                        主打活動
+                      </span>
+                    )}
                     {act.status && (
-                      <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1" style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}` }}>
+                      <span
+                        className="absolute text-[11px] font-bold px-2.5 py-1"
+                        style={{
+                          top: large ? '3rem' : '0.75rem',
+                          left: '0.75rem',
+                          background: s.bg,
+                          color: s.color,
+                          border: `1px solid ${s.border}`,
+                          marginTop: large ? '0.25rem' : undefined,
+                        }}
+                      >
                         {act.status}
                       </span>
                     )}
                   </div>
                   {/* Content */}
-                  <div className="flex-1 p-6 flex flex-col">
+                  <div className={`flex-1 flex flex-col ${large ? 'p-8' : 'p-6'}`}>
                     <div className="flex items-center gap-2 mb-2" style={{ color: 'var(--muted)' }}>
                       {act.date && (
                         <>
@@ -361,7 +405,17 @@ export default async function ExplorationPage() {
                         </>
                       )}
                     </div>
-                    <h3 className="font-display font-bold text-lg mb-3" style={{ color: 'var(--navy)' }}>{act.title}</h3>
+                    <h3
+                      className={`font-display font-bold mb-3 ${large ? 'text-2xl md:text-3xl' : 'text-lg'}`}
+                      style={{ color: 'var(--navy)' }}
+                    >
+                      {act.title}
+                    </h3>
+                    {large && act.description && (
+                      <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--muted)', WebkitLineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        {act.description}
+                      </p>
+                    )}
                     {act.tags && act.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-5">
                         {act.tags.map((tag) => (
@@ -373,24 +427,33 @@ export default async function ExplorationPage() {
                     )}
                     {closed ? (
                       <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>
-                        {act.status === '已額滿' ? '名額已額滿' : '活動已結束'}
+                        {act.status === '已額滿' ? '名額已額滿' : '活動已結束，可查看回顧'}
                       </span>
-                    ) : (
-                      <Link
-                        href={`/exploration/${act.slug}`}
-                        className="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold group hover:underline active:opacity-70 transition-opacity duration-100"
-                        style={{ color: 'var(--accent)' }}
-                      >
-                        查看詳細簡章 / 立即報名
-                        <ChevronRight aria-hidden="true" size={13} className="transition-transform duration-100 group-hover:translate-x-0.5" />
-                      </Link>
-                    )}
+                    ) : null}
+                    <Link
+                      href={`/exploration/${act.slug}`}
+                      className={`${closed ? '' : 'mt-auto'} inline-flex items-center gap-1.5 font-semibold group hover:underline active:opacity-70 transition-opacity duration-100 ${large ? 'text-sm mt-6' : 'text-xs mt-3'}`}
+                      style={{ color: closed ? 'var(--muted)' : 'var(--accent)' }}
+                    >
+                      {closed ? '查看活動回顧' : '查看詳細簡章 / 立即報名'}
+                      <ChevronRight aria-hidden="true" size={large ? 15 : 13} className="transition-transform duration-100 group-hover:translate-x-0.5" />
+                    </Link>
                   </div>
                 </div>
               );
-            })}
-          </div>
-          )}
+            };
+
+            return (
+              <div className="flex flex-col gap-6">
+                {featuredAct && <ActivityCard act={featuredAct} large />}
+                {restActs.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {restActs.map((act) => <ActivityCard key={act.slug} act={act} />)}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
       </section>
 

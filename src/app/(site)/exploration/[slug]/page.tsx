@@ -36,6 +36,7 @@ const ACTIVITY_QUERY = `*[_type == "activity" && slug.current == $slug][0]{
   includes,
   notes,
   image,
+  photos[],
   registrationUrl,
   status
 }`;
@@ -59,6 +60,8 @@ type Activity = {
   notes?: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  photos?: any[];
   registrationUrl?: string;
   status?: string;
 };
@@ -377,6 +380,31 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 </div>
               )}
 
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── 活動回顧（已結束時顯示） ──────────────────────────── */}
+      {activity.status === '已結束' && activity.photos && activity.photos.length > 0 && (
+        <section style={{ background: 'var(--surface)' }}>
+          <div className={`${inner} py-20`}>
+            <SectionLabel>活動回顧</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-10" style={{ color: 'var(--navy)' }}>
+              活動花絮
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {activity.photos.map((photo, i) => (
+                <div key={i} className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                  <Image
+                    src={urlFor(photo).width(800).height(600).fit('crop').url()}
+                    alt={`活動花絮 ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>

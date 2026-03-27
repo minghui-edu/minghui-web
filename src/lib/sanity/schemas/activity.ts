@@ -35,8 +35,22 @@ export const activitySchema = defineType({
       type: 'array',
       of: [{ type: 'string' }],
     }),
-    defineField({ name: 'image', title: '主視覺照片', type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'image', title: '主視覺照片（海報）', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'photos',
+      title: '活動花絮照片',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      description: '活動結束後上傳，顯示於詳情頁「活動回顧」區塊',
+    }),
     defineField({ name: 'registrationUrl', title: '報名連結', type: 'url' }),
+    defineField({
+      name: 'featured',
+      title: '釘選主打活動',
+      type: 'boolean',
+      description: '開啟後此活動會顯示在列表最上方，以較大卡片呈現',
+      initialValue: false,
+    }),
     defineField({
       name: 'status',
       title: '狀態',
