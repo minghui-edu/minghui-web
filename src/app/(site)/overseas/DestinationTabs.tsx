@@ -202,7 +202,7 @@ export default function DestinationTabs() {
                   key={dest}
                   onClick={() => setActive(dest)}
                   aria-pressed={isActive}
-                  className="px-6 py-2.5 text-sm font-semibold transition-[background-color,color,border-color] duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                  className="px-6 py-2.5 text-sm font-semibold transition-[background-color,color,border-color] duration-150 hover:bg-white/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
                     background: isActive ? 'var(--accent)' : 'transparent',
                     color: isActive ? 'var(--navy)' : 'rgba(255,255,255,0.6)',

@@ -110,7 +110,7 @@ export default function Navbar() {
           {/* 手機版漢堡按鈕 */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            className="md:hidden p-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
             aria-label={mobileMenuOpen ? '關閉選單' : '開啟選單'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"

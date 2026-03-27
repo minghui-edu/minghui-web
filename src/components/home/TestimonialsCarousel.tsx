@@ -174,12 +174,16 @@ export default function TestimonialsCarousel({ items }: { items?: Testimonial[] 
             role="tab"
             aria-selected={i === idx}
             aria-label={`第 ${i + 1} 則心聲`}
-            className="h-[3px] rounded-full transition-all duration-300"
-            style={{
-              width: i === idx ? '28px' : '8px',
-              background: i === idx ? 'var(--accent)' : 'rgba(255,255,255,0.2)',
-            }}
-          />
+            className="py-5 flex items-center"
+          >
+            <span
+              className="h-[3px] rounded-full transition-[width,background-color] duration-300"
+              style={{
+                width: i === idx ? '28px' : '8px',
+                background: i === idx ? 'var(--accent)' : 'rgba(255,255,255,0.2)',
+              }}
+            />
+          </button>
         ))}
       </div>
     </div>
