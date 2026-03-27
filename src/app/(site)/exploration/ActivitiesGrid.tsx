@@ -30,6 +30,15 @@ const statusStyle: Record<string, { bg: string; color: string; border: string }>
 
 const INITIAL_COUNT = 6;
 
+/** 從活動日期字串中提取可排序數字（越大越新）。
+ *  支援格式：2025/10/12、2025/9/13、2026/2/7～2/8、2025年8月15日 等 */
+function parseDateForSort(dateStr?: string): number {
+  if (!dateStr) return 0;
+  const m = dateStr.match(/(\d{4})[\/\-年](\d{1,2})[\/\-月]?(\d{1,2})?/);
+  if (!m) return 0;
+  return parseInt(m[1]) * 10000 + parseInt(m[2]) * 100 + parseInt(m[3] ?? '1');
+}
+
 function ActivityCard({ act, large = false }: { act: SanityActivity; large?: boolean }) {
   const s = statusStyle[act.status ?? '即將開放'] ?? statusStyle['即將開放'];
   const closed = act.status === '已額滿' || act.status === '已結束';
@@ -166,7 +175,8 @@ export function ActivitiesGrid({ activities }: { activities: SanityActivity[] })
   }
 
   const featuredAct = activities.find((a) => a.featured);
-  const restActs = activities.filter((a) => !a.featured);
+  const restActs = [...activities.filter((a) => !a.featured)]
+    .sort((a, b) => parseDateForSort(b.date) - parseDateForSort(a.date));
   const visibleRest = expanded ? restActs : restActs.slice(0, INITIAL_COUNT);
   const hiddenCount = restActs.length - INITIAL_COUNT;
 
