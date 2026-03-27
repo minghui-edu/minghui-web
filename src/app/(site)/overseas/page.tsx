@@ -39,26 +39,34 @@ export default function OverseasPage() {
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
         <ParallaxBg>
-          {/* Right-side YouTube Short (md+) */}
-          <div className="hidden md:flex absolute inset-0 items-center justify-end pr-16 lg:pr-24">
-            <div className="relative" style={{ height: 'min(72vh, 520px)', aspectRatio: '9/16' }}>
+          {/* Right-side YouTube Short — cover fill (md+) */}
+          <div className="hidden md:block absolute inset-0">
+            <div className="absolute inset-y-0 right-0 w-[52%] overflow-hidden">
+              {/* Scale iframe to cover: 9:16 video stretched to fill container width,
+                  then centered vertically so top/bottom overflow is hidden */}
               <iframe
                 src="https://www.youtube-nocookie.com/embed/D0gyBKUT8Q0?autoplay=1&mute=1&controls=0&loop=1&playlist=D0gyBKUT8Q0&playsinline=1&rel=0&modestbranding=1"
                 title="海外遊學短片"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
                 style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
                   width: '100%',
-                  height: '100%',
+                  /* height = width × (16/9) so portrait video fills & overflows container vertically */
+                  height: 'calc(100% * 16 / 9)',
+                  minHeight: '100%',
                   border: 'none',
                   display: 'block',
-                  borderRadius: 0,
+                  pointerEvents: 'none',
                 }}
               />
             </div>
+            {/* Fade gradient: navy → transparent */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
           </div>
-          {/* Fade gradient: navy → transparent */}
-          <div className="hidden md:block absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.18) 68%, transparent 84%)' }} />
           <div className="dot-grid absolute inset-0" />
           <div
             className="absolute inset-0"
