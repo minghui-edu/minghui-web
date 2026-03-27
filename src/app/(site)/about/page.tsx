@@ -130,10 +130,10 @@ const mediaItems = [
 ];
 
 const socials = [
-  { href: '#', label: '明慧教育 Facebook 粉絲專頁', icon: Facebook, handle: '營隊 Facebook' },
-  { href: '#', label: '明慧教育 Instagram 官方帳號', icon: Instagram, handle: '官方 Instagram' },
-  { href: '#', label: '明慧教育 LINE 官方帳號', icon: MessageCircle, handle: 'LINE 官方帳號' },
-  { href: '#', label: '明慧教育 YouTube 頻道', icon: Youtube, handle: 'YouTube 頻道' },
+  { href: 'https://www.facebook.com/delc2022', label: '明慧教育 Facebook 粉絲專頁', icon: Facebook, handle: '營隊 Facebook' },
+  { href: 'https://www.instagram.com/delc_2022', label: '明慧教育 Instagram 官方帳號', icon: Instagram, handle: '官方 Instagram' },
+  { href: 'https://lin.ee/6uAXvJu', label: '明慧教育 LINE 官方帳號', icon: MessageCircle, handle: 'LINE 官方帳號' },
+  { href: 'https://www.youtube.com/@gotontu4507', label: '明慧教育 YouTube 頻道', icon: Youtube, handle: 'YouTube 頻道' },
 ];
 
 /* ─── Structured Data ───────────────────────── */
