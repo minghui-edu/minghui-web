@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, Calendar, Users, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { ActivitiesGrid, type SanityActivity } from './ActivitiesGrid';
 import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
@@ -81,22 +82,7 @@ const highlights = [
   { icon: Bot,          title: 'AI 模型訓練',  desc: '從 Python 基礎到訓練自己的 AI 模型，親手完成可放入備審的成果。',    color: '#0F5132'      },
 ];
 
-type ActivityStatus = '報名中' | '即將開放' | '已額滿' | '已結束';
-
-type SanityActivity = {
-  title: string;
-  slug: string;
-  date?: string;
-  audience?: string;
-  tags?: string[];
-  status?: ActivityStatus;
-  featured?: boolean;
-  description?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  image?: any;
-};
-
-const ACTIVITIES_QUERY = `*[_type == "activity"] | order(featured desc, _createdAt desc) {
+const ACTIVITIES_QUERY = `*[_type == "activity"] | order(featured desc, date desc) {
   title,
   "slug": slug.current,
   date,
@@ -107,13 +93,6 @@ const ACTIVITIES_QUERY = `*[_type == "activity"] | order(featured desc, _created
   description,
   image
 }`;
-
-const statusStyle: Record<string, { bg: string; color: string; border: string }> = {
-  '報名中':   { bg: 'rgba(15,81,50,0.1)',       color: '#0F5132',       border: 'rgba(15,81,50,0.25)' },
-  '即將開放': { bg: 'rgba(232,144,39,0.1)',      color: 'var(--accent)', border: 'rgba(232,144,39,0.3)' },
-  '已額滿':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',       border: 'rgba(100,100,100,0.2)' },
-  '已結束':   { bg: 'rgba(100,100,100,0.08)',    color: '#6B7280',       border: 'rgba(100,100,100,0.2)' },
-};
 
 // 活動照片佔位格數量（Sanity 無資料時顯示）
 const photoSlots = 6;
@@ -333,127 +312,7 @@ export default async function ExplorationPage() {
               最新特色活動
             </h2>
           </div>
-          {activities.length === 0 ? (
-            <p className="text-center py-12" style={{ color: 'var(--muted)' }}>目前尚無公開活動，請稍後再查看。</p>
-          ) : (() => {
-            const featuredAct = activities.find((a) => a.featured);
-            const restActs = activities.filter((a) => !a.featured);
-
-            const ActivityCard = ({ act, large = false }: { act: SanityActivity; large?: boolean }) => {
-              const s = statusStyle[act.status ?? '即將開放'] ?? statusStyle['即將開放'];
-              const closed = act.status === '已額滿' || act.status === '已結束';
-              const imageUrl = act.image ? urlFor(act.image).width(large ? 800 : 480).height(large ? 480 : 320).fit('crop').url() : null;
-              return (
-                <div
-                  className={`bg-white flex ${large ? 'flex-col md:flex-row' : 'flex-col sm:flex-row'} overflow-hidden`}
-                  style={{
-                    border: '1px solid var(--border)',
-                    borderTop: large ? '3px solid var(--accent)' : '1px solid var(--border)',
-                    opacity: closed ? 0.55 : 1,
-                    transition: 'opacity 150ms',
-                  }}
-                >
-                  {/* Photo */}
-                  <div
-                    className={`${large ? 'md:w-2/5' : 'sm:w-2/5'} shrink-0 relative flex items-center justify-center`}
-                    style={{
-                      minHeight: large ? '260px' : '160px',
-                      background: 'rgba(11,10,63,0.05)',
-                      borderRight: '1px solid var(--border-light)',
-                    }}
-                  >
-                    {imageUrl ? (
-                      <Image src={imageUrl} alt={act.title} fill className="object-cover" sizes={large ? '40vw' : '20vw'} />
-                    ) : (
-                      <ImageIcon aria-hidden="true" size={large ? 36 : 28} style={{ color: 'rgba(11,10,63,0.18)' }} />
-                    )}
-                    {large && (
-                      <span className="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 tracking-wide" style={{ background: 'var(--accent)', color: 'var(--navy)' }}>
-                        主打活動
-                      </span>
-                    )}
-                    {act.status && (
-                      <span
-                        className="absolute text-[11px] font-bold px-2.5 py-1"
-                        style={{
-                          top: large ? '3rem' : '0.75rem',
-                          left: '0.75rem',
-                          background: s.bg,
-                          color: s.color,
-                          border: `1px solid ${s.border}`,
-                          marginTop: large ? '0.25rem' : undefined,
-                        }}
-                      >
-                        {act.status}
-                      </span>
-                    )}
-                  </div>
-                  {/* Content */}
-                  <div className={`flex-1 flex flex-col ${large ? 'p-8' : 'p-6'}`}>
-                    <div className="flex items-center gap-2 mb-2" style={{ color: 'var(--muted)' }}>
-                      {act.date && (
-                        <>
-                          <Calendar aria-hidden="true" size={13} />
-                          <span className="text-xs font-medium">{act.date}</span>
-                        </>
-                      )}
-                      {act.date && act.audience && <span className="text-xs" style={{ color: 'var(--border)' }}>·</span>}
-                      {act.audience && (
-                        <>
-                          <Users aria-hidden="true" size={13} />
-                          <span className="text-xs font-medium">{act.audience}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3
-                      className={`font-display font-bold mb-3 ${large ? 'text-2xl md:text-3xl' : 'text-lg'}`}
-                      style={{ color: 'var(--navy)' }}
-                    >
-                      {act.title}
-                    </h3>
-                    {large && act.description && (
-                      <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--muted)', WebkitLineClamp: 3, display: '-webkit-box', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {act.description}
-                      </p>
-                    )}
-                    {act.tags && act.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {act.tags.map((tag) => (
-                          <span key={tag} className="text-[11px] px-2 py-0.5 font-medium" style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {closed ? (
-                      <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>
-                        {act.status === '已額滿' ? '名額已額滿' : '活動已結束，可查看回顧'}
-                      </span>
-                    ) : null}
-                    <Link
-                      href={`/exploration/${act.slug}`}
-                      className={`${closed ? '' : 'mt-auto'} inline-flex items-center gap-1.5 font-semibold group hover:underline active:opacity-70 transition-opacity duration-100 ${large ? 'text-sm mt-6' : 'text-xs mt-3'}`}
-                      style={{ color: closed ? 'var(--muted)' : 'var(--accent)' }}
-                    >
-                      {closed ? '查看活動回顧' : '查看詳細簡章 / 立即報名'}
-                      <ChevronRight aria-hidden="true" size={large ? 15 : 13} className="transition-transform duration-100 group-hover:translate-x-0.5" />
-                    </Link>
-                  </div>
-                </div>
-              );
-            };
-
-            return (
-              <div className="flex flex-col gap-6">
-                {featuredAct && <ActivityCard act={featuredAct} large />}
-                {restActs.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {restActs.map((act) => <ActivityCard key={act.slug} act={act} />)}
-                  </div>
-                )}
-              </div>
-            );
-          })()}
+          <ActivitiesGrid activities={activities} />
         </div>
       </section>
 
