@@ -205,7 +205,9 @@ export default async function TutorPage() {
           </div>
           <div className="flex justify-center">
             <a
-              href="#"
+              href="https://forms.gle/BBoFZZ7gawijSuyj9"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               <GraduationCap aria-hidden="true" size={18} />
