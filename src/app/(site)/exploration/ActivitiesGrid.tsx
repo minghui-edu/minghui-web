@@ -147,7 +147,7 @@ function ActivityCard({ act, large = false }: { act: SanityActivity; large?: boo
         )}
         {closed && (
           <span className="mt-auto text-xs font-semibold" style={{ color: 'var(--muted)' }}>
-            {act.status === '已額滿' ? '名額已額滿' : '活動已結束，可查看回顧'}
+            {act.status === '已額滿' ? '名額已額滿' : '活動已結束，點擊查看回顧'}
           </span>
         )}
         <Link

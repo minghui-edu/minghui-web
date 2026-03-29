@@ -18,7 +18,7 @@ const heroImage: string | null = null;
 
 export const metadata: Metadata = {
   title: '科系探索營隊',
-  description: '明慧教育科系探索營隊，帶領高中生深入台大等頂尖大學，釐清興趣志向，豐富備審學習歷程，已累積超過 20 梯次，10,000+ 學生受益。',
+  description: '明慧教育科系探索營隊，帶領高中生深入台大等頂尖大學，釐清興趣志向，專題實作豐富備審學習歷程，已累積超過 20 梯次，10,000+ 學生受益。',
   openGraph: {
     title: '科系探索營隊 | 明慧教育',
     description: '帶領高中生深入了解大學熱門科系，釐清興趣志向，豐富備審學習歷程。',
@@ -67,7 +67,7 @@ const modes = [
     badge: '適合已有目標',
     desc: '專為已有心儀科系的學生設計。由該科系畢業、從業中的學長姐帶領，深入解析科系核心知識，並親手完成相關專題實作，直接豐富學習歷程。',
     points: [
-      { icon: FlaskConical, text: '專題實作產出：針對該科系熱門學術議題，直接產出高品質成果，大幅為學習歷程加分' },
+      { icon: FlaskConical, text: '專題實作：針對該科系熱門議題，產出高品質實作成果，大幅為學習歷程加分' },
       { icon: CheckCircle,  text: '科系真實樣貌：破除網路迷思，聽聽畢業生怎麼說，提前具備該系核心素養' },
     ],
     color: '#0F5132',
@@ -76,7 +76,7 @@ const modes = [
 ];
 
 const highlights = [
-  { icon: Zap,          title: '科技黑客松',   desc: '跨領域組隊，48 小時從零打造科技產品原型、設計商業策略，體驗業界真實工作流程。',       color: 'var(--navy)' },
+  { icon: Zap,          title: '科技黑客松',   desc: '跨領域組隊，48 小時從零打造產品原型、設計商業策略，體驗業界真實工作流程。',       color: 'var(--navy)' },
   { icon: Puzzle,       title: '校園實境解謎', desc: '獨家設計的台大校園解謎關卡 APP ，寓教於樂，留下對大學最深刻的印象。',   color: '#1E56A0'      },
   { icon: FlaskConical, title: '專題實作',     desc: '在專業人員帶領下完成實作成品，提前感受關於心儀科系的核心學習內容。',           color: '#7B4F12'      },
   { icon: Bot,          title: '大學模擬面試',  desc: '具有豐富面試經驗的學長姐擔任面試官，給予最直接的回饋，學習如何有效自我行銷。',    color: '#0F5132'      },
@@ -99,10 +99,10 @@ const photoSlots = 6;
 
 const explorationTestimonials: Testimonial[] = [
   {
-    quote: '參加 DELC 的科系探索營，讓我第一次真正了解心理系的日常，專題實作也大大充實了我的學習歷程，最後順利錄取了喜歡的科系。',
-    name: '王同學',
-    context: '第四屆科系探索領袖營學員',
-    year: '2023',
+    quote: '這是我參加過內容最豐富的營隊，雖然真的超累，但真人圖書館活動讓我更加確認了對財金的熱情，後來唸書時每次快放棄都會想起學長的分享與鼓勵，真的收穫滿滿。',
+    name: '陳同學',
+    context: '第五屆科系探索領袖營學員',
+    year: '2024',
   },
   {
     quote: '黑客松讓我在短短兩天內跟完全不認識的同學合作完成一個網頁工具，這個經驗讓我確定自己想念資工系，也讓我第一次有了真正有說服力的作品。',
@@ -111,16 +111,16 @@ const explorationTestimonials: Testimonial[] = [
     year: '2026',
   },
   {
-    quote: '這是我參加過內容最豐富的營隊，雖然真的超累，但真人圖書館活動讓我更加確認了對財金的熱情，後來唸書時每次快放棄都會想起學長的分享與鼓勵，真的收穫滿滿。',
-    name: '陳同學',
-    context: '第五屆科系探索領袖營學員',
-    year: '2024',
-  },
-  {
     quote: '這次講座讓我第一次了解到物治系究竟在學什麼、需要掌握哪些核心知識，專題實作老師也一一點評了大家的實作成果、並給出很多實用的建議，讓我更堅定想考物治系了！',
     name: '張同學',
     context: '物治系講座學員',
     year: '2025',
+  },
+  {
+    quote: '參加 DELC 的科系探索營，讓我第一次真正了解心理系的日常，專題實作也大大充實了我的學習歷程，最後順利錄取了喜歡的科系。',
+    name: '王同學',
+    context: '第四屆科系探索領袖營學員',
+    year: '2023',
   },
   {
     quote: '講座內容超充實，老師分享了大學真正在學的課程、筆記簡報，也了解到臨床心理師、諮商心理師原來是不一樣的！實作內容也很有趣，希望未來能如願考上心理系',
@@ -174,13 +174,13 @@ export default async function ExplorationPage() {
             <h1 className="font-display font-bold leading-[1.1] mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}>
               高中生科系探索營隊推薦
               <br />
-              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>先來親身體驗看看</em>
+              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身體驗，豐富學習經驗</em>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
           <FadeIn delay={0.25}>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-              透過真實的實作、參訪與跨領域挑戰，讓你在高中階段就確認未來方向，讓學習歷程有真正說得出口的經驗。
+              透過科系實作、大學參訪與跨領域挑戰，讓你釐清各科系學習內容，確認自身興趣與未來方向，讓學習歷程有真正說得出口的經驗。
             </p>
           </FadeIn>
           {/* Stats strip */}
@@ -452,7 +452,7 @@ export default async function ExplorationPage() {
             名額有限，及早卡位
           </h2>
           <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
-            每屆營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。加入 LINE 官方帳號，第一時間接收開放報名通知。
+            營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。馬上加入 LINE 官方帳號，第一時間接收開放報名通知。
           </p>
           <a href="https://lin.ee/6uAXvJu" target="_blank" rel="noopener noreferrer" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
             加入 LINE 諮詢
