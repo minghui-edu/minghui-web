@@ -4,7 +4,7 @@ import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle, Target
 
 export const metadata: Metadata = {
   title: '關於明慧教育',
-  description: '明慧教育創立於2012年，12年補教教育經驗，舉辦超過 20 梯次營隊，協助 10,000+ 學生找到未來方向，錄取 120+ 世界前100名校。',
+  description: '明慧教育創立於2025年，在此之前團隊已累積了12年的補教教育經驗，並曾舉辦超過 20 梯次營隊，協助 10,000+ 學生找到未來方向， 120+ 錄取世界前100名校。',
   openGraph: {
     title: '關於明慧教育',
     description: '12年補教教育經驗，舉辦超過 20 梯次營隊，協助 10,000+ 學生找到未來方向。',
@@ -32,9 +32,12 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
 
 const highlights = [
   '台大優質團隊背景，深耕補教教育超過 12 年',
-  '活動服務超過 10,000 位學生，成果有目共睹',
-  '120+ 位學生錄取世界前 100 名校',
+  '活動服務超過 10,000 名學生，學生來自：台灣、上海、深圳、北京、東莞、英國、越南、關島、奧勒岡、紐約、墨爾本',
+  '曾受邀至台北、北京、重慶、長沙、廣東等地，舉辦筆記教學教育講座（聽眾人數累積達6,000人）',
+  '120+ 位學生錄取世界前 100 名校，教學成果有目共睹',
   '專注於實作與啟發的沉浸式教學理念',
+  '歷屆學生錄取國外：哈佛大學、MIT、紐約大學、柏克萊大學、羅德島設計學院、西北大學、賓州大學、康乃爾大學、墨爾本大學、倫敦國王學院、香港大學...等',
+  '歷屆學生錄取國內：台大電機、台大物理、北醫醫學、陽明醫學、台大法律、台大牙醫...等',
 ];
 
 const timeline: {
@@ -61,7 +64,7 @@ const timeline: {
   {
     period: '媒體採訪',
     year: '2021',
-    desc: '因家教經驗豐富受邀各大媒體採訪，包含民視、年代、中廣、今周刊、蘋果日報等。',
+    desc: '因家教經驗豐富受邀各大媒體採訪，包含1111人力銀行、Dcard、中廣、民視、八大、聯合新聞、蘋果新聞、年代新聞、今周刊、ETtoday財經雲等。',
   },
   {
     period: 'DELC 誕生',
@@ -88,21 +91,21 @@ const coreValues = [
   {
     icon: Target,
     title: '個人化學習',
-    desc: '我們相信每位學生的學習路徑都是獨一無二的。從需求評估到課程規劃，量身打造最適合你的成長方案，而非套用統一模板。',
+    desc: '我們相信每位學生的學習路徑都是獨一無二的。從需求評估到課程規劃，由專業教師團隊量身打造最適合的成長學習方案，而非套用統一教材、模板。',
     color: 'var(--navy)',
     bg: 'rgba(11,10,63,0.06)',
   },
   {
     icon: TrendingUp,
     title: '高效成長',
-    desc: '嚴選師資、精煉課程內容，讓每一分投入都能帶來最大回報。我們以可見的成果說話——從錄取名單到學習歷程，數字是最好的證明。',
+    desc: '嚴選師資、精煉課程內容，讓每一分投入都能帶來最大回報。我們以可見的成果說話——從大學錄取名單到每位學生的學習歷程，數字是最好的證明。',
     color: '#0F5132',
     bg: 'rgba(15,81,50,0.06)',
   },
   {
     icon: Compass,
     title: '未來探索',
-    desc: '升學不只是考試，更是找到人生方向的過程。透過營隊、遊學與深度諮詢，我們幫助學生在踏入大學前，就對未來有清晰的輪廓。',
+    desc: '升學不只是考試，更是找到人生方向的過程。透過營隊、遊學與深度諮詢， 93% 參與學生在踏入大學前，就對未來有更清晰的輪廓、更清楚未來科系選擇。',
     color: '#1E56A0',
     bg: 'rgba(30,86,160,0.06)',
   },
@@ -111,19 +114,19 @@ const coreValues = [
 const mediaItems = [
   {
     outlet: '壹電視 NEXT TV',
-    title: '台大碩士生「黃金家教」年收破百萬，家教行程滿檔',
+    title: '台大碩士生「黃金家教」年收破百萬，家教行程滿檔，學生凌晨2點也要上課！',
     href: 'https://youtu.be/5OYc3CdTUEQ?si=kp3iLx6QLt60Hm0W',
     image: 'https://img.youtube.com/vi/5OYc3CdTUEQ/hqdefault.jpg',
   },
   {
     outlet: '1111人力銀行',
-    title: '創辦人家教經驗豐富，受邀分享未來線上教育趨勢',
+    title: '明慧教育創辦人賴森奎，因家教經驗豐富，受邀分享未來線上教育趨勢',
     href: 'https://youtu.be/QQ3POug3gwc?si=2YKW_lthl3m05PWm&t=136',
     image: 'https://img.youtube.com/vi/QQ3POug3gwc/hqdefault.jpg',
   },
   {
     outlet: 'ETtoday 財經雲',
-    title: '台大男擔任家教收13學生，網全跪了',
+    title: '台大男擔任家教，一週教13名學生，成績、家教、活動樣樣兼顧，網全跪了',
     href: 'https://finance.ettoday.net/news/1958005',
     image: 'https://cdn2.ettoday.net/images/4276/e4276749.jpg',
   },
@@ -450,7 +453,7 @@ export default function AboutPage() {
             追蹤我們，掌握最新動態
           </h2>
           <p className="text-sm mb-12 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
-            營隊開放報名資訊、升學乾貨、學員故事——第一時間在社群發布
+            營隊開放報名資訊、升學重要筆記資源、學員故事——第一時間在社群發布
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {socials.map(({ href, label, icon: Icon, handle }) => (

@@ -18,10 +18,10 @@ const heroImage: string | null = null;
 
 export const metadata: Metadata = {
   title: '科系探索營隊',
-  description: '明慧教育科系探索營隊，帶領高中生深入台大、政大等頂尖科系實作體驗，釐清興趣志向，豐富備審學習歷程，每年超過 20 梯次，10,000+ 學生受益。',
+  description: '明慧教育科系探索營隊，帶領高中生深入台大等頂尖大學，釐清興趣志向，豐富備審學習歷程，已累積超過 20 梯次，10,000+ 學生受益。',
   openGraph: {
     title: '科系探索營隊 | 明慧教育',
-    description: '帶領高中生深入頂尖科系實作體驗，釐清興趣志向，豐富備審學習歷程。',
+    description: '帶領高中生深入了解大學熱門科系，釐清興趣志向，豐富備審學習歷程。',
     url: 'https://www.minghuiedu.com/exploration',
   },
   alternates: { canonical: 'https://www.minghuiedu.com/exploration' },
@@ -45,7 +45,7 @@ const stats = [
   { value: '12',     unit: '年', label: '補教教育經驗' },
   { value: '20',     unit: '+', label: '營隊舉辦梯次' },
   { value: '10,000', unit: '+', label: '活動受益學生' },
-  { value: '120',    unit: '+', label: '錄取世界前100名校' },
+  { value: '93',    unit: '%', label: '學員釐清科系選擇' },
 ];
 
 const modes = [
@@ -53,10 +53,10 @@ const modes = [
     icon: Lightbulb,
     title: '多元科系探索營',
     badge: '適合尚未定向',
-    desc: '不限單一科系，透過跨領域的營隊活動，讓尚未決定類組的學生體驗產品從設計、策略、製作到市場分析的多個面向，進而發掘自身興趣。',
+    desc: '不限單一科系，透過跨領域的營隊活動，讓尚未決定志願方向的學生，透過學長姐分享，深入了解各科系學習內容、畢業出路。',
     points: [
-      { icon: Zap,    text: '科技黑客松實作：完整體驗專案開發與跨領域團隊合作' },
-      { icon: Puzzle, text: '校園實境解謎：以有趣互動認識頂大校園，提升備考動機' },
+      { icon: Zap,    text: '科技黑客松實作：完整體驗專案開發與跨領域團隊合作，進而發掘自身興趣' },
+      { icon: Puzzle, text: '校園實境解謎：以有趣互動遊戲，認識頂大校園環境，提升備考動機' },
     ],
     color: 'var(--navy)',
     bg: 'rgba(11,10,63,0.06)',
@@ -65,10 +65,10 @@ const modes = [
     icon: Award,
     title: '單一科系深度講座 & 實作',
     badge: '適合已有目標',
-    desc: '專為已有心儀科系的學生設計。由專業師資與學長姐帶領，深入解析科系核心知識，並親手完成相關專題實作，直接豐富學習歷程。',
+    desc: '專為已有心儀科系的學生設計。由該科系畢業、從業中的學長姐帶領，深入解析科系核心知識，並親手完成相關專題實作，直接豐富學習歷程。',
     points: [
-      { icon: FlaskConical, text: '專題實作產出：直接產出高品質成果，大幅為學習歷程加分' },
-      { icon: CheckCircle,  text: '科系真實樣貌：破除網路迷思，提前具備該系核心素養' },
+      { icon: FlaskConical, text: '專題實作產出：針對該科系熱門學術議題，直接產出高品質成果，大幅為學習歷程加分' },
+      { icon: CheckCircle,  text: '科系真實樣貌：破除網路迷思，聽聽畢業生怎麼說，提前具備該系核心素養' },
     ],
     color: '#0F5132',
     bg: 'rgba(15,81,50,0.06)',
@@ -76,10 +76,10 @@ const modes = [
 ];
 
 const highlights = [
-  { icon: Zap,          title: '科技黑客松',   desc: '跨領域組隊，48 小時從零打造產品原型，體驗業界真實開發流程。',       color: 'var(--navy)' },
-  { icon: Puzzle,       title: '校園實境解謎', desc: '獨家設計的台大校園解謎關卡，寓教於樂，留下對大學最深刻的印象。',   color: '#1E56A0'      },
-  { icon: FlaskConical, title: '解剖實作',     desc: '在醫學教授帶領下完成真實解剖課，提前感受醫學系核心學習。',           color: '#7B4F12'      },
-  { icon: Bot,          title: 'AI 模型訓練',  desc: '從 Python 基礎到訓練自己的 AI 模型，親手完成可放入備審的成果。',    color: '#0F5132'      },
+  { icon: Zap,          title: '科技黑客松',   desc: '跨領域組隊，48 小時從零打造科技產品原型、設計商業策略，體驗業界真實工作流程。',       color: 'var(--navy)' },
+  { icon: Puzzle,       title: '校園實境解謎', desc: '獨家設計的台大校園解謎關卡 APP ，寓教於樂，留下對大學最深刻的印象。',   color: '#1E56A0'      },
+  { icon: FlaskConical, title: '專題實作',     desc: '在專業人員帶領下完成實作成品，提前感受關於心儀科系的核心學習內容。',           color: '#7B4F12'      },
+  { icon: Bot,          title: '大學模擬面試',  desc: '具有豐富面試經驗的學長姐擔任面試官，給予最直接的回饋，學習如何有效自我行銷。',    color: '#0F5132'      },
 ];
 
 const ACTIVITIES_QUERY = `*[_type == "activity"] | order(featured desc, date desc) {
@@ -99,28 +99,34 @@ const photoSlots = 6;
 
 const explorationTestimonials: Testimonial[] = [
   {
-    quote: '參加明慧的科系探索營，讓我第一次真正了解電機系的日常。豐富的實作課程大大充實了我的學習歷程，最後順利考上了心目中的科系。',
+    quote: '參加 DELC 的科系探索營，讓我第一次真正了解心理系的日常，專題實作也大大充實了我的學習歷程，最後順利錄取了喜歡的科系。',
     name: '王同學',
-    context: '台大電機系 · 探索營學員',
+    context: '第四屆科系探索領袖營學員',
     year: '2023',
   },
   {
-    quote: '黑客松讓我在短短兩天內跟完全不認識的同學合作完成一個 APP，這個經驗讓我確定自己想念資工系，也讓我的學習歷程有了真正有說服力的作品。',
+    quote: '黑客松讓我在短短兩天內跟完全不認識的同學合作完成一個網頁工具，這個經驗讓我確定自己想念資工系，也讓我第一次有了真正有說服力的作品。',
     name: '李同學',
-    context: '台大資工系 · DELC 領袖營學員',
-    year: '2024',
+    context: '第九屆科系探索領袖營學員',
+    year: '2026',
   },
   {
-    quote: '解剖實作那天是我高中最難忘的一天。明慧讓我提早確認了對醫學的熱情，備考期間每次想放棄都會想起那天的感受，最後如願考上醫學系。',
+    quote: '這是我參加過內容最豐富的營隊，雖然真的超累，但真人圖書館活動讓我更加確認了對財金的熱情，後來唸書時每次快放棄都會想起學長的分享與鼓勵，真的收穫滿滿。',
     name: '陳同學',
-    context: '北醫醫學系 · 醫學系探索營學員',
+    context: '第五屆科系探索領袖營學員',
     year: '2024',
   },
   {
-    quote: '校園實境解謎讓我第一次踏進台大校園就愛上了那裡的氛圍。回家當天就把台大列為第一志願，後來也真的如願了。',
+    quote: '這次講座讓我第一次了解到物治系究竟在學什麼、需要掌握哪些核心知識，專題實作老師也一一點評了大家的實作成果、並給出很多實用的建議，讓我更堅定想考物治系了！',
     name: '張同學',
-    context: '台大法律系 · 科系探索營學員',
-    year: '2023',
+    context: '物治系講座學員',
+    year: '2025',
+  },
+  {
+    quote: '講座內容超充實，老師分享了大學真正在學的課程、筆記簡報，也了解到臨床心理師、諮商心理師原來是不一樣的！實作內容也很有趣，希望未來能如願考上心理系',
+    name: '謝同學',
+    context: '心理系講座學員',
+    year: '2025',
   },
 ];
 
@@ -166,7 +172,7 @@ export default async function ExplorationPage() {
           <FadeIn delay={0}><SectionLabel light>科系探索營隊</SectionLabel></FadeIn>
           <FadeIn delay={0.1}>
             <h1 className="font-display font-bold leading-[1.1] mb-6" style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}>
-              台灣科系探索營隊推薦
+              高中生科系探索營隊推薦
               <br />
               <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>先來親身體驗看看</em>
             </h1>
@@ -174,7 +180,7 @@ export default async function ExplorationPage() {
           <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
           <FadeIn delay={0.25}>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-              透過真實的實作、參訪與跨領域挑戰，讓你在高中階段就確認未來方向，讓學習歷程有真正說得出口的故事。
+              透過真實的實作、參訪與跨領域挑戰，讓你在高中階段就確認未來方向，讓學習歷程有真正說得出口的經驗。
             </p>
           </FadeIn>
           {/* Stats strip */}
@@ -210,7 +216,7 @@ export default async function ExplorationPage() {
                 DELC（Department Exploration Leadership Camp）是明慧教育自主研發的旗艦營隊品牌，結合黑客松實作、校園實境解謎與跨領域挑戰，打破傳統「聽講式」體驗營的框架。
               </p>
               <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--muted)' }}>
-                我們相信，真正的科系探索不是坐在台下聽學長姐說，而是親手做、親眼看、親身感受。每一屆 DELC 都致力於創造讓學員帶著走的記憶與成果。
+                我們相信，真正的科系探索不只是坐在台下聽學長姐說，更要親手做、親眼看、親身感受。每一屆 DELC 都致力於創造讓學員帶著走的記憶與成果。
               </p>
               <div className="flex flex-wrap gap-3">
                 {['黑客松實作', '校園實境解謎', '跨領域挑戰', '學習歷程加分'].map((tag) => (
@@ -248,7 +254,7 @@ export default async function ExplorationPage() {
           <div className="text-center mb-14">
             <SectionLabel>課程設計</SectionLabel>
             <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
-              兩大探索模式，精準對接需求
+              兩大探索模式，精準滿足需求
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -432,11 +438,10 @@ export default async function ExplorationPage() {
       {/* ── FAQ ───────────────────────────────── */}
       <FaqSection items={[
         { q: '科系探索營隊是什麼？', a: '科系探索營隊是透過課程體驗、主題活動、案例討論與互動任務，幫助學生了解不同科系的內容與未來方向。不是一般的體驗活動，而是有系統地引導學生認識科系學習內容、能力需求與職涯出路。' },
-        { q: '哪些學生適合參加科系探索營隊？', a: '對未來科系還不確定、想提早了解大學學習內容，或希望更認識自己興趣與能力方向的學生，都很適合參加。從國中到高中皆可，越早探索，填志願時就越有把握。' },
+        { q: '哪些學生適合參加科系探索營隊？', a: '對未來科系還不確定、想提早了解大學學習內容，或希望更認識自己興趣與能力方向的學生，都很適合參加。越早探索，填志願時就越有把握。' },
         { q: '明慧教育的科系探索營隊和一般體驗營有什麼不同？', a: '明慧教育的科系探索營隊不只重視活動趣味，也重視學生是否真正理解科系內容、能力需求與未來方向。我們邀請具有相關科系業界經驗的講師，從長遠觀點協助學生做科系探索。' },
-        { q: '參加科系探索有什麼具體收穫？', a: '親身走訪大學科系實驗室與課堂、與在校學長姐近距離交流、完成科系實作任務，並獲得可放入備審資料的學習歷程紀錄。許多學員表示參加後對志願選填更有方向。' },
-        { q: '參加營隊可以用在學習歷程備審嗎？', a: '可以。明慧教育的科系探索營隊具有正式活動記錄，參加後可作為高中學習歷程的課外活動佐證資料，呈現自主學習與科系探索的動機與歷程。' },
-        { q: '科系探索營隊費用是多少？', a: '費用依梯次、目的地與行程天數而有所不同，詳細金額請參閱各梯次頁面，或加入 LINE 官方帳號詢問最新報價與早鳥優惠。' },
+        { q: '參加營隊可以用在學習歷程備審嗎？', a: '可以。明慧教育的科系探索營隊具有正式活動記錄、證書，參加後可作為高中學習歷程的課外活動佐證資料，呈現自主學習與科系探索的動機與歷程。' },
+        { q: '科系探索營隊費用是多少？', a: '費用依梯次、目的地與行程天數而有所不同，詳細金額請參閱各梯次頁面，或加入 LINE 官方帳號詢問最新報價與早鳥/團報優惠。' },
       ]} />
 
       {/* ── CTA ───────────────────────────────── */}
