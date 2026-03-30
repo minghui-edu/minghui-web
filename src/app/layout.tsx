@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Libre_Baskerville, Outfit } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
 const baskerville = Libre_Baskerville({
@@ -67,6 +68,7 @@ export default function RootLayout({
         </a>
         {children}
         <Analytics />
+        <GoogleAnalytics gaId="G-SYZYRBCX45" />
       </body>
     </html>
   );
