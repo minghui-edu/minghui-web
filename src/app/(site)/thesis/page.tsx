@@ -347,7 +347,7 @@ export default function ThesisPage() {
           >
             準備好提升發表成功率了嗎？
           </h2>
-          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
+          <p className="text-base mb-10" style={{ color: 'var(--muted)' }}>
             費用依需求客製，加入 LINE 說明你的研究方向與目前遇到的困難，顧問將為你規劃最合適的方案。
           </p>
           <a

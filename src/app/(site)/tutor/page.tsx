@@ -225,7 +225,7 @@ export default async function TutorPage() {
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
               師資分級制度
             </h2>
-            <p className="text-sm max-w-xl mx-auto" style={{ color: 'var(--muted)' }}>
+            <p className="text-sm" style={{ color: 'var(--muted)' }}>
               所有老師依教學年資與成果分為三個等級，時薪範圍公開透明，讓你在媒合前就能掌握預算。
             </p>
           </div>

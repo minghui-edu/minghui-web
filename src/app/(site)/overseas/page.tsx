@@ -133,7 +133,7 @@ export default function OverseasPage() {
           >
             名額有限，把握機會
           </h2>
-          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
+          <p className="text-base mb-10" style={{ color: 'var(--muted)' }}>
             每梯次嚴格控管人數，確保每位學員都能充分互動。加入 LINE 官方帳號，立即諮詢報名細節。
           </p>
           <a

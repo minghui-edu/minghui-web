@@ -431,7 +431,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: '#FFFFFF' }}>
             名額有限，把握機會
           </h2>
-          <p className="text-base mb-10 max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.62)' }}>
+          <p className="text-base mb-10" style={{ color: 'rgba(255,255,255,0.62)' }}>
             有任何疑問歡迎加入 LINE 官方帳號，我們將為你說明詳細內容。
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
