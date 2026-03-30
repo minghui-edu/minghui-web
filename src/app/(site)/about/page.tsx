@@ -239,7 +239,7 @@ export default function AboutPage() {
       {/* ── 創辦理念 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
         <div className={inner}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
 
             {/* Left: text */}
             <div>
@@ -282,8 +282,8 @@ export default function AboutPage() {
             </div>
 
             {/* Right: team photo */}
-            <div>
-              <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
+            <div className="flex">
+              <div className="relative overflow-hidden w-full min-h-[320px]">
                 <Image src="/team-photo.png" alt="明慧教育團隊" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                 <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
                 <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
