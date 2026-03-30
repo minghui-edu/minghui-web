@@ -78,6 +78,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: activity.title,
     description: activity.description?.slice(0, 120),
+    alternates: { canonical: `https://www.minghuiedu.com/exploration/${slug}` },
   };
 }
 

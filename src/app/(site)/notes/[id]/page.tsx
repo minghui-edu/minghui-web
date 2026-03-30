@@ -55,6 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${note.title} — 高分筆記`,
     description: (note.targetAudience ?? note.description)?.slice(0, 100),
+    alternates: { canonical: `https://www.minghuiedu.com/notes/${id}` },
   };
 }
 

@@ -63,6 +63,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${tutor.name} — 師資介紹`,
     description: tutor.intro?.slice(0, 100),
+    alternates: { canonical: `https://www.minghuiedu.com/tutor/${id}` },
   };
 }
 
