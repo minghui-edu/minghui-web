@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
+import { sanityClient } from '@/lib/sanity/client';
+import { urlFor } from '@/lib/sanity/image';
 
 
 /* ── 海外遊學學員心聲（直接在此編輯） ───────────────────── */
@@ -54,7 +57,14 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
   );
 }
 
-export default function OverseasPage() {
+export default async function OverseasPage() {
+  const overseasPhotos = await sanityClient
+    .fetch<{ photo: { asset: { _ref: string } }; caption?: string }[]>(
+      `*[_type == "overseasHighlight"] | order(order asc){ photo, caption }`,
+      {}, { next: { revalidate: 60 } }
+    )
+    .catch(() => []);
+
   return (
     <div>
 
@@ -119,6 +129,57 @@ export default function OverseasPage() {
 
       {/* ── Destination Tabs ──────────────────────────────────── */}
       <DestinationTabs />
+
+      {/* ── 活動花絮 跑馬燈 ──────────────────────────────────── */}
+      {overseasPhotos.length > 0 && (
+        <section className="py-20 overflow-hidden" style={{ background: 'var(--cream)' }}>
+          <style>{`
+            @keyframes overseas-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+            @keyframes overseas-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+            @media (prefers-reduced-motion: reduce) {
+              .overseas-track { animation: none !important; }
+            }
+          `}</style>
+          <div className={`${inner} mb-12`}>
+            <SectionLabel>活動花絮</SectionLabel>
+            <h2 className="font-display font-bold text-3xl md:text-4xl" style={{ color: 'var(--navy)' }}>
+              現場是這樣的
+            </h2>
+          </div>
+          <div className="flex flex-col gap-4">
+            {[0, 1].map((row) => {
+              const rowItems = overseasPhotos.filter((_, i) => i % 2 === row);
+              if (rowItems.length === 0) return null;
+              const doubled = [...rowItems, ...rowItems];
+              return (
+                <div key={row} style={{
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+                  maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+                }}>
+                  <div className="overseas-track flex" style={{
+                    width: 'max-content',
+                    gap: '12px',
+                    animation: `${row === 0 ? 'overseas-l' : 'overseas-r'} ${row === 0 ? 36 : 42}s linear infinite`,
+                  }}>
+                    {doubled.map((h, i) => (
+                      <div key={i} className="shrink-0 relative overflow-hidden" style={{ width: '320px', aspectRatio: '16/9' }}>
+                        <Image
+                          src={urlFor(h.photo).width(640).url()}
+                          alt={h.caption ?? '海外遊學花絮'}
+                          fill
+                          className="object-cover"
+                          sizes="320px"
+                          aria-hidden={i >= rowItems.length}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* ── 學員心聲 ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>

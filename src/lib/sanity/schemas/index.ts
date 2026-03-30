@@ -4,5 +4,6 @@ import { noteSchema } from './note';
 import { testimonialSchema } from './testimonial';
 import { campHighlightSchema } from './campHighlight';
 import { campGuestSchema } from './campGuest';
+import { overseasHighlightSchema } from './overseasHighlight';
 
-export const schemaTypes = [activitySchema, tutorSchema, noteSchema, testimonialSchema, campHighlightSchema, campGuestSchema];
+export const schemaTypes = [activitySchema, tutorSchema, noteSchema, testimonialSchema, campHighlightSchema, campGuestSchema, overseasHighlightSchema];

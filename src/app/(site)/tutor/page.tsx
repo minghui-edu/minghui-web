@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake } from 'lucide-react';
+import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake, MapPin } from 'lucide-react';
 import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
@@ -63,6 +63,7 @@ const TUTORS_QUERY = `*[_type == "tutor" && isActive == true] | order(tier desc,
   title,
   photo,
   tags,
+  locations,
   shortExp,
   tier
 }`;
@@ -76,6 +77,7 @@ type SanityTutor = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   photo?: any;
   tags?: string[];
+  locations?: string[];
   shortExp?: string;
   tier?: TutorTier;
 };
@@ -328,7 +330,7 @@ export default async function TutorPage() {
                     </div>
                   </div>
                   {tutor.tags && tutor.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-3">
                       {tutor.tags.map((tag) => (
                         <span
                           key={tag}
@@ -336,6 +338,20 @@ export default async function TutorPage() {
                           style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}
                         >
                           {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {tutor.locations && tutor.locations.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {tutor.locations.map((loc) => (
+                        <span
+                          key={loc}
+                          className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 font-medium"
+                          style={{ background: 'rgba(30,86,160,0.07)', color: '#1E56A0', border: '1px solid rgba(30,86,160,0.18)' }}
+                        >
+                          <MapPin aria-hidden="true" size={10} />
+                          {loc}
                         </span>
                       ))}
                     </div>
