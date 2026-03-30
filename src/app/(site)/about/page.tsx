@@ -221,12 +221,12 @@ export default function AboutPage() {
           >
             打破資訊落差
             <br />
-            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>讓夢想不再遙不可及</em>
+            <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>讓夢想不再遙遠</em>
           </h1>
           <div className="gold-rule w-20 mb-8" aria-hidden="true" />
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-            明慧教育由台大校友創立，深知許多學生在求學階段對未來感到迷惘。
-            我們透過真實的體驗與專業的引導，協助每一位學生找到屬於自己的方向。
+            明慧教育由台大校友創立，深信教育不僅是提升成績，更是引導潛力與方向。
+            憑藉專業師資與陪伴，為每位學子打造清晰且長遠的成長路徑。
           </p>
         </div>
       </section>
