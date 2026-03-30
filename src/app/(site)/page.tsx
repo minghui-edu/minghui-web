@@ -25,7 +25,7 @@ const services = [
   {
     num: '01',
     title: '熱門營隊活動',
-    desc: '國內外頂尖大學科系探索，豐富學習歷程，釐清未來志向。',
+    desc: '海內外頂尖大學科系探索，豐富學習歷程，釐清未來志向。',
     cta: '查看梯次',
     href: '/exploration',
     accentVar: 'var(--navy)',
@@ -44,8 +44,8 @@ const services = [
   },
   {
     num: '03',
-    title: '國外升學家教媒合',
-    desc: '零抽成、透明化的優質家教平台，專注於國內外升學輔導與留學諮詢。',
+    title: '精選升學家教媒合',
+    desc: '零抽成、透明化的優質家教平台，專注於海內外升學輔導與留學諮詢。',
     cta: '尋找老師',
     href: '/tutor',
     accentVar: '#0F5132',
@@ -65,14 +65,14 @@ const whyUs = [
   {
     icon: ShieldCheck,
     title: '嚴格師資把關',
-    desc: '每位家教老師皆經官方審核學歷與教學能力，絕非隨意刊登，確保每次媒合都能找到真正合適的師資。',
+    desc: '每位家教老師皆經嚴格審核學歷與教學能力，絕非隨意刊登，確保每次媒合都能找到真正合適的師資。',
     color: 'var(--navy)',
     bg: 'rgba(11,10,63,0.06)',
   },
   {
     icon: Banknote,
     title: '零抽成透明收費',
-    desc: '媒合成功後，老師日後收到的家教費用我們絕不抽成。僅收一次性媒合費，讓雙方都能獲得最大利益。',
+    desc: '媒合成功後，老師日後收到的家教費用我們絕不抽成。僅向老師收取一次媒合費，讓雙方都能獲得最大利益。',
     color: '#0F5132',
     bg: 'rgba(15,81,50,0.06)',
   },
@@ -157,7 +157,7 @@ const organizationSchema = {
   url: 'https://www.minghuiedu.com',
   logo: 'https://www.minghuiedu.com/logo.svg',
   description: '明慧教育提供科系探索營隊、海外名校遊學、專業家教媒合、高分筆記與論文顧問服務，幫助學生找到未來的方向。',
-  foundingDate: '2012',
+  foundingDate: '2025',
   areaServed: 'TW',
   sameAs: [
     'https://www.facebook.com/delc2022',
