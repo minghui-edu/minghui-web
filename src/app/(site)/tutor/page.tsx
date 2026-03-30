@@ -124,6 +124,12 @@ export default async function TutorPage() {
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <div className="hidden md:block absolute inset-0">
+          <div className="absolute inset-y-0 right-0 w-[58%] overflow-hidden">
+            <Image src="/hero-tutor.png" alt="" fill className="object-cover object-center" priority sizes="58vw" />
+          </div>
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 32%, rgba(11,10,63,0.92) 48%, rgba(11,10,63,0.35) 68%, transparent 84%)' }} />
+        </div>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div
           className="absolute top-0 right-0 pointer-events-none"

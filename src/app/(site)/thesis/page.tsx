@@ -5,7 +5,7 @@ import FaqSection from '@/components/ui/FaqSection';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 
-const heroImage: string | null = null; // 待補：/hero-thesis.png
+const heroImage = '/hero-thesis.png';
 
 export const metadata: Metadata = {
   title: '論文與研究顧問',
