@@ -474,7 +474,7 @@ export default function AboutPage() {
           <h2 className="font-display font-bold text-2xl md:text-3xl mb-4" style={{ color: '#FFFFFF' }}>
             追蹤我們，掌握最新動態
           </h2>
-          <p className="text-sm mb-12 max-w-md mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <p className="text-sm mb-12" style={{ color: 'rgba(255,255,255,0.45)' }}>
             營隊開放報名資訊、升學重要筆記資源、學員故事——第一時間在社群發布
           </p>
           <div className="flex flex-wrap justify-center gap-4">
