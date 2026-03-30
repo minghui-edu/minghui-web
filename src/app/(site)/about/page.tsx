@@ -30,14 +30,22 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
 
 /* ─── Data ──────────────────────────────────── */
 
-const highlights = [
-  '台大優質團隊背景，深耕補教教育超過 12 年',
-  '活動服務超過 10,000 名學生，學生來自：台灣、上海、深圳、北京、東莞、英國、越南、關島、奧勒岡、紐約、墨爾本',
-  '曾受邀至台北、北京、重慶、長沙、廣東等地，舉辦筆記教學教育講座（聽眾人數累積達6,000人）',
-  '120+ 位學生錄取世界前 100 名校，教學成果有目共睹',
-  '專注於實作與啟發的沉浸式教學理念',
-  '歷屆學生錄取國外：哈佛大學、MIT、紐約大學、柏克萊大學、羅德島設計學院、西北大學、賓州大學、康乃爾大學、墨爾本大學、倫敦國王學院、香港大學...等',
-  '歷屆學生錄取國內：台大電機、台大物理、北醫醫學、陽明醫學、台大法律、台大牙醫...等',
+const achievements = [
+  {
+    heading: '全球實績',
+    items: [
+      { label: '萬名見證', desc: '服務超過 10,000 名學員，足跡遍及台灣、上海、深圳、北京、東莞、英國、越南、關島、奧勒岡、紐約、墨爾本。' },
+      { label: '專業巡迴', desc: '受邀至台北、北京、重慶、長沙、廣東等地舉辦筆記教學講座，聽眾累計 6,000 人。' },
+      { label: '百大推手', desc: '120+ 位學子錄取世界前 100 名校，教學成果斐然。' },
+    ],
+  },
+  {
+    heading: '頂尖榜單',
+    items: [
+      { label: '海外名校', desc: '哈佛、MIT、紐約大學、柏克萊、羅德島設計學院、西北大學、賓州大學、康乃爾、墨爾本大學、倫敦國王學院、香港大學等。' },
+      { label: '國內標竿', desc: '台大（電機、物理、法律、牙醫）、北醫醫學、陽明醫學等頂尖系所。' },
+    ],
+  },
 ];
 
 const timeline: {
@@ -232,26 +240,40 @@ export default function AboutPage() {
             <div>
               <SectionLabel>創辦理念</SectionLabel>
               <h2 className="font-display font-bold text-3xl md:text-4xl mb-6" style={{ color: 'var(--navy)' }}>
-                創辦人經歷與宗旨
+                明慧教育：創辦宗旨與卓越實績
               </h2>
               <p className="text-base leading-relaxed mb-8" style={{ color: 'var(--muted)' }}>
-                明慧教育由台大校友創立，我們深知許多學生在求學階段對未來感到迷惘。
-                因此致力於打造一個資源共享的平台，透過真實的體驗與專業的引導，打破資訊落差，
-                讓每一位學生都能勇敢追尋自己的夢想。
+                由台大校友團隊創立，深耕補教逾 12 年。致力以「沉浸式實作與啟發」教學，打破資訊落差，
+                透過資源共享與專業引導，助學子在迷惘中勇敢逐夢。
               </p>
-              <ul className="space-y-4">
-                {highlights.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <CheckCircle
-                      aria-hidden="true"
-                      size={18}
-                      className="shrink-0 mt-0.5"
+              <div className="space-y-8">
+                {achievements.map(({ heading, items }) => (
+                  <div key={heading}>
+                    <h3
+                      className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 flex items-center gap-2"
                       style={{ color: 'var(--accent)' }}
-                    />
-                    <span className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{item}</span>
-                  </li>
+                    >
+                      <span className="w-5 h-px shrink-0" style={{ background: 'currentColor' }} aria-hidden="true" />
+                      {heading}
+                    </h3>
+                    <ul className="space-y-3">
+                      {items.map(({ label, desc }) => (
+                        <li key={label} className="flex items-start gap-3">
+                          <CheckCircle
+                            aria-hidden="true"
+                            size={18}
+                            className="shrink-0 mt-0.5"
+                            style={{ color: 'var(--accent)' }}
+                          />
+                          <span className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                            <strong style={{ color: 'var(--navy)' }}>{label}：</strong>{desc}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
             {/* Right: photo placeholder
