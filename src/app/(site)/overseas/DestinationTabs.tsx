@@ -49,7 +49,7 @@ const destinations: Record<Dest, DestData> = {
     duration: '7 天 6 晚',
     price: 75000,
     audience: '國中生 ～ 大學生',
-    minPeople: 10,
+    minPeople: 15,
     pillars: [
       { icon: GraduationCap, label: '名校探索' },
       { icon: Wrench,        label: '手作體驗' },
@@ -123,7 +123,7 @@ const destinations: Record<Dest, DestData> = {
     duration: '10 天 9 晚',
     price: 150000,
     audience: '國中生 ～ 大學生',
-    minPeople: 10,
+    minPeople: 15,
     pillars: [
       { icon: GraduationCap, label: '名校探索' },
       { icon: Compass,       label: '深度體驗' },
