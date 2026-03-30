@@ -1,18 +1,40 @@
 import type { Metadata } from 'next';
 import { ChevronRight } from 'lucide-react';
 import FaqSection from '@/components/ui/FaqSection';
-import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
+import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
 import { ParallaxBg } from '@/components/ui/ParallaxBg';
 import { FadeIn } from '@/components/ui/FadeIn';
 
 
+/* ── 海外遊學學員心聲（直接在此編輯） ───────────────────── */
+const overseasTestimonials: Testimonial[] = [
+  {
+    quote: '東京遊學行程讓我提前感受留學生活，學長姐分享的申請秘訣完全是網路上找不到的乾貨，讓我下定決心申請早稻田大學。',
+    name: '林同學',
+    context: '高中三年級 · 東京遊學學員',
+    year: '2024',
+  },
+  {
+    quote: '走訪墨爾本大學和雪梨大學，現場看到學長姐的生活環境，比任何簡介都有說服力。回來後我的方向就確定了，明年要申請澳洲研究所。',
+    name: '陳同學',
+    context: '大學四年級 · 澳洲遊學學員',
+    year: '2024',
+  },
+  {
+    quote: '原本只是跟風去看看，沒想到參訪慶應大學後整個人燃起來了。明慧安排的在校生座談超值，問到很多官方根本不會說的真實情況。',
+    name: '張同學',
+    context: '高中二年級 · 東京遊學學員',
+    year: '2025',
+  },
+];
+
 export const metadata: Metadata = {
   title: '海外名校遊學參訪',
-  description: '明慧教育海外遊學參訪，東京 × 澳洲兩大行程，走訪 QS 前 25 頂尖名校，與在校學長姐閉門交流，帶領高中生提前掌握留學申請關鍵資訊。',
+  description: '明慧教育海外遊學參訪，東京 × 澳洲兩大行程，走訪 QS 頂尖名校，與在校學長姐閉門交流，帶領高中、大學生提前掌握大學及研究所留學申請關鍵資訊。',
   openGraph: {
     title: '海外名校遊學參訪 | 明慧教育',
-    description: '東京 × 澳洲兩大遊學行程，走訪 QS 前 25 頂尖名校，提前掌握留學關鍵資訊。',
+    description: '東京 × 澳洲兩大遊學行程，走訪 QS 頂尖名校，提前掌握留學關鍵資訊。',
     url: 'https://www.minghuiedu.com/overseas',
   },
   alternates: { canonical: 'https://www.minghuiedu.com/overseas' },
@@ -80,7 +102,7 @@ export default function OverseasPage() {
               className="font-display font-bold leading-[1.1] mb-6"
               style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
             >
-              台灣高中生海外名校遊學參訪
+              高中、大學生海外名校遊學參訪
               <br />
               <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>親身感受留學生活</em>
             </h1>
@@ -88,8 +110,8 @@ export default function OverseasPage() {
           <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
           <FadeIn delay={0.25}>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-              精選東京 × 澳洲兩大行程，帶你走訪 QS 前 25 頂尖名校、與在校學長姐閉門交流，
-              在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合。
+              精選東京 × 澳洲兩大行程，帶你走訪世界 QS 前 50 頂尖名校、與在校學長姐閉門交流，
+              在正式申請前搶先掌握留學關鍵資訊，確認自己是否真的適合，避免選錯方向。
             </p>
           </FadeIn>
         </div>
@@ -109,18 +131,18 @@ export default function OverseasPage() {
           >
             他們這樣說
           </h2>
-          <TestimonialsCarousel />
+          <TestimonialsCarousel items={overseasTestimonials} />
         </div>
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────── */}
       <FaqSection items={[
-        { q: '海外遊學適合哪些學生？', a: '海外遊學適合想提升語言能力、體驗不同教育文化、拓展視野，或希望提早接觸國際學習環境的學生。高一到高三都適合，越早參加越能將名校資訊運用到備審與未來規劃。' },
+        { q: '海外遊學適合哪些學生？', a: '海外遊學適合想提升語言能力、體驗不同教育文化、拓展視野，或希望提早接觸國際學習環境的學生。高中、大學生都適合，越早參加越能將名校資訊運用到備審與未來規劃。' },
         { q: '有海外經驗的學生也適合參加海外遊學嗎？', a: '適合。每位學生的國際學習起點不同，即使曾有海外經驗，透過明慧教育有系統的名校參訪與留學生交流，仍能獲得不同的視角與收穫，逐步建立對國際環境的適應力與自信。' },
         { q: '海外遊學可以帶來哪些收穫？', a: '除了語言與文化的沉浸體驗，海外遊學也能幫助學生提升獨立性、跨文化理解能力，以及對未來升學與發展的想像。親自走進世界名校，親身感受頂尖學術環境，往往能激發內在學習動力。' },
-        { q: '目前有哪些遊學目的地？', a: '目前提供東京（東京大學、慶應義塾大學等日本頂尖名校）及澳洲（QS 前 25 大學，含澳洲國立大學、墨爾本大學等）兩大行程，各有不同的文化與學術風格。' },
+        { q: '目前有哪些遊學目的地？', a: '目前提供東京（東京大學、早稻田大學、慶應義塾大學等日本頂尖名校）及澳洲（QS 前 25 大學，含雪梨大學、墨爾本大學等）兩大行程，各有不同的文化與學術風格。' },
         { q: '遊學行程和一般旅遊有什麼不同？', a: '我們的行程包含正式校園深度參訪、與在校台灣留學生閉門交流座談、留學申請資訊講座，以及文化沉浸體驗。是有教育目的的深度學習之旅，不是觀光旅遊。' },
-        { q: '需要先會日文或英文才能參加嗎？', a: '不需要。行程全程有中文翻譯與帶隊老師陪同，但我們鼓勵學員積極嘗試使用英文與當地學生交流，這也是遊學最寶貴的體驗之一。' },
+        { q: '需要先會日文或英文才能參加嗎？', a: '不需要。行程全程有領隊協助中文翻譯陪同，但我們鼓勵學員積極嘗試使用英文、當地語言與當地學生交流，這也是遊學最寶貴的體驗之一。' },
       ]} />
 
       {/* ── CTA ───────────────────────────────────────────────── */}
