@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { GraduationCap, Wrench, Compass, Globe2, BookOpen, Check, ChevronRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -20,7 +21,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 type Pillar = { icon: LucideIcon; label: string };
 type University = { name: string; note: string; desc: string };
-type TriptychCard = { label: string; desc: string; items: string[]; featured?: boolean };
+type TriptychCard = { label: string; desc: string; items: string[]; featured?: boolean; image?: string };
 
 type DestData = {
   tagline: string;
@@ -61,17 +62,20 @@ const destinations: Record<Dest, DestData> = {
         label: '文化景點',
         desc: '不只是觀光打卡，每個景點都搭配深度導覽，幫助你在出發前就真正了解日本的文化底蘊與生活節奏，讓留學的選擇建立在真實體驗上。',
         items: ['東京鐵塔', '淺草觀音寺', '明治神宮'],
+        image: '/overseas/tokyo-culture.png',
       },
       {
         label: '名校參訪',
         desc: '走進東京大學的赤門、坐進早稻田的學生食堂，再聽在校學長姐親口分享升學歷程與留學生活——比任何網路文章都真實、直接，讓你提前感受自己未來四年的樣子。',
         items: ['東京大學', '早稻田大學', '慶應義塾大學', '學長姐交流 × 校園美食'],
         featured: true,
+        image: '/overseas/tokyo-campus.png',
       },
       {
         label: '特色體驗',
         desc: '穿上和服漫步淺草、站在富士山腳下仰望——讓留學的想像變得具體可感受。帶著這些真實記憶回台灣，再做人生最重要的決定。',
         items: ['遊覽富士山', '淺草和服 & 浴衣', '深度走訪東京周邊'],
+        image: '/overseas/tokyo-experience.png',
       },
     ],
     universities: [
@@ -135,17 +139,20 @@ const destinations: Record<Dest, DestData> = {
         label: '文化景點',
         desc: '從地標性的雪梨歌劇院到壯闊的藍山國家公園，感受澳洲獨特的自然與人文交融，理解為什麼這裡每年吸引來自全球數十萬名學生前來求學、定居。',
         items: ['雪梨歌劇院', '藍山國家公園', '蘿拉小鎮'],
+        image: '/overseas/au-culture.png',
       },
       {
         label: '名校參訪',
         desc: '三所 QS 前 25 頂尖大學一次走訪，在校學長姐帶你深入校園各角落，獨家分享如何拿到澳洲名校錄取通知，以及留學生真實的每日生活、費用、打工心得。',
         items: ['QS 19 墨爾本大學', 'QS 20 新南威爾斯大學', 'QS 25 雪梨大學', '學長姐交流 × 校園美食'],
         featured: true,
+        image: '/overseas/au-campus.png',
       },
       {
         label: '特色體驗',
         desc: '七彩沙灘屋、古董蒸氣火車、維多利亞藝術中心等，每一個體驗都讓你感受到澳洲文化的多樣性，也幫你在決定留學前，評估自己是否真的適合在這片土地生活。',
         items: ['濱海七彩沙灘屋', '維多利亞藝術中心', '古董蒸氣火車'],
+        image: '/overseas/au-experience.png',
       },
     ],
     universities: [
@@ -281,7 +288,7 @@ export default function DestinationTabs() {
                   position: 'relative',
                 } : {}}
               >
-                {/* Placeholder image area */}
+                {/* Image area */}
                 <div
                   className="relative flex items-center justify-center overflow-hidden"
                   style={{
@@ -290,25 +297,30 @@ export default function DestinationTabs() {
                     borderBottom: `${card.featured ? 3 : 1}px solid ${card.featured ? 'var(--accent)' : 'var(--border)'}`,
                   }}
                 >
+                  {card.image && (
+                    <Image src={card.image} alt={card.label} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  )}
                   {card.featured && (
                     <span
-                      className="absolute top-3 right-3 text-[10px] font-bold tracking-widest uppercase px-2 py-1"
+                      className="absolute top-3 right-3 text-[10px] font-bold tracking-widest uppercase px-2 py-1 z-10"
                       style={{ background: 'var(--accent)', color: 'var(--navy)' }}
                     >
                       核心亮點
                     </span>
                   )}
-                  <span
-                    className="font-display font-bold select-none pointer-events-none"
-                    style={{
-                      fontSize: '7rem',
-                      lineHeight: 1,
-                      color: card.featured ? 'rgba(255,255,255,0.05)' : 'rgba(11,10,63,0.05)',
-                    }}
-                    aria-hidden="true"
-                  >
-                    {card.label[0]}
-                  </span>
+                  {!card.image && (
+                    <span
+                      className="font-display font-bold select-none pointer-events-none"
+                      style={{
+                        fontSize: '7rem',
+                        lineHeight: 1,
+                        color: card.featured ? 'rgba(255,255,255,0.05)' : 'rgba(11,10,63,0.05)',
+                      }}
+                      aria-hidden="true"
+                    >
+                      {card.label[0]}
+                    </span>
+                  )}
                 </div>
                 {/* Content */}
                 <div className="p-6 flex-1 flex flex-col">

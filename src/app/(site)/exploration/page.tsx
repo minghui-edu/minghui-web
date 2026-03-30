@@ -13,8 +13,7 @@ import { urlFor } from '@/lib/sanity/image';
 
 export const revalidate = 60;
 
-// 替換成真實照片路徑，例如 '/images/hero-exploration.jpg'
-const heroImage: string | null = null;
+const heroImage = '/hero-exploration.png';
 
 export const metadata: Metadata = {
   title: '科系探索營隊',
@@ -227,14 +226,11 @@ export default async function ExplorationPage() {
               </div>
             </div>
             </RevealOnScroll>
-            {/* DELC visual placeholder */}
+            {/* DELC visual */}
             <RevealOnScroll delay={0.15}>
             <div className="relative">
-              <div className="relative overflow-hidden" style={{ aspectRatio: '4/3', background: 'rgba(11,10,63,0.06)', border: '1px solid var(--border)' }}>
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ color: 'rgba(11,10,63,0.18)' }}>
-                  <ImageIcon aria-hidden="true" size={36} />
-                  <span className="text-xs tracking-widest uppercase">DELC Camp Photo</span>
-                </div>
+              <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                <Image src="/delc-photo.png" alt="DELC 科系探索營現場" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                 <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
                 <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
               </div>

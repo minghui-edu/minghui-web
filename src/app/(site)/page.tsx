@@ -87,11 +87,11 @@ const whyUs = [
 
 
 const partners = [
-  { name: '台北市政府青年局',       abbr: '北市府' },
-  { name: '東京大學台灣留學生會',   abbr: 'UTokyo' },
-  { name: '慶應義塾大學台灣留學生會', abbr: 'Keio'  },
-  { name: '北京大學兩岸文化交流協會', abbr: 'PKU'   },
-  { name: '星創音樂',               abbr: '星創'   },
+  { name: '台北市政府青年局',       logo: '/taipei-youth.png' },
+  { name: '東京大學台灣留學生會',   logo: '/utokyo.png' },
+  { name: '慶應義塾大學台灣留學生會', logo: '/keio.png' },
+  { name: '北京大學兩岸文化交流協會', logo: null,          abbr: 'PKU' },
+  { name: '星創音樂',               logo: '/music-star.png' },
 ];
 
 /* ─── Shared layout token ───────────────────── */
@@ -501,19 +501,15 @@ export default async function HomePage() {
                   minWidth: '240px',
                 }}
               >
-                {/* 1:1 logo placeholder — replace with <Image> when logo is ready */}
-                <div
-                  className="shrink-0 flex items-center justify-center font-display font-bold text-sm"
-                  style={{
-                    width: '52px',
-                    height: '52px',
-                    background: 'rgba(11,10,63,0.06)',
-                    border: '1px solid rgba(11,10,63,0.10)',
-                    color: 'var(--navy)',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  {p.abbr}
+                <div className="shrink-0" style={{ width: '52px', height: '52px', position: 'relative' }}>
+                  {p.logo ? (
+                    <Image src={p.logo} alt={p.name} fill className="object-contain" sizes="52px" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-display font-bold text-sm"
+                      style={{ background: 'rgba(11,10,63,0.06)', border: '1px solid rgba(11,10,63,0.10)', color: 'var(--navy)' }}>
+                      {p.abbr}
+                    </div>
+                  )}
                 </div>
                 <span className="font-medium text-sm leading-snug" style={{ color: 'var(--navy)' }}>
                   {p.name}

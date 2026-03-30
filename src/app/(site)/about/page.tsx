@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { CheckCircle, Users, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
+import { CheckCircle, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '關於明慧教育',
@@ -206,8 +206,13 @@ export default function AboutPage() {
         className="relative overflow-hidden py-28"
         style={{ background: 'var(--navy)' }}
       >
+        <div className="hidden md:block absolute inset-0">
+          <div className="absolute inset-y-0 right-0 w-[50%] overflow-hidden">
+            <Image src="/hero-about.png" alt="" fill className="object-cover object-center" priority sizes="50vw" />
+          </div>
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--navy) 35%, rgba(11,10,63,0.9) 50%, rgba(11,10,63,0.3) 70%, transparent 88%)' }} />
+        </div>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
-        {/* Subtle accent glow */}
         <div
           className="absolute top-0 right-0 pointer-events-none"
           style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
@@ -276,24 +281,10 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right: photo placeholder
-                ── 換上正式照片時，替換為：
-                   <Image src="/team-photo.jpg" alt="明慧教育團隊" fill className="object-cover" />
-                   並在外層 div 加上 style={{ position: 'relative' }}
-            */}
+            {/* Right: team photo */}
             <div>
-              <div
-                className="relative overflow-hidden"
-                style={{
-                  aspectRatio: '4 / 3',
-                  background: 'rgba(11,10,63,0.05)',
-                  border: '1px solid var(--border)',
-                }}
-              >
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ color: 'rgba(11,10,63,0.18)' }}>
-                  <Users aria-hidden="true" size={36} />
-                  <span className="text-xs tracking-widest uppercase">Team Photo</span>
-                </div>
+              <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
+                <Image src="/team-photo.png" alt="明慧教育團隊" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                 <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
                 <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
               </div>
