@@ -65,7 +65,7 @@ const journeySteps = [
     icon: PenLine,
     num: '02',
     title: '論文邏輯優化',
-    desc: '針對研究架構、論述邏輯、方法論呈現進行一對一健檢與指導，強化論文說服力，提升通過初審的機率。',
+    desc: '針對研究架構、論述邏輯、方法論呈現進行健檢與指導，強化論文說服力，提升通過初審的機率。',
   },
   {
     icon: Send,
@@ -137,15 +137,15 @@ export default function ThesisPage() {
               className="font-display font-bold leading-[1.1] mb-6"
               style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
             >
-              台灣專業學術論文顧問
+              專業學術論文顧問
               <br />
-              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>提升論文發表成功率</em>
+              <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>國際期刊與學術會議投稿</em>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}><div className="gold-rule w-20 mb-8" aria-hidden="true" /></FadeIn>
           <FadeIn delay={0.25}>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
-              期刊選擇、論文優化、審稿加速、重修再投稿——顧問團隊涵蓋知名期刊現任與前任編輯，
+              期刊選擇、論文優化、審稿加速 —— 顧問團隊涵蓋知名期刊現任與前任編輯，
               以業界視角全程陪你走過學術發表之路。
             </p>
           </FadeIn>
@@ -297,8 +297,8 @@ export default function ThesisPage() {
                 </span>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
-                同樣的三步驟流程——上傳、整理、交付——未來將由 AI 在線上自動完成。
-                上傳 PDF 後即時生成速讀報告，支援自然語言提問與語意搜尋，大幅降低文獻管理的時間成本。
+                同樣的三步驟流程——上傳、整理、交付 —— 未來將能在線上自動完成。
+                上傳 PDF 後即時生成速讀報告，大幅降低文獻閱讀、管理的時間成本。
               </p>
             </div>
           </div>
