@@ -273,29 +273,20 @@ export default async function HomePage() {
               </FadeIn>
             </div>
 
-            {/* Right: hero image
-                ── 換上正式照片時，把下方佔位 div 換成：
-                   <Image src="/hero-photo.jpg" alt="明慧教育師生互動" fill className="object-cover" />
-                   並把外層 div 加上 style={{ position: 'relative' }}
-            */}
+            {/* Right: hero image */}
             <div className="hidden lg:block">
               <div
                 className="relative overflow-hidden"
-                style={{
-                  aspectRatio: '4 / 5',
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                }}
+                style={{ aspectRatio: '4 / 5' }}
               >
-                {/* ── 照片佔位 ── 取得正式照片後替換 ── */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ color: 'rgba(255,255,255,0.2)' }}>
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <polyline points="21,15 16,10 5,21" />
-                  </svg>
-                  <span className="text-xs tracking-widest uppercase">Hero Photo</span>
-                </div>
+                <Image
+                  src="/hero-photo.png"
+                  alt="明慧教育師生互動"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1280px) 40vw, 500px"
+                />
                 {/* Gold accent corners */}
                 <span className="absolute top-0 left-0 w-10 h-10 pointer-events-none" style={{ borderTop: '2px solid var(--accent)', borderLeft: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
                 <span className="absolute bottom-0 right-0 w-10 h-10 pointer-events-none" style={{ borderBottom: '2px solid var(--accent)', borderRight: '2px solid var(--accent)', opacity: 0.5 }} aria-hidden="true" />
