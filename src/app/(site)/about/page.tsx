@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { CheckCircle, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
+import { TrackedLink } from '@/components/ui/TrackedLink';
 
 export const metadata: Metadata = {
   title: '關於明慧教育',
@@ -418,9 +419,10 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {mediaItems.map((item, idx) => (
-              <a
+              <TrackedLink
                 key={idx}
                 href={item.href}
+                ga={{ category: 'media', label: item.outlet }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="media-card group flex flex-col bg-white transition-shadow duration-200 hover:shadow-lg overflow-hidden"
@@ -452,7 +454,7 @@ export default function AboutPage() {
                     <ExternalLink aria-hidden="true" size={12} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
                   </span>
                 </div>
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </div>
@@ -470,9 +472,10 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {socials.map(({ href, label, icon: Icon, handle }) => (
-              <a
+              <TrackedLink
                 key={handle}
                 href={href}
+                ga={{ category: 'social', label: `About ${handle}` }}
                 aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -480,7 +483,7 @@ export default function AboutPage() {
               >
                 <Icon aria-hidden="true" size={16} />
                 <span className="text-sm font-medium">{handle}</span>
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </div>

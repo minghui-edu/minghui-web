@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
+import { TrackedLink } from '@/components/ui/TrackedLink';
 import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
 import DestinationTabs from './DestinationTabs';
@@ -219,15 +220,16 @@ export default async function OverseasPage() {
           <p className="text-base mb-10" style={{ color: 'var(--muted)' }}>
             每梯次嚴格控管人數，確保每位學員都能充分互動。加入 LINE 官方帳號，立即諮詢報名細節。
           </p>
-          <a
+          <TrackedLink
             href="https://lin.ee/6uAXvJu"
+            ga={{ category: 'cta', label: '海外遊學 LINE 諮詢' }}
             target="_blank"
             rel="noopener noreferrer"
             className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
           >
             加入 LINE 諮詢
             <ChevronRight aria-hidden="true" size={16} />
-          </a>
+          </TrackedLink>
         </div>
       </section>
 

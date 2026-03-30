@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake, MapPin } from 'lucide-react';
+import { TrackedLink } from '@/components/ui/TrackedLink';
 import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
@@ -212,15 +213,16 @@ export default async function TutorPage() {
             ))}
           </div>
           <div className="flex justify-center">
-            <a
+            <TrackedLink
               href="https://forms.gle/BBoFZZ7gawijSuyj9"
+              ga={{ category: 'cta', label: '老師填寫履歷表單' }}
               target="_blank"
               rel="noopener noreferrer"
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               <GraduationCap aria-hidden="true" size={18} />
               老師填寫履歷表單
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export type FaqItem = { q: string; a: string };
 
@@ -52,7 +53,7 @@ export default function FaqSection({ items }: { items: FaqItem[] }) {
               >
                 <button
                   type="button"
-                  onClick={() => setOpen(isOpen ? null : idx)}
+                  onClick={() => { if (!isOpen) sendGAEvent('event', 'click', { category: 'faq', label: q }); setOpen(isOpen ? null : idx); }}
                   aria-expanded={isOpen}
                   className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--accent)]"
                   style={{ touchAction: 'manipulation' }}

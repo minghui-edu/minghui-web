@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Lightbulb, Award, ChevronRight, Zap, Puzzle, FlaskConical, Bot, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { TrackedLink } from '@/components/ui/TrackedLink';
 import { ActivitiesGrid, type SanityActivity } from './ActivitiesGrid';
 import FaqSection from '@/components/ui/FaqSection';
 import TestimonialsCarousel, { type Testimonial } from '@/components/home/TestimonialsCarousel';
@@ -450,10 +451,10 @@ export default async function ExplorationPage() {
           <p className="text-base mb-10" style={{ color: 'var(--muted)' }}>
             營隊名額嚴格控管，確保每位學員都能獲得充分的互動與指導。馬上加入 LINE 官方帳號，第一時間接收開放報名通知。
           </p>
-          <a href="https://lin.ee/6uAXvJu" target="_blank" rel="noopener noreferrer" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+          <TrackedLink href="https://lin.ee/6uAXvJu" ga={{ category: 'cta', label: '科系探索 LINE 諮詢' }} target="_blank" rel="noopener noreferrer" className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
             加入 LINE 諮詢
             <ChevronRight aria-hidden="true" size={16} />
-          </a>
+          </TrackedLink>
         </div>
       </section>
 

@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Instagram, Youtube, MessageCircle, Mail } from 'lucide-react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const quickLinks = [
   { href: '/exploration', label: '科系探索營隊' },
@@ -62,6 +65,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social w-9 h-9 flex items-center justify-center rounded"
+                  onClick={() => sendGAEvent('event', 'click', { category: 'social', label: `Footer ${label}` })}
                 >
                   <Icon aria-hidden="true" size={16} />
                 </a>
@@ -111,6 +115,7 @@ export default function Footer() {
                   href="mailto:timy@minghuiedu.com"
                   className="footer-cta block text-center text-xs font-semibold tracking-wider py-3 px-4"
                   style={{ letterSpacing: '0.08em' }}
+                  onClick={() => sendGAEvent('event', 'click', { category: 'cta', label: '企業合作提案' })}
                 >
                   企業 / 學校 合作提案
                 </a>

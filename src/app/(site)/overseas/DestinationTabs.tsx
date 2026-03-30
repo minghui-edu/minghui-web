@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { sendGAEvent } from '@next/third-parties/google';
 import { GraduationCap, Wrench, Compass, Globe2, BookOpen, Check, ChevronRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -215,7 +216,7 @@ export default function DestinationTabs() {
               return (
                 <button
                   key={dest}
-                  onClick={() => setActive(dest)}
+                  onClick={() => { sendGAEvent('event', 'click', { category: 'nav', label: `Tab ${dest}` }); setActive(dest); }}
                   aria-pressed={isActive}
                   className="px-6 py-2.5 text-sm font-semibold transition-[background-color,color,border-color] duration-150 hover:bg-white/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
@@ -255,6 +256,7 @@ export default function DestinationTabs() {
                 href={d.registrationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => sendGAEvent('event', 'click', { category: 'cta', label: `報名說明會 ${d.title}` })}
                 className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide"
               >
                 報名線上說明會
@@ -479,6 +481,7 @@ export default function DestinationTabs() {
               href={d.registrationUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => sendGAEvent('event', 'click', { category: 'cta', label: `報名說明會底部 ${d.title}` })}
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide shrink-0"
             >
               報名線上說明會

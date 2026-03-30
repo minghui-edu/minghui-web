@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, ChevronRight, Smartphone, ShoppingCart } from 'lucide-react';
+import { TrackedLink } from '@/components/ui/TrackedLink';
 import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
 import { urlFor } from '@/lib/sanity/image';
@@ -115,9 +116,9 @@ export default async function NotesPage() {
                 學霸解題 YouTube 影片
               </h2>
             </div>
-            <a href="https://www.youtube.com/@gotontu4507" target="_blank" rel="noopener noreferrer" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
+            <TrackedLink href="https://www.youtube.com/@gotontu4507" ga={{ category: 'outbound', label: '筆記頁 YouTube 頻道' }} target="_blank" rel="noopener noreferrer" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
               前往頻道看更多 <ChevronRight aria-hidden="true" size={14} />
-            </a>
+            </TrackedLink>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videos.map((v) => (
@@ -202,8 +203,9 @@ export default async function NotesPage() {
                         查看詳情
                       </Link>
                       {item.purchaseUrl ? (
-                        <a
+                        <TrackedLink
                           href={item.purchaseUrl}
+                          ga={{ category: 'purchase', label: item.title }}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-center text-xs font-semibold py-3.5 hover:opacity-85 active:scale-[0.97] transition-[opacity,transform] duration-100 inline-flex items-center justify-center gap-1"
@@ -211,7 +213,7 @@ export default async function NotesPage() {
                         >
                           <ShoppingCart aria-hidden="true" size={12} />
                           立即購買
-                        </a>
+                        </TrackedLink>
                       ) : (
                         <Link
                           href={`/notes/${item.slug.current}`}
@@ -272,15 +274,16 @@ export default async function NotesPage() {
                   </li>
                 ))}
               </ul>
-              <a
+              <TrackedLink
                 href="https://lin.ee/6uAXvJu"
+                ga={{ category: 'cta', label: 'APP 早鳥通知' }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
               >
                 預約登記早鳥通知
                 <ChevronRight aria-hidden="true" size={16} />
-              </a>
+              </TrackedLink>
             </div>
             <div className="shrink-0 flex justify-center">
               <div
