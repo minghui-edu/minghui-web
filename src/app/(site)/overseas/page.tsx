@@ -58,6 +58,48 @@ function SectionLabel({ children, light = false }: { children: React.ReactNode; 
   );
 }
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+    { '@type': 'ListItem', position: 2, name: '海外名校遊學', item: 'https://www.minghuiedu.com/overseas' },
+  ],
+};
+
+const eventSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: '東京名校文化探索計劃',
+    description: '帶領高中、大學生走訪東京大學、早稻田大學、慶應義塾大學，與在校台灣留學生閉門交流，深度感受留學生活。',
+    startDate: '2026-08-01',
+    endDate: '2026-08-07',
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: '東京，日本', address: { '@type': 'PostalAddress', addressCountry: 'JP', addressLocality: '東京' } },
+    organizer: { '@type': 'Organization', name: '明慧教育', url: 'https://www.minghuiedu.com' },
+    offers: { '@type': 'Offer', price: '75000', priceCurrency: 'TWD', availability: 'https://schema.org/InStock', url: 'https://www.minghuiedu.com/overseas' },
+    typicalAgeRange: '13-25',
+    url: 'https://www.minghuiedu.com/overseas',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: '澳洲名校文化探索計劃',
+    description: '帶領高中、大學生走訪墨爾本大學（QS 19）、新南威爾斯大學（QS 20）、雪梨大學（QS 25），與在校台灣留學生閉門交流。',
+    startDate: '2026-07-20',
+    endDate: '2026-07-29',
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: '雪梨・墨爾本，澳洲', address: { '@type': 'PostalAddress', addressCountry: 'AU' } },
+    organizer: { '@type': 'Organization', name: '明慧教育', url: 'https://www.minghuiedu.com' },
+    offers: { '@type': 'Offer', price: '150000', priceCurrency: 'TWD', availability: 'https://schema.org/InStock', url: 'https://www.minghuiedu.com/overseas' },
+    typicalAgeRange: '13-25',
+    url: 'https://www.minghuiedu.com/overseas',
+  },
+];
+
 export default async function OverseasPage() {
   const overseasPhotos = await sanityClient
     .fetch<{ photo: { asset: { _ref: string } }; caption?: string }[]>(
@@ -68,6 +110,7 @@ export default async function OverseasPage() {
 
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([...eventSchemas, breadcrumbSchema]) }} />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>

@@ -160,6 +160,14 @@ const organizationSchema = {
   description: '明慧教育提供科系探索營隊、海外名校遊學、專業家教媒合、高分筆記與論文顧問服務，幫助學生找到未來的方向。',
   foundingDate: '2025',
   areaServed: 'TW',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    bestRating: '5',
+    worstRating: '1',
+    ratingCount: '500',
+    description: '97% 學員滿意度，基於 500 位學員回饋',
+  },
   sameAs: [
     'https://www.facebook.com/delc2022',
     'https://www.instagram.com/delc_2022',

@@ -199,7 +199,14 @@ export default function AboutPage() {
     <div>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, webPageSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, webPageSchema, {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+            { '@type': 'ListItem', position: 2, name: '關於明慧教育', item: 'https://www.minghuiedu.com/about' },
+          ],
+        }]) }}
       />
 
       {/* ── Hero ──────────────────────────────── */}

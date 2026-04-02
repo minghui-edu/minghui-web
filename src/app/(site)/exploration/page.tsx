@@ -145,8 +145,18 @@ export default async function ExplorationPage() {
     ).catch(() => []),
   ]);
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+      { '@type': 'ListItem', position: 2, name: '科系探索營隊', item: 'https://www.minghuiedu.com/exploration' },
+    ],
+  };
+
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>

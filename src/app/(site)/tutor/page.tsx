@@ -120,8 +120,18 @@ export default async function TutorPage() {
     { next: { revalidate: 60 } },
   );
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+      { '@type': 'ListItem', position: 2, name: '專業家教媒合', item: 'https://www.minghuiedu.com/tutor' },
+    ],
+  };
+
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>

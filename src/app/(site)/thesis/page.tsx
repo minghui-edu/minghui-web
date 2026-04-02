@@ -101,6 +101,15 @@ const litSteps = [
   },
 ];
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://www.minghuiedu.com' },
+    { '@type': 'ListItem', position: 2, name: '論文與研究顧問', item: 'https://www.minghuiedu.com/thesis' },
+  ],
+};
+
 export default function ThesisPage() {
   return (
     <div>
@@ -361,6 +370,10 @@ export default function ThesisPage() {
         </div>
       </section>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     </div>
   );
 }
