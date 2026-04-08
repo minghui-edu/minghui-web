@@ -25,6 +25,15 @@ const nextConfig: NextConfig = {
         destination: '/tutor',
         permanent: true,
       },
+      // 舊網站中文路徑 → 師資、關於我們
+      { source: '/專業家教', destination: '/tutor', permanent: true },
+      { source: '/專業家教/', destination: '/tutor', permanent: true },
+      { source: '/%E5%B0%88%E6%A5%AD%E5%AE%B6%E6%95%99', destination: '/tutor', permanent: true },
+      { source: '/%E5%B0%88%E6%A5%AD%E5%AE%B6%E6%95%99/', destination: '/tutor', permanent: true },
+      { source: '/關於我們', destination: '/about', permanent: true },
+      { source: '/關於我們/', destination: '/about', permanent: true },
+      { source: '/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91', destination: '/about', permanent: true },
+      { source: '/%E9%97%9C%E6%96%BC%E6%88%91%E5%80%91/', destination: '/about', permanent: true },
     ];
   },
   images: {
