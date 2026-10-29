@@ -71,16 +71,16 @@ const eventSchemas = [
   {
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: '東京名校文化探索計劃',
-    description: '帶領高中、大學生走訪東京大學、早稻田大學、慶應義塾大學，與在校台灣留學生閉門交流，深度感受留學生活。',
-    startDate: '2026-08-01',
-    endDate: '2026-08-07',
+    name: '第三屆日本名校探索計劃',
+    description: '2027 寒假東京 7 天 6 夜，帶領高中、大學生走訪東京大學、慶應義塾大學、早稻田大學，由台灣留學生親自帶路分享，並體驗淺草和服、茶道與哈利波特影城。',
+    startDate: '2027-02-13',
+    endDate: '2027-02-19',
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: { '@type': 'Place', name: '東京，日本', address: { '@type': 'PostalAddress', addressCountry: 'JP', addressLocality: '東京' } },
     organizer: { '@type': 'Organization', name: '明慧教育', url: 'https://www.minghuiedu.com' },
-    offers: { '@type': 'Offer', price: '75000', priceCurrency: 'TWD', availability: 'https://schema.org/InStock', url: 'https://www.minghuiedu.com/overseas' },
-    typicalAgeRange: '13-25',
+    offers: { '@type': 'Offer', price: '38000', priceCurrency: 'TWD', availability: 'https://schema.org/InStock', url: 'https://www.minghuiedu.com/overseas' },
+    typicalAgeRange: '15-25',
     url: 'https://www.minghuiedu.com/overseas',
   },
   {
@@ -165,7 +165,7 @@ export default async function OverseasPage() {
           <FadeIn delay={0.25}>
             <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
               精選東京 × 澳洲兩大行程，帶你走訪世界 QS 前 50 頂尖名校、與在校學長姐閉門交流，
-              在正式申請前搶先掌握關鍵資訊，確認自己是否真的適合，避免選錯方向。
+              在正式申請前搶先掌握關鍵資訊，確認自己是否真的適合，避免選錯方向。寒暑假皆有團。
             </p>
           </FadeIn>
         </div>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { sendGAEvent } from '@next/third-parties/google';
-import { GraduationCap, Wrench, Compass, Globe2, BookOpen, Check, ChevronRight } from 'lucide-react';
+import { GraduationCap, MessagesSquare, Users, Compass, Globe2, BookOpen, Check, ChevronRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 type Dest = 'japan' | 'australia';
@@ -45,37 +45,37 @@ type DestData = {
 
 const destinations: Record<Dest, DestData> = {
   japan: {
-    tagline: '日本 · 7 天 6 晚文化參訪',
-    title: '東京名校文化探索計劃',
-    dates: '2026 / 08 / 01 — 08 / 07',
-    duration: '7 天 6 晚',
-    price: 75000,
-    audience: '國中生 ～ 大學生',
-    minPeople: 15,
+    tagline: '日本 · 7 天 6 夜名校探索',
+    title: '第三屆日本名校探索計劃',
+    dates: '2027 / 02 / 13（六）～ 02 / 19（五）',
+    duration: '7 天 6 夜',
+    price: 38000,
+    audience: '高中生、大學生',
+    minPeople: 10,
     pillars: [
-      { icon: GraduationCap, label: '名校探索' },
-      { icon: Wrench,        label: '手作體驗' },
-      { icon: Globe2,        label: '文化交流' },
-      { icon: BookOpen,      label: '升學分享' },
+      { icon: GraduationCap,  label: '名校參訪' },
+      { icon: MessagesSquare, label: '留學生分享' },
+      { icon: Globe2,         label: '文化體驗' },
+      { icon: Users,          label: '溫馨小團' },
     ],
     triptych: [
       {
         label: '文化景點',
-        desc: '不只是觀光打卡，每個景點都搭配深度導覽，幫助你在出發前就真正了解日本的文化底蘊與生活節奏，讓留學的選擇建立在真實體驗上。',
-        items: ['東京鐵塔', '淺草觀音寺', '明治神宮'],
+        desc: '淺草穿和服、品嚐和菓子與茶道，再走訪明治神宮與東京鐵塔展望台。帶著對日本生活的真實感受，再來想像留學這件事。',
+        items: ['淺草和服體驗', '和菓子與茶道', '明治神宮', '東京鐵塔展望台'],
         image: '/overseas/tokyo-culture.png',
       },
       {
         label: '名校參訪',
-        desc: '走進東京大學的赤門、坐進早稻田的學生食堂，再聽在校學長姐親口分享升學歷程與留學生活——比任何網路文章都真實、直接，讓你提前感受自己未來四年的樣子。',
-        items: ['東京大學', '早稻田大學', '慶應義塾大學', '學長姐交流 × 校園美食'],
+        desc: '東京大學、慶應義塾大學、早稻田大學，每校安排一整個上午深入校園。中午走進學生餐廳，跟日本大學生一起排隊用餐，體驗一天的留學生活。',
+        items: ['東京大學', '慶應義塾大學', '早稻田大學', '名校學生餐廳午餐'],
         featured: true,
         image: '/overseas/tokyo-campus.png',
       },
       {
         label: '特色體驗',
-        desc: '穿上和服漫步淺草、站在富士山腳下仰望——讓留學的想像變得具體可感受。帶著這些真實記憶回台灣，再做人生最重要的決定。',
-        items: ['遊覽富士山', '淺草和服 & 浴衣', '深度走訪東京周邊'],
+        desc: '安排一整天走進哈利波特影城，在電影場景與魔法世界裡慢慢逛、盡情拍。晚上同住日式民宿，一起煮「黑白大廚」晚餐，最後一晚的感性交流留下共同回憶。',
+        items: ['哈利波特影城一日遊', '日式民宿同住', '「黑白大廚」共煮晚餐', '最後一晚交流會'],
         image: '/overseas/tokyo-experience.png',
       },
     ],
@@ -97,23 +97,20 @@ const destinations: Record<Dest, DestData> = {
       },
     ],
     includes: [
-      '來回機票',
-      '新落成包棟民宿、星級飯店',
-      '行程內餐費（日本御膳、居酒屋、星級飯店自助餐）',
-      '東京周邊遊（箱根、富士山）',
-      '全程專業領隊隨行',
-      '全程景點門票、和服體驗',
-      '全程乘坐舒適巴士',
-      '旅遊平安險',
-      '領隊小費',
+      '全程住宿（日式民宿）',
+      '三大名校參訪與留學生分享',
+      '哈利波特影城一日遊',
+      '淺草和服、和菓子與茶道體驗',
+      '明治神宮、東京鐵塔展望台',
+      '行程內部分餐食',
     ],
-    excludes: ['其他個人消費'],
+    excludes: ['來回機票', '其他個人消費'],
     registrationFlow: [
       '填寫線上說明會報名表',
       '參與線上說明會確認活動細節',
       '填寫正式報名表',
       '線上面試考核、確認錄取通知',
-      '簽訂合約、繳交定金 30,000 元',
+      '簽訂合約、繳交定金 28,000 元',
       '出發前 60 天繳清尾款',
     ],
     cancelPolicy: '正式報名前請詳閱報名合約。',
