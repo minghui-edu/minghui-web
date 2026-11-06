@@ -51,5 +51,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...campPages, ...notePages, ...tutorPages];
+  // Dynamic: articles（還沒有文章時不列入 /articles）
+  const articles: { slug: { current: string }; _updatedAt: string }[] = await sanityClient
+    .fetch(`*[_type == "article" && defined(slug.current) && publishedAt <= now()]{ slug, _updatedAt }`)
+    .catch(() => []);
+
+  const articlePages: MetadataRoute.Sitemap = articles.map((a) => ({
+    url: `${BASE_URL}/articles/${a.slug.current}`,
+    lastModified: a._updatedAt,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  const articleIndex: MetadataRoute.Sitemap = articles.length > 0
+    ? [{ url: `${BASE_URL}/articles`, changeFrequency: 'weekly', priority: 0.8 }]
+    : [];
+
+  return [...staticPages, ...articleIndex, ...campPages, ...notePages, ...tutorPages, ...articlePages];
 }

@@ -15,7 +15,8 @@ const navItems = [
   { href: '/thesis', label: '論文顧問' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ showArticles = false }: { showArticles?: boolean }) {
+  const items = showArticles ? [...navItems, { href: '/articles', label: '升學文章' }] : navItems;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -77,8 +78,8 @@ export default function Navbar() {
 
           {/* 桌面版選單 */}
           <div className="hidden md:flex items-center">
-            {navItems.map((item, idx) => {
-              const active = pathname === item.href;
+            {items.map((item, idx) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
@@ -95,7 +96,7 @@ export default function Navbar() {
                     }}
                     aria-hidden="true"
                   />
-                  {idx < navItems.length - 1 && (
+                  {idx < items.length - 1 && (
                     <span
                       className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px]"
                       style={{ color: 'var(--border)' }}
@@ -134,7 +135,7 @@ export default function Navbar() {
           className="md:hidden bg-white border-t"
           style={{ borderColor: 'var(--border)' }}
         >
-          {navItems.map((item) => {
+          {items.map((item) => {
             const active = pathname === item.href;
             return (
               <Link
