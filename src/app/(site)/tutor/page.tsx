@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake, MapPin } from 'lucide-react';
@@ -135,6 +138,7 @@ export default async function TutorPage() {
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <ParallaxBg>
         <div className="hidden md:block absolute inset-0">
           <div className="absolute inset-y-0 right-0 w-[58%] overflow-hidden">
             <Image src="/hero-tutor.png" alt="" fill className="object-cover object-center" priority sizes="58vw" />
@@ -147,8 +151,12 @@ export default async function TutorPage() {
           style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
           aria-hidden="true"
         />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
+          <FadeIn delay={0}>
           <SectionLabel light>師資媒合平台</SectionLabel>
+          </FadeIn>
+          <FadeIn delay={0.1}>
           <h1
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
@@ -157,15 +165,21 @@ export default async function TutorPage() {
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>零抽成，透明媒合</em>
           </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
           <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          </FadeIn>
+          <FadeIn delay={0.25}>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
             提供海內外升學輔導、各科補強與考試準備等專業家教，嚴選頂尖師資，以嚴謹、精緻的媒合流程，享受真正優質的教學服務。
           </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* ── 平台特色 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>平台特色</SectionLabel>
@@ -189,10 +203,12 @@ export default async function TutorPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 媒合流程 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>媒合流程</SectionLabel>
@@ -235,10 +251,12 @@ export default async function TutorPage() {
             </TrackedLink>
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 師資分級說明 ───────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-12">
             <SectionLabel>透明收費</SectionLabel>
@@ -277,10 +295,12 @@ export default async function TutorPage() {
             })}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 師資列表 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
@@ -392,6 +412,7 @@ export default async function TutorPage() {
           </div>
           )}
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── FAQ ───────────────────────────────── */}

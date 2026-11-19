@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, ChevronRight, Smartphone, ShoppingCart } from 'lucide-react';
@@ -85,6 +88,7 @@ export default async function NotesPage() {
 
       {/* ── Hero ──────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
+        <ParallaxBg>
         <div className="hidden md:block absolute inset-0">
           <div className="absolute inset-y-0 right-0 w-[58%] overflow-hidden">
             <Image src="/hero-notes.png" alt="" fill className="object-cover object-center" priority sizes="58vw" />
@@ -97,8 +101,12 @@ export default async function NotesPage() {
           style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
           aria-hidden="true"
         />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
+          <FadeIn delay={0}>
           <SectionLabel light>學霸筆記商城</SectionLabel>
+          </FadeIn>
+          <FadeIn delay={0.1}>
           <h1
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
@@ -107,15 +115,21 @@ export default async function NotesPage() {
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>嚴選筆記，高效學習</em>
           </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
           <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          </FadeIn>
+          <FadeIn delay={0.25}>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
             嚴選頂尖學長姐親手整理的專屬精華各科筆記，作文速成模板、完整觀念分析與題型分類，讓你用最少時間掌握最多重點得高分。
           </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* ── YouTube 影片 ───────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="flex items-end justify-between mb-12 gap-4">
             <div>
@@ -142,10 +156,12 @@ export default async function NotesPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 筆記商城 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="mb-12">
             <SectionLabel>官方商城</SectionLabel>
@@ -239,6 +255,7 @@ export default async function NotesPage() {
             </div>
           )}
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── FAQ ───────────────────────────────── */}
@@ -253,6 +270,7 @@ export default async function NotesPage() {
       {/* ── APP 預告 ───────────────────────────── */}
       <section className="py-20 relative overflow-hidden" style={{ background: 'var(--navy)' }}>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <RevealOnScroll>
         <div className={`relative ${inner}`}>
           <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
             <div className="md:flex-1">
@@ -309,6 +327,7 @@ export default async function NotesPage() {
             </div>
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
     </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import Image from 'next/image';
 import { ChevronRight, Users, Zap, RefreshCcw, FileSearch, Upload, FileText, Bot, Search, PenLine, Send, MessageSquare, Shield, Image as ImageIcon } from 'lucide-react';
 import FaqSection from '@/components/ui/FaqSection';
@@ -162,6 +163,7 @@ export default function ThesisPage() {
 
       {/* ── 核心優勢 ──────────────────────────────────────────── */}
       <section style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={`${inner} py-20`}>
           <SectionLabel>為什麼選擇我們</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-12" style={{ color: 'var(--navy)' }}>
@@ -186,10 +188,12 @@ export default function ThesisPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 期刊發表顧問 ──────────────────────────────────────── */}
       <section style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={`${inner} py-20`}>
           <SectionLabel>服務一</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
@@ -225,10 +229,12 @@ export default function ThesisPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 文獻速讀服務 ──────────────────────────────────────── */}
       <section style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={`${inner} py-20`}>
           <SectionLabel>服務二</SectionLabel>
           <h2 className="font-display font-bold text-3xl md:text-4xl mb-4" style={{ color: 'var(--navy)' }}>
@@ -311,10 +317,12 @@ export default function ThesisPage() {
             </div>
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 學術倫理聲明 ──────────────────────────────────────── */}
       <section style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={`${inner} py-10`}>
           <div
             className="flex items-start gap-5 p-6"
@@ -333,6 +341,7 @@ export default function ThesisPage() {
             </div>
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────── */}
@@ -347,6 +356,7 @@ export default function ThesisPage() {
 
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={`${inner} py-20 text-center`}>
           <SectionLabel>開始合作</SectionLabel>
           <h2
@@ -368,6 +378,7 @@ export default function ThesisPage() {
             <ChevronRight aria-hidden="true" size={16} />
           </a>
         </div>
+        </RevealOnScroll>
       </section>
 
       <script
