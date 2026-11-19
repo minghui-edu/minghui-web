@@ -1850,13 +1850,13 @@ function renderResult(){
   const conf=top>=STOP_P?"結果相當明確":(top>=0.4?"結果有方向，但前幾名差距不大":"你的興趣分布很平均，前幾名都值得看看");
   const lvl=v=>v>=0.5?["高度相符","hi"]:v>=0.15?["相符",""]:["可以看看",""];
   const deptHTML=([n,list],top)=>{
-        if(!scores) return `<div class="dept${top?" top":""}"><b>${n}</b><p class="more">填入模擬考成績後，會從收錄的 ${list.length} 校挑出夢幻、可以拚、穩上各一校。</p></div>`;
+        if(!scores) return `<div class="dept${top?" top":""}"><b>${n}</b><p class="more">填入模擬考成績後，會從收錄的 ${list.length} 個校系挑出夢幻、可以拚、穩上各一校。</p></div>`;
         const picks=pick3(list,scores);
         const rest=list.length-picks.length;
         return `<div class="dept${top?" top":""}"><b>${n}</b><ul class="schools">${picks.map(({sch,pl,role})=>{
           const tag=`<span class="pl ${CAT[pl.cat][1]}">${CAT[pl.cat][0]}</span>`;
           const why=pl.cat==="std"?`<small class="why-std">${pl.fails.join("；")}</small>`:"";
-          return `<li><span>${role?`<em class="role">${role}</em>`:""}${sch}${why}</span>${tag}</li>`;}).join("")}</ul>${rest>0?`<p class="more">還有 ${rest} 校，<a href="${SITE}/gsat-check" data-cta="gsat">到落點快查看全部</a></p>`:""}</div>`;};
+          return `<li><span>${role?`<em class="role">${role}</em>`:""}${sch}${why}</span>${tag}</li>`;}).join("")}</ul>${rest>0?`<p class="more">還有 ${rest} 個校系，<a href="${SITE}/gsat-check" data-cta="gsat">到落點快查看全部</a></p>`:""}</div>`;};
   const deptsOf=(g,k)=>{
     const fq=FOLLOW[g.n];
     if(k===0&&followDone(g.n)){
@@ -1934,7 +1934,7 @@ function renderResult(){
       <button class="btn ghost" id="again">重新測驗</button>
       <button class="btn ghost" id="backq">回上一題修改</button>
     </div>
-    <p class="note">測試版目前收錄 29 所大學的相關校系：國立 17 所（臺大、政大、師大、成大、清大、陽明交大、中興、中央、中山、臺北大學、中正、海洋、彰師、高師、高雄大學、臺北教育大學、臺中教育大學），私立 12 所（臺北醫學、高雄醫學、中國醫藥、中山醫學、長庚、輔仁、東吳、淡江、中原、逢甲、元智、東海）。檢定標準與篩選門檻取自大學甄選入學委員會公告的 115 學年度個人申請資料，五標取自大考中心公告，正式資訊以甄選會及各校公告為準。藝術、體育類校系以術科成績篩選，無法用學測估算。結果僅供參考。</p>
+    <p class="note">測試版目前收錄 40 所大學的個人申請校系：國立 21 所（臺大、政大、師大、成大、清大、陽明交大、中興、中央、中山、臺北大學、中正、海洋、彰師、高師、高雄大學、臺北教育大學、臺中教育大學、暨南、東華、嘉義大學、臺南大學），私立 19 所（臺北醫學、高雄醫學、中國醫藥、中山醫學、長庚、輔仁、東吳、淡江、中原、逢甲、元智、東海、文化、世新、銘傳、實踐、靜宜、義守、大同）。檢定標準與篩選門檻取自大學甄選入學委員會公告的 115 學年度個人申請資料，五標取自大考中心公告，正式資訊以甄選會及各校公告為準。藝術、體育類校系以術科成績篩選，無法用學測估算。結果僅供參考。</p>
   </div></section>`;
   byId("scoreForm").onsubmit=e=>{
     e.preventDefault();
