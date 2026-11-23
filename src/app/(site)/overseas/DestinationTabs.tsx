@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { sendGAEvent } from '@next/third-parties/google';
 import { GraduationCap, MessagesSquare, Users, Compass, Globe2, BookOpen, Check, ChevronRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -25,6 +24,7 @@ type University = { name: string; note: string; desc: string };
 type TriptychCard = { label: string; desc: string; items: string[]; featured?: boolean; image?: string };
 
 type DestData = {
+  trackId: string;
   tagline: string;
   title: string;
   dates: string;
@@ -45,6 +45,7 @@ type DestData = {
 
 const destinations: Record<Dest, DestData> = {
   japan: {
+    trackId: 'tokyo_2027',
     tagline: '日本 · 7 天 6 夜名校探索',
     title: '第三屆日本名校探索計劃',
     dates: '2027 / 02 / 13（六）～ 02 / 19（五）',
@@ -119,6 +120,7 @@ const destinations: Record<Dest, DestData> = {
   },
 
   australia: {
+    trackId: 'australia_2026',
     tagline: '澳洲 · 10 天 9 晚文化參訪',
     title: '澳洲名校文化探索計劃',
     dates: '2026 / 07 / 20 — 07 / 29',
@@ -213,7 +215,10 @@ export default function DestinationTabs() {
               return (
                 <button
                   key={dest}
-                  onClick={() => { sendGAEvent('event', 'click', { category: 'nav', label: `Tab ${dest}` }); setActive(dest); }}
+                  onClick={() => setActive(dest)}
+                  data-track="overseas_tab_click"
+                  data-cta-location="tab"
+                  data-item-name={item.trackId}
                   aria-pressed={isActive}
                   className="px-6 py-2.5 text-sm font-semibold transition-[background-color,color,border-color] duration-150 hover:bg-white/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
                   style={{
@@ -253,7 +258,9 @@ export default function DestinationTabs() {
                 href={d.registrationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => sendGAEvent('event', 'click', { category: 'cta', label: `報名說明會 ${d.title}` })}
+                data-track="camp_signup_click"
+                data-cta-location="overview"
+                data-item-name={d.trackId}
                 className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide"
               >
                 報名線上說明會
@@ -478,7 +485,9 @@ export default function DestinationTabs() {
               href={d.registrationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => sendGAEvent('event', 'click', { category: 'cta', label: `報名說明會底部 ${d.title}` })}
+              data-track="camp_signup_click"
+              data-cta-location="page_bottom"
+              data-item-name={d.trackId}
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide shrink-0"
             >
               報名線上說明會

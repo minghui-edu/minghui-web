@@ -265,7 +265,7 @@ export default async function OverseasPage() {
           </p>
           <TrackedLink
             href="https://lin.ee/6uAXvJu"
-            ga={{ category: 'cta', label: '海外遊學 LINE 諮詢' }}
+            ga={{ event: 'line_click', location: 'page_bottom', name: '海外遊學 LINE 諮詢' }}
             target="_blank"
             rel="noopener noreferrer"
             className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"

@@ -225,7 +225,7 @@ export default async function TutorPage() {
           <div className="flex justify-center">
             <TrackedLink
               href="https://forms.gle/BBoFZZ7gawijSuyj9"
-              ga={{ category: 'cta', label: '老師填寫履歷表單' }}
+              ga={{ event: 'tutor_apply_click', location: 'page_bottom', name: '老師填寫履歷表單' }}
               target="_blank"
               rel="noopener noreferrer"
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"

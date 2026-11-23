@@ -362,6 +362,7 @@ export default function ThesisPage() {
             href="https://lin.ee/6uAXvJu"
             target="_blank"
             rel="noopener noreferrer"
+            data-cta-location="page_bottom"
             className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
           >
             加入 LINE 諮詢

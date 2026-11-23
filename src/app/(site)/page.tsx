@@ -272,11 +272,11 @@ export default async function HomePage() {
               </FadeIn>
               <FadeIn delay={0.35}>
                 <div className="flex flex-wrap gap-4">
-                  <TrackedInternalLink href="/exploration" ga={{ category: 'hero_cta', label: '探索主打營隊' }} className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                  <TrackedInternalLink href="/exploration" ga={{ event: 'cta_click', location: 'hero', name: '探索主打營隊' }} className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
                     探索主打營隊
                     <ChevronRight aria-hidden="true" size={16} />
                   </TrackedInternalLink>
-                  <TrackedInternalLink href="/tutor" ga={{ category: 'hero_cta', label: '尋找專業家教' }} className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
+                  <TrackedInternalLink href="/tutor" ga={{ event: 'cta_click', location: 'hero', name: '尋找專業家教' }} className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide">
                     尋找專業家教
                   </TrackedInternalLink>
                 </div>

@@ -208,6 +208,9 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
                 href={buyHref}
                 target={note.purchaseUrl ? '_blank' : undefined}
                 rel={note.purchaseUrl ? 'noopener noreferrer' : undefined}
+                data-track={note.purchaseUrl ? 'note_purchase_click' : undefined}
+                data-cta-location="hero"
+                data-item-name={note.title}
                 className="hero-cta-primary inline-flex items-center gap-2 px-7 py-4 font-semibold text-sm tracking-wide"
               >
                 <ShoppingCart aria-hidden="true" size={17} />
@@ -367,6 +370,9 @@ export default async function NoteDetailPage({ params }: { params: Promise<{ id:
               href={buyHref}
               target={note.purchaseUrl ? '_blank' : undefined}
               rel={note.purchaseUrl ? 'noopener noreferrer' : undefined}
+              data-track={note.purchaseUrl ? 'note_purchase_click' : undefined}
+              data-cta-location="page_bottom"
+              data-item-name={note.title}
               className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               <ShoppingCart aria-hidden="true" size={17} />

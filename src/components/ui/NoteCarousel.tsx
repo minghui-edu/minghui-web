@@ -81,6 +81,7 @@ export default function NoteCarousel({ images }: Props) {
             transition: 'filter 100ms ease',
           }}
           onClick={() => openLightbox(current)}
+          data-track="note_preview_click"
           aria-label={`查看第 ${current + 1} 張圖片（點擊放大）`}
         >
           <Image

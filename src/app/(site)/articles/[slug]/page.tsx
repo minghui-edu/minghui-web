@@ -9,6 +9,7 @@ import { urlFor } from '@/lib/sanity/image';
 import { categories, formatDate } from '@/lib/articleMeta';
 import { getArticle, getRelatedArticles } from '@/lib/articles';
 import { ArticleCardItem } from '../ArticlesGrid';
+import { ArticleReadTracker } from './ArticleReadTracker';
 
 export const revalidate = 60;
 
@@ -157,6 +158,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <p className="text-base leading-relaxed" style={{ color: 'var(--navy)' }}>{article.summary}</p>
         </aside>
 
+        <ArticleReadTracker slug={slug} title={article.title} />
         <div className="article-body">
           <PortableText value={article.body} components={bodyComponents} />
         </div>
@@ -164,7 +166,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {category && (
           <div className="mt-12 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" style={{ background: 'var(--navy)' }}>
             <p className="font-display font-bold text-xl text-white">{category.ctaText}</p>
-            <Link href={category.ctaHref} className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm shrink-0">
+            <Link href={category.ctaHref} data-track="article_cta_click" data-cta-location="article_cta" data-item-name={category.ctaHref} className="hero-cta-primary inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm shrink-0">
               了解更多
               <ChevronRight aria-hidden="true" size={15} />
             </Link>

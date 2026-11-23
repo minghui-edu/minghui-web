@@ -306,6 +306,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                     href={activity.registrationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-track="camp_signup_click"
+                    data-cta-location="card"
+                    data-item-name={slug}
                     className="hero-cta-primary w-full flex items-center justify-center gap-2 px-6 py-3.5 font-semibold text-sm tracking-wide"
                   >
                     立即報名
@@ -322,7 +325,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 )}
                 <p className="text-center text-xs mt-3" style={{ color: 'var(--muted)' }}>
                   有疑問？
-                  <a href="https://lin.ee/6uAXvJu" target="_blank" rel="noopener noreferrer" className="font-semibold" style={{ color: 'var(--accent)' }}> 加入 LINE 諮詢</a>
+                  <a href="https://lin.ee/6uAXvJu" target="_blank" rel="noopener noreferrer" data-cta-location="card" data-item-name={slug} className="font-semibold" style={{ color: 'var(--accent)' }}> 加入 LINE 諮詢</a>
                 </p>
               </div>
             </div>
@@ -441,6 +444,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 href={activity.registrationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track="camp_signup_click"
+                data-cta-location="page_bottom"
+                data-item-name={slug}
                 className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
               >
                 立即報名
@@ -451,6 +457,8 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
               href="https://lin.ee/6uAXvJu"
               target="_blank"
               rel="noopener noreferrer"
+              data-cta-location="page_bottom"
+              data-item-name={slug}
               className="hero-cta-secondary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"
             >
               加入 LINE 諮詢

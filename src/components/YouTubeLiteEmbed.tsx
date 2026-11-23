@@ -21,6 +21,9 @@ export default function YouTubeLiteEmbed({ videoId, title }: Props) {
       ) : (
         <button
           onClick={() => setActive(true)}
+          data-track="video_play"
+          data-item-name={title}
+          data-content-id={videoId}
           className="group absolute inset-0 w-full h-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--accent)] focus-visible:ring-inset"
           aria-label={`播放影片：${title}`}
           style={{ touchAction: 'manipulation' }}

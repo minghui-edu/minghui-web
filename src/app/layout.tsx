@@ -68,7 +68,8 @@ export default function RootLayout({
         </a>
         {children}
         <Analytics />
-        <GoogleAnalytics gaId="G-SYZYRBCX45" />
+        {/* 本機開發不送資料，避免混進正式數據 */}
+        {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId="G-SYZYRBCX45" />}
       </body>
     </html>
   );

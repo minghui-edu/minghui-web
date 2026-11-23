@@ -180,6 +180,9 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
               href="https://lin.ee/6uAXvJu"
               target="_blank"
               rel="noopener noreferrer"
+              data-track="tutor_contact_click"
+              data-cta-location="hero"
+              data-item-name={tutor.name}
               className="shrink-0 inline-flex items-center gap-2 px-7 py-4 font-semibold text-sm tracking-wide"
               style={{ background: '#00B900', color: '#FFFFFF' }}
             >
@@ -229,6 +232,9 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
             href="https://lin.ee/6uAXvJu"
             target="_blank"
             rel="noopener noreferrer"
+            data-track="tutor_contact_click"
+            data-cta-location="page_bottom"
+            data-item-name={tutor.name}
             className="inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide transition-opacity duration-150 hover:opacity-90"
             style={{ background: '#00B900', color: '#FFFFFF' }}
           >

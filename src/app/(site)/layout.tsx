@@ -1,5 +1,6 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { ClickTracker } from '@/components/ClickTracker';
 import { hasArticles } from '@/lib/articles';
 
 export default async function SiteLayout({
@@ -16,6 +17,7 @@ export default async function SiteLayout({
         {children}
       </main>
       <Footer />
+      <ClickTracker />
     </div>
   );
 }

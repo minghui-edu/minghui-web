@@ -124,7 +124,7 @@ export default async function NotesPage() {
                 學霸解題 YouTube 影片
               </h2>
             </div>
-            <TrackedLink href="https://www.youtube.com/@gotontu4507" ga={{ category: 'outbound', label: '筆記頁 YouTube 頻道' }} target="_blank" rel="noopener noreferrer" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
+            <TrackedLink href="https://www.youtube.com/@gotontu4507" ga={{ event: 'social_click', location: 'page', name: 'YouTube' }} target="_blank" rel="noopener noreferrer" className="about-link hidden sm:inline-flex items-center gap-1 text-sm font-medium shrink-0">
               前往頻道看更多 <ChevronRight aria-hidden="true" size={14} />
             </TrackedLink>
           </div>
@@ -213,7 +213,8 @@ export default async function NotesPage() {
                       {item.purchaseUrl ? (
                         <TrackedLink
                           href={item.purchaseUrl}
-                          ga={{ category: 'purchase', label: item.title }}
+                          ga={{ event: 'note_purchase_click', location: 'card', name: item.title }}
+                          data-content-id={item.slug.current}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-center text-xs font-semibold py-3.5 hover:opacity-85 active:scale-[0.97] transition-[opacity,transform] duration-100 inline-flex items-center justify-center gap-1"
@@ -284,7 +285,7 @@ export default async function NotesPage() {
               </ul>
               <TrackedLink
                 href="https://lin.ee/6uAXvJu"
-                ga={{ category: 'cta', label: 'APP 早鳥通知' }}
+                ga={{ event: 'line_click', location: 'page_bottom', name: 'APP 早鳥通知' }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-cta-primary inline-flex items-center gap-2 px-8 py-4 font-semibold text-sm tracking-wide"

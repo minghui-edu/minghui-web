@@ -429,7 +429,7 @@ export default function AboutPage() {
               <TrackedLink
                 key={idx}
                 href={item.href}
-                ga={{ category: 'media', label: item.outlet }}
+                ga={{ event: 'media_click', location: 'card', name: item.outlet }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="media-card group flex flex-col bg-white card-lift overflow-hidden"
@@ -482,7 +482,7 @@ export default function AboutPage() {
               <TrackedLink
                 key={handle}
                 href={href}
-                ga={{ category: 'social', label: `About ${handle}` }}
+                ga={{ event: href.includes('lin.ee') ? 'line_click' : 'social_click', location: 'page_bottom', name: handle }}
                 aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
