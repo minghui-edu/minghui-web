@@ -41,6 +41,11 @@ const ACTIVITY_QUERY = `*[_type == "activity" && slug.current == $slug][0]{
   status
 }`;
 
+/** 目前報名中的營隊，給已結束的活動頁導流用 */
+const OPEN_ACTIVITY_QUERY = `*[_type == "activity" && status == "報名中" && defined(slug.current) && slug.current != $slug] | order(featured desc, _createdAt desc)[0]{
+  title, date, "slug": slug.current
+}`;
+
 const ALL_SLUGS_QUERY = `*[_type == "activity" && defined(slug.current)]{ "slug": slug.current }`;
 
 type Activity = {
@@ -101,6 +106,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
 
   const s = activity.status ? (statusStyle[activity.status] ?? statusStyle['即將開放']) : statusStyle['即將開放'];
   const canRegister = activity.status === '報名中';
+  const openActivity: { title: string; date?: string; slug: string } | null = activity.status === '已結束'
+    ? await sanityClient.fetch(OPEN_ACTIVITY_QUERY, { slug }, { next: { revalidate: 60 } }).catch(() => null)
+    : null;
 
   // Hero 橫式裁切（16:9 landscape）
   const heroImageUrl = activity.image
@@ -151,6 +159,29 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
       />
+
+      {/* ── 已結束的活動：連到目前報名中的營隊 ──────────────────── */}
+      {openActivity && (
+        <Link
+          href={`/exploration/${openActivity.slug}`}
+          data-track="next_camp_click"
+          data-cta-location="banner"
+          data-item-name={openActivity.slug}
+          className="group block focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white"
+          style={{ background: 'var(--accent)', color: 'var(--navy)' }}
+        >
+          <div className={`${inner} py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2`}>
+            <p className="text-sm leading-relaxed">
+              這個活動已結束。<span className="font-bold">{openActivity.title}</span> 報名中
+              {openActivity.date && <span className="whitespace-nowrap">（{openActivity.date}）</span>}
+            </p>
+            <span className="inline-flex items-center gap-1 text-sm font-bold shrink-0 group-hover:underline">
+              了解更多
+              <ChevronRight aria-hidden="true" size={16} />
+            </span>
+          </div>
+        </Link>
+      )}
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-28" style={{ background: 'var(--navy)' }}>
