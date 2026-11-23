@@ -3,6 +3,9 @@ import { sanityClient } from '@/lib/sanity/client';
 
 const BASE_URL = 'https://www.minghuiedu.com';
 
+// 每小時更新，後台發布文章後不必重新部署
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
