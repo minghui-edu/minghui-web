@@ -3,8 +3,9 @@ import { sanityClient } from '@/lib/sanity/client';
 
 const BASE_URL = 'https://www.minghuiedu.com';
 
-// 每小時更新，後台發布文章後不必重新部署
-export const revalidate = 3600;
+// 每次請求都重新產生，後台發布文章後不必重新部署
+// （Vercel 會把 sitemap 當靜態檔快取，設定 revalidate 不會更新）
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
