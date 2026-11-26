@@ -244,3 +244,13 @@
 .mq .score-grid select{font-size:16px;min-height:44px}
 /* 手機：上一題等文字按鈕加大可點範圍 */
 .mq .linkbtn{min-height:44px;padding:10px 4px}
+
+/* 分享面板（2026-11-26） */
+.mq .share-panel{margin-top:16px;display:grid;gap:8px;max-width:560px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);padding:14px 16px}
+.mq .share-panel[hidden]{display:none}
+.mq .share-panel label{font-size:.85rem;color:rgba(255,255,255,.75)}
+.mq .share-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mq .share-row input{flex:1 1 220px;min-width:0;padding:10px 12px;border:1px solid rgba(255,255,255,.3);background:#fff;color:var(--ink);font:inherit;font-size:.85rem}
+.mq .share-row .btn{padding:10px 20px;font-size:.92rem;text-decoration:none}
+.mq .share-panel .btn.ghost{color:#fff;border-color:rgba(255,255,255,.6)}
+.mq .share-status{font-size:.88rem;color:var(--accent-l);font-weight:600}

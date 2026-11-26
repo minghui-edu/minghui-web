@@ -1,4 +1,5 @@
 // 科系羅盤測驗引擎（由 build_site.py 從科系羅盤上線版自動產生，請勿手改）
+// 2026-11-26 在官網直接修改（分享按鈕、喜歡的科目、計分放緩、兩個方向說明、分享碼 v2），請一併改回 build_site.py 的來源
 /* eslint-disable */
 export function mountQuiz(app){
 const byId=id=>app.querySelector('#'+CSS.escape(id));
@@ -1273,7 +1274,7 @@ const BH=[
 ];
 const ITEMS=[...FC.map(x=>({...x,type:"fc"})),...BH.map(x=>({...x,type:"bh"}))];
 
-const MIN_Q=12, MAX_Q=20, STOP_P=0.85, PER_DIM=3;
+const MIN_Q=12, MAX_Q=20, STOP_P=0.7, PER_DIM=3;
 
 /* ---------- 模型 ---------- */
 const prof=(g,d)=>g.p[d]!==undefined?g.p[d]:BASE;
@@ -1284,15 +1285,16 @@ const primsOf=it=>it.type==="fc"?[prim(it.a[1]),prim(it.b[1])]:[prim(it.w)];
 function itemProbs(g,it){
   if(it.type==="fc"){
     const d=score(g,it.a[1])-score(g,it.b[1]);
-    const pa=.9*sig(7*d-1), pb=.9*sig(-7*d-1), pm=Math.max(.05,1-pa-pb), z=pa+pb+pm;
+    const pa=.9*sig(2.5*d-1), pb=.9*sig(-2.5*d-1), pm=Math.max(.05,1-pa-pb), z=pa+pb+pm;
     return [pa/z,pm/z,pb/z];
   }
   const y=.1+.75*score(g,it.w); return [y,1-y];
 }
 function subjLik(g,ans){
   const sc=SUBJ.map(s=>score(g,s[1]));
-  const zs=sc.reduce((t,v)=>t+Math.exp(3*v),0), zw=sc.reduce((t,v)=>t+Math.exp(-3*v),0);
-  let l=1; ans.strong.forEach(i=>l*=Math.exp(3*sc[i])/zs); ans.weak.forEach(i=>l*=Math.exp(-3*sc[i])/zw); return l;
+  const zs=sc.reduce((t,v)=>t+Math.exp(2*v),0), zw=sc.reduce((t,v)=>t+Math.exp(-2*v),0), zl=sc.reduce((t,v)=>t+Math.exp(3*v),0);
+  let l=1; ans.strong.forEach(i=>l*=Math.exp(2*sc[i])/zs); ans.weak.forEach(i=>l*=Math.exp(-2*sc[i])/zw);
+  (ans.like||[]).forEach(i=>l*=Math.exp(3*sc[i])/zl); return l;
 }
 const LT=ITEMS.map(it=>GROUPS.map(g=>itemProbs(g,it)));
 function posterior(ans){
@@ -1322,7 +1324,7 @@ function pickNext(ans){
 function userDims(ans){
   const v={}, add=(w,k)=>{for(const [d,x] of Object.entries(w)) v[d]=(v[d]||0)+k*x;};
   for(const r of ans){
-    if(r.type==="subj"){r.strong.forEach(i=>add(SUBJ[i][1],1));r.weak.forEach(i=>add(SUBJ[i][1],-1));continue;}
+    if(r.type==="subj"){r.strong.forEach(i=>add(SUBJ[i][1],1));r.weak.forEach(i=>add(SUBJ[i][1],-1));(r.like||[]).forEach(i=>add(SUBJ[i][1],1));continue;}
     const it=ITEMS[r.i];
     if(it.type==="fc"){ if(r.a===0){add(it.a[1],1);add(it.b[1],-.3);} if(r.a===2){add(it.b[1],1);add(it.a[1],-.3);} }
     else add(it.w,r.a===0?1:-.4);
@@ -1402,21 +1404,25 @@ function shell(n,gainText,kind,body,foot){
 function renderStep(){ answers.length?renderQuestion():renderSubjects(); }
 
 function renderSubjects(){
-  let strong=[...lastSubj.strong], weak=[...lastSubj.weak];
+  let strong=[...lastSubj.strong], weak=[...lastSubj.weak], like=[...(lastSubj.like||[])];
   const draw=()=>{
-    app.innerHTML=shell(0,"先從能力方向開始","拿手科目",`
-      <p class="qtext">以最近一次段考或模擬考來看，你最拿手和最不拿手的科目是？</p>
+    app.innerHTML=shell(0,"先從能力和興趣開始","拿手與喜歡的科目",`
+      <p class="qtext">以最近一次段考或模擬考來看，你最拿手和最不拿手的科目是？再選你最喜歡的科目。</p>
       <div class="subj-block"><h3>最拿手（選 1 到 2 科）</h3><div class="chips">
         ${SUBJ.map((s,i)=>`<button class="chip${strong.includes(i)?" on":""}" data-s="${i}" ${weak.includes(i)?"disabled":""}>${s[0]}</button>`).join("")}</div></div>
       <div class="subj-block"><h3>最不拿手（選 1 科，可略過）</h3><div class="chips">
         ${SUBJ.map((s,i)=>`<button class="chip weak${weak.includes(i)?" on":""}" data-w="${i}" ${strong.includes(i)?"disabled":""}>${s[0]}</button>`).join("")}</div></div>
+      <div class="subj-block"><h3>最喜歡（選 1 到 2 科，可略過；可以和拿手的一樣）</h3><div class="chips">
+        ${SUBJ.map((s,i)=>`<button class="chip like${like.includes(i)?" on":""}" data-l="${i}">${s[0]}</button>`).join("")}</div></div>
       <button class="btn" id="next" ${strong.length?"":"disabled"}>下一題</button>`,
-      "成績不是全部，但它是很重要的線索");
+      "拿手代表能力，喜歡代表興趣，兩個都是線索");
     app.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{const i=+b.dataset.s;
       strong=strong.includes(i)?strong.filter(x=>x!==i):[...strong,i].slice(-2);draw();});
     app.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const i=+b.dataset.w;
       weak=weak.includes(i)?[]:[i];draw();});
-    byId("next").onclick=()=>{lastSubj={strong,weak};answers=[{type:"subj",strong,weak}];renderStep();};
+    app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{const i=+b.dataset.l;
+      like=like.includes(i)?like.filter(x=>x!==i):[...like,i].slice(-2);draw();});
+    byId("next").onclick=()=>{lastSubj={strong,weak,like};answers=[{type:"subj",strong,weak,like}];renderStep();};
   };
   draw();
 }
@@ -1464,7 +1470,7 @@ function reasonFor(gi,ud){
   return `${g.n}的核心是「${core.map(d=>DIMS[d]).join("」「")}」。你的整體輪廓跟它接近，但這幾點的證據還不多，建議多看看系上實際在學什麼。`;
 }
 function answerText(r){
-  if(r.type==="subj") return ["拿手科目","最拿手與最不拿手的科目",`拿手：${r.strong.map(i=>SUBJ[i][0]).join("、")}${r.weak.length?"；不拿手："+SUBJ[r.weak[0]][0]:""}`];
+  if(r.type==="subj") return ["拿手與喜歡的科目","最拿手、最不拿手與最喜歡的科目",`拿手：${r.strong.map(i=>SUBJ[i][0]).join("、")}${r.weak.length?"；不拿手："+SUBJ[r.weak[0]][0]:""}${(r.like||[]).length?"；喜歡："+r.like.map(i=>SUBJ[i][0]).join("、"):""}`];
   const it=ITEMS[r.i];
   if(it.type==="fc") return ["二選一",it.t,r.a===0?"A "+it.a[0]:r.a===2?"B "+it.b[0]:"兩個差不多"];
   return ["做過的事",it.t,r.a===0?"有":"沒有"];
@@ -1806,24 +1812,28 @@ function nextHTML(r){
     </section>`;
 }
 /* 分享連結：作答寫進網址 # 後面，不含成績。格式 v1.s拿手.w不拿手.q題號x答案，答過追加題再加 .f選項編號 */
-const SHARE_V="v1";
+const SHARE_V="v2";
 function encodeShare(){
   const s0=answers[0]; if(!s0||s0.type!=="subj") return "";
-  const parts=[SHARE_V,"s"+s0.strong.join("-"),"w"+s0.weak.join("-"),"q"+answers.slice(1).map(x=>x.i+"x"+x.a).join("-")];
+  const parts=[SHARE_V,"s"+s0.strong.join("-"),"w"+s0.weak.join("-"),"l"+(s0.like||[]).join("-"),"q"+answers.slice(1).map(x=>x.i+"x"+x.a).join("-")];
   if(follow&&followDone(follow.g)) parts.push("f"+follow.ans.join("-"));
   return parts.join(".");
 }
 function decodeShare(code){
-  const p=code.split("."); if(p.length<4||p.length>5||p[0]!==SHARE_V) return null;
-  if(p.length===5&&(p[4][0]!=="f"||!/^f\d(-\d)*$/.test(p[4]))) return null;
-  if(p[1][0]!=="s"||p[2][0]!=="w"||p[3][0]!=="q") return null;
+  const p=code.split(".");
+  // v1：v1.s.w.q[.f]（沒有喜歡的科目）；v2：v2.s.w.l.q[.f]
+  if(p[0]==="v1") p.splice(3,0,"l");
+  else if(p[0]!=="v2") return null;
+  if(p.length<5||p.length>6) return null;
+  if(p.length===6&&(p[5][0]!=="f"||!/^f\d(-\d)*$/.test(p[5]))) return null;
+  if(p[1][0]!=="s"||p[2][0]!=="w"||p[3][0]!=="l"||p[4][0]!=="q") return null;
   const nums=t=>t?t.split("-").map(Number):[];
-  const strong=nums(p[1].slice(1)), weak=nums(p[2].slice(1));
-  if(!strong.length||[...strong,...weak].some(i=>!Number.isInteger(i)||i<0||i>=SUBJ.length)) return null;
-  const qs=p[3].length>1?p[3].slice(1).split("-").map(t=>t.split("x").map(Number)):[];
+  const strong=nums(p[1].slice(1)), weak=nums(p[2].slice(1)), like=nums(p[3].slice(1));
+  if(!strong.length||[...strong,...weak,...like].some(i=>!Number.isInteger(i)||i<0||i>=SUBJ.length)) return null;
+  const qs=p[4].length>1?p[4].slice(1).split("-").map(t=>t.split("x").map(Number)):[];
   if(qs.some(([i,a])=>!Number.isInteger(i)||i<0||i>=ITEMS.length||![0,1,2].includes(a))) return null;
-  const out=[{type:"subj",strong,weak},...qs.map(([i,a])=>({type:"q",i,a}))];
-  if(p.length===5) out.f=p[4].slice(1).split("-").map(Number);
+  const out=[{type:"subj",strong,weak,like},...qs.map(([i,a])=>({type:"q",i,a}))];
+  if(p.length===6) out.f=p[5].slice(1).split("-").map(Number);
   return out;
 }
 let sharedView=false;
@@ -1837,17 +1847,30 @@ function loadShared(){
 function clearShare(){ sharedView=false; if(location.hash) history.replaceState(null,"",location.pathname+location.search); }
 async function shareResult(btn){
   const url=location.origin+location.pathname+location.search+"#r="+encodeShare();
-  track("quiz_share","");
-  try{
-    if(navigator.share){ await navigator.share({title:document.title,text:"我做了科系羅盤，你也測測看：",url}); return; }
-    await navigator.clipboard.writeText(url); btn.textContent="已複製連結";
-  }catch(e){ if(e&&e.name==="AbortError") return; window.prompt("複製這個連結分享給朋友：",url); }
-  setTimeout(()=>{btn.textContent="分享結果";},2500);
+  const panel=byId("sharePanel"), input=byId("shareUrl"), status=byId("shareStatus");
+  input.value=url; panel.hidden=false;
+  byId("shareLine").href="https://line.me/R/share?text="+encodeURIComponent("我做了科系羅盤，你也測測看："+url);
+  let how="shown";
+  if(navigator.share){
+    try{ await navigator.share({title:document.title,text:"我做了科系羅盤，你也測測看：",url}); how="native"; status.textContent="已開啟分享"; }
+    catch(e){ how=e&&e.name==="AbortError"?"cancel":"shown"; }
+  }
+  track("quiz_share",how);
+}
+async function copyShare(){
+  const input=byId("shareUrl"), status=byId("shareStatus");
+  let ok=false;
+  try{ await navigator.clipboard.writeText(input.value); ok=true; }
+  catch(e){ try{ input.focus(); input.select(); ok=document.execCommand("copy"); }catch(e2){} }
+  if(!ok){ input.focus(); input.select(); }
+  status.textContent=ok?"已複製，可以貼給朋友":"請長按或全選上面的連結來複製";
+  track("quiz_share",ok?"copied":"copy_failed");
 }
 function renderResult(){
   const fresh=resultFresh; resultFresh=false;
   const post=posterior(answers), r=ranked(post), ud=userDims(answers), top=r[0].v;
-  const conf=top>=STOP_P?"結果相當明確":(top>=0.4?"結果有方向，但前幾名差距不大":"你的興趣分布很平均，前幾名都值得看看");
+  const two=r[1].v>=0.15&&r[1].v>=top*0.5;
+  const conf=two?`你有兩個方向都值得看：${short(GROUPS[r[0].i].n)}和${short(GROUPS[r[1].i].n)}`:top>=STOP_P?"結果相當明確":(top>=0.4?"結果有方向，但前幾名差距不大":"你的興趣分布很平均，前幾名都值得看看");
   const lvl=v=>v>=0.5?["高度相符","hi"]:v>=0.15?["相符",""]:["可以看看",""];
   const deptHTML=([n,list],top)=>{
         if(!scores) return `<div class="dept${top?" top":""}"><b>${n}</b><p class="more">填入模擬考成績後，會從收錄的 ${list.length} 個校系挑出夢幻、可以拚、穩上各一校。</p></div>`;
@@ -1900,6 +1923,11 @@ function renderResult(){
     <div class="hero-actions">${sharedView
       ?'<button class="btn" id="mine">測測看我自己的</button>'
       :'<button class="btn" id="share">分享結果</button><span class="share-note">連結只包含作答，不含成績</span>'}</div>
+    ${sharedView?"":`<div class="share-panel" id="sharePanel" hidden>
+      <label for="shareUrl">分享連結</label>
+      <div class="share-row"><input id="shareUrl" type="text" readonly><button class="btn" id="shareCopy" type="button">複製連結</button></div>
+      <div class="share-row"><a class="btn ghost" id="shareLine" href="#" target="_blank" rel="noopener noreferrer" data-cta="share_line">傳到 LINE</a><span class="share-status" id="shareStatus" role="status" aria-live="polite"></span></div>
+    </div>`}
   </div></section>
   <section class="band tight"><div class="inner narrow stack">
     ${scorePanel}
@@ -1948,6 +1976,7 @@ function renderResult(){
   byId("again").onclick=()=>{clearShare();follow=null;answers=[];scores=null;renderIntro();toTop();};
   app.querySelectorAll("[data-cta]").forEach(a=>a.addEventListener("click",()=>track("quiz_cta",a.dataset.cta)));
   const sh=byId("share"); if(sh) sh.onclick=()=>shareResult(sh);
+  const sc2=byId("shareCopy"); if(sc2) sc2.onclick=copyShare;
   const fs=byId("followStart"); if(fs) fs.onclick=()=>startFollow(GROUPS[r[0].i].n);
   const fr=byId("followRedo"); if(fr) fr.onclick=()=>startFollow(GROUPS[r[0].i].n);
   const mine=byId("mine"); if(mine) mine.onclick=()=>{clearShare();follow=null;answers=[];scores=null;track("quiz_start","shared");renderIntro();toTop();};
