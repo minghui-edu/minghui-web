@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
-import { ShieldCheck, Banknote, GraduationCap, ChevronRight, ClipboardList, UserCheck, MessageCircle, Handshake, MapPin } from 'lucide-react';
+import { ShieldCheck, Banknote, GraduationCap, ClipboardList, UserCheck, MessageCircle, Handshake } from 'lucide-react';
 import { TrackedLink } from '@/components/ui/TrackedLink';
 import FaqSection from '@/components/ui/FaqSection';
 import { sanityClient } from '@/lib/sanity/client';
-import { urlFor } from '@/lib/sanity/image';
+import TutorGrid from './TutorGrid';
+import RequestBox from './RequestBox';
 
 export const revalidate = 60;
 
@@ -38,7 +38,7 @@ const features = [
   {
     icon: ShieldCheck,
     title: '嚴格把關，保證品質',
-    desc: '與一般市面上的家教平台不同，我們不接受隨意刊登。平台上的每一位老師都必須經過官方的嚴格學歷查核，評估其實際教學能力、自編教材內容，並給予分級。',
+    desc: '我們不開放自由刊登。平台上的每一位老師都必須經過官方的嚴格學歷查核，評估其實際教學能力、自編教材內容，並給予分級。',
     color: 'var(--navy)',
     bg: 'rgba(11,10,63,0.06)',
   },
@@ -293,115 +293,21 @@ export default async function TutorPage() {
           {tutors.length === 0 ? (
             <p className="text-center py-12" style={{ color: 'var(--muted)' }}>師資資料更新中，請稍後再查看。</p>
           ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutors.map((tutor) => {
-              const photoUrl = tutor.photo
-                ? urlFor(tutor.photo).width(112).height(112).fit('crop').url()
-                : null;
-              return (
-                <Link
-                  key={tutor.slug}
-                  href={`/tutor/${tutor.slug}`}
-                  className="group bg-white p-6 flex flex-col card-lift relative"
-                  style={{ border: '1px solid var(--border)' }}
-                >
-                  {tutor.tier && tierConfig[tutor.tier] && (
-                    <span
-                      className="absolute top-4 right-4 text-[11px] font-display font-bold px-2 py-0.5"
-                      style={{
-                        background: tierConfig[tutor.tier].bg,
-                        color: tierConfig[tutor.tier].color,
-                        border: `1px solid ${tierConfig[tutor.tier].border}`,
-                      }}
-                    >
-                      {tierConfig[tutor.tier].label}
-                    </span>
-                  )}
-                  <div className="flex items-center gap-4 mb-5 pb-5" style={{ borderBottom: '1px solid var(--border-light)' }}>
-                    {photoUrl ? (
-                      <Image
-                        src={photoUrl}
-                        alt={tutor.name}
-                        width={56}
-                        height={56}
-                        className="rounded-full shrink-0 object-cover"
-                      />
-                    ) : (
-                      <div
-                        className="w-14 h-14 rounded-full shrink-0 flex items-center justify-center font-display font-bold"
-                        style={{ background: 'rgba(11,10,63,0.07)', color: 'var(--navy)', fontSize: '1.25rem' }}
-                        aria-hidden="true"
-                      >
-                        {tutor.name[0]}
-                      </div>
-                    )}
-                    <div className="min-w-0">
-                      <h3
-                        className="font-bold text-base leading-tight mb-1 transition-colors duration-150 text-[var(--navy)] group-hover:text-[var(--accent)]"
-                      >
-                        {tutor.name}
-                      </h3>
-                      {tutor.title && (
-                        <p className="text-xs leading-snug" style={{ color: 'var(--muted)' }}>{tutor.title}</p>
-                      )}
-                    </div>
-                  </div>
-                  {tutor.tags && tutor.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {tutor.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[11px] px-2 py-0.5 font-medium"
-                          style={{ background: 'rgba(11,10,63,0.05)', color: 'var(--navy)', border: '1px solid rgba(11,10,63,0.1)' }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {tutor.locations && tutor.locations.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {tutor.locations.map((loc) => (
-                        <span
-                          key={loc}
-                          className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 font-medium"
-                          style={{ background: 'rgba(30,86,160,0.07)', color: '#1E56A0', border: '1px solid rgba(30,86,160,0.18)' }}
-                        >
-                          <MapPin aria-hidden="true" size={10} />
-                          {loc}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {tutor.shortExp && (
-                    <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: 'var(--muted)' }}>
-                      {tutor.shortExp}
-                    </p>
-                  )}
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: 'var(--accent)' }}>
-                    查看完整介紹
-                    <ChevronRight
-                      aria-hidden="true"
-                      size={13}
-                      className="transition-transform duration-150 group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0"
-                    />
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
+            <TutorGrid tutors={tutors} />
           )}
         </div>
       </section>
 
+      <RequestBox />
+
       {/* ── FAQ ───────────────────────────────── */}
       <FaqSection items={[
         { q: '專業家教適合哪些學生？', a: '專業家教適合需要補強特定科目、建立讀書方法、準備考試，或希望提升整體學習效率的學生。無論是國內升學、海外申請，還是單純想提升學科能力，都能透過家教媒合找到合適的老師。' },
-        { q: '明慧教育的家教和一般家教有什麼不同？', a: '明慧教育的家教不只重視單次上課內容，也重視學生程度分析、學習習慣調整與長期進步規劃，幫助學生更穩定地成長，而非只是短期刷題衝分，除了給予學習上的協助，也建立亦師亦友的關係。' },
-        { q: '什麼是好的家教老師？SS級的標準？', a: '一個頂尖的老師除了大量教學經驗的累積，也對於課程內容能形成一套自己的見解，並有能力親自編撰教材，而非僅使用市售教材' },
+        { q: '明慧教育的家教和一般家教有什麼不同？', a: '每位老師上課前會先看學生程度，再一起調整讀書習慣、排長期進度。除了課業，也和學生建立亦師亦友的關係。' },
+        { q: '什麼是好的家教老師？SS級的標準？', a: '一個頂尖的老師除了大量教學經驗的累積，也對於課程內容能形成一套自己的見解，並有能力親自編撰教材。SS 級老師都有自己的一套講義。' },
         { q: '專業家教只適合準備考試的學生嗎？', a: '不一定。除了考試準備之外，專業家教也適合想建立讀書習慣、改善學習效率，或希望提前打好基礎的學生，不限科目與學習階段。' },
         { q: '什麼是「零抽成」家教媒合？', a: '媒合成功後，我們只向老師收一次性媒合費，後續老師收到的所有家教費用我們完全不抽成。這讓老師可以專注在教學品質，學生也能和老師建立長期穩定的師生關係。' },
-        { q: '家教老師的資格如何審核？', a: '每位老師都需提交學歷證明（海內外頂尖名校優先），並通過我們的背景審查與教學能力評估，確保師資品質。我們不是開放式刊登平台，每位老師都經過篩選。' },
+        { q: '家教老師的資格如何審核？', a: '每位老師都需提交學歷證明（海內外頂尖名校優先），並通過我們的背景審查與教學能力評估，確保師資品質。我們不開放自由刊登，每位老師都經過篩選。' },
         { q: '如何開始申請家教媒合？', a: '加入我們的 LINE 官方帳號，說明你的需求（心儀的老師、科目、目標、時間、地點），我們會在 3 個工作天內為你確認雙方意願，並安排試教。' },
         { q: '如果試教後不滿意，可以更換老師嗎？', a: '可以。我們重視師生適配度，如果試教後雙方不合適，可以提出重新配對，確保你找到真正合適的師資。' },
       ]} />
