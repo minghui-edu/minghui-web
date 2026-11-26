@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { ParallaxBg } from '@/components/ui/ParallaxBg';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import Image from 'next/image';
 import { CheckCircle, Facebook, Instagram, Youtube, MessageCircle, Target, TrendingUp, Compass, ExternalLink } from 'lucide-react';
 import { TrackedLink } from '@/components/ui/TrackedLink';
@@ -214,6 +217,7 @@ export default function AboutPage() {
         className="relative overflow-hidden py-28"
         style={{ background: 'var(--navy)' }}
       >
+        <ParallaxBg>
         <div className="hidden md:block absolute inset-0">
           <div className="absolute inset-y-0 right-0 w-[50%] overflow-hidden">
             <Image src="/hero-about.png" alt="" fill className="object-cover object-center" priority sizes="50vw" />
@@ -226,8 +230,12 @@ export default function AboutPage() {
           style={{ width: '50vw', height: '100%', background: 'radial-gradient(ellipse at 80% 30%, rgba(232,144,39,0.06) 0%, transparent 65%)' }}
           aria-hidden="true"
         />
+        </ParallaxBg>
         <div className={`relative ${inner}`}>
+          <FadeIn delay={0}>
           <SectionLabel light>關於我們</SectionLabel>
+          </FadeIn>
+          <FadeIn delay={0.1}>
           <h1
             className="font-display font-bold leading-[1.1] mb-6"
             style={{ color: '#FFFFFF', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' }}
@@ -236,16 +244,22 @@ export default function AboutPage() {
             <br />
             <em style={{ color: 'var(--accent-light)', fontStyle: 'italic' }}>讓夢想不再遙遠</em>
           </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
           <div className="gold-rule w-20 mb-8" aria-hidden="true" />
+          </FadeIn>
+          <FadeIn delay={0.25}>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.62)' }}>
             明慧教育由台大校友創立，深信教育不僅是提升成績，更是引導潛力與方向。
             憑藉專業師資與陪伴，為每位學子打造清晰且長遠的成長路徑。
           </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* ── 創辦理念 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
 
@@ -300,10 +314,12 @@ export default function AboutPage() {
 
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 核心價值 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>核心價值</SectionLabel>
@@ -329,10 +345,12 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 發展歷程 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>品牌故事</SectionLabel>
@@ -413,10 +431,12 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 媒體報導 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--cream)' }}>
+        <RevealOnScroll>
         <div className={inner}>
           <div className="text-center mb-14">
             <SectionLabel>媒體報導</SectionLabel>
@@ -465,10 +485,12 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 社群追蹤 ───────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--navy)' }}>
+        <RevealOnScroll>
         <div className={`${inner} text-center`}>
           <SectionLabel light>社群媒體</SectionLabel>
           <h2 className="font-display font-bold text-2xl md:text-3xl mb-4" style={{ color: '#FFFFFF' }}>
@@ -494,10 +516,12 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── 品牌 quote strip ───────────────────── */}
       <section className="py-16" style={{ background: 'var(--navy)' }}>
+        <RevealOnScroll>
         <div className={`${inner} text-center`}>
           <p
             className="font-display italic text-xl md:text-2xl leading-relaxed mb-6"
@@ -515,6 +539,7 @@ export default function AboutPage() {
             <span className="w-8 h-px" style={{ background: 'currentColor' }} aria-hidden="true" />
           </div>
         </div>
+        </RevealOnScroll>
       </section>
 
     </div>

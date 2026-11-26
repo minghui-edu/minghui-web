@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import { TrackedLink } from '@/components/ui/TrackedLink';
@@ -177,6 +178,7 @@ export default async function OverseasPage() {
       {/* ── 活動花絮 跑馬燈 ──────────────────────────────────── */}
       {overseasPhotos.length > 0 && (
         <section className="py-20 overflow-hidden" style={{ background: 'var(--cream)' }}>
+          <RevealOnScroll>
           <style>{`
             @keyframes overseas-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
             @keyframes overseas-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -222,12 +224,14 @@ export default async function OverseasPage() {
               );
             })}
           </div>
+          </RevealOnScroll>
         </section>
       )}
 
       {/* ── 學員心聲 ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-20" style={{ background: 'var(--navy)' }}>
         <div className="dot-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+        <RevealOnScroll>
         <div className={`relative ${inner}`}>
           <SectionLabel light>學員心聲</SectionLabel>
           <h2
@@ -238,6 +242,7 @@ export default async function OverseasPage() {
           </h2>
           <TestimonialsCarousel items={overseasTestimonials} />
         </div>
+        </RevealOnScroll>
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────── */}
@@ -252,6 +257,7 @@ export default async function OverseasPage() {
 
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section className="py-20" style={{ background: 'var(--surface)' }}>
+        <RevealOnScroll>
         <div className={`${inner} text-center`}>
           <SectionLabel>立即諮詢</SectionLabel>
           <h2
@@ -274,6 +280,7 @@ export default async function OverseasPage() {
             <ChevronRight aria-hidden="true" size={16} />
           </TrackedLink>
         </div>
+        </RevealOnScroll>
       </section>
 
     </div>
